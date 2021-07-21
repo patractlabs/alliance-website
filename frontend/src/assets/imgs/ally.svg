@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Polkadot Alliance Ally 2</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home" transform="translate(-986.000000, -2057.000000)">
+            <g id="Polkadot-Alliance-Ally" transform="translate(986.000000, 2057.000000)">
+                <rect id="矩形" x="0" y="0" width="100" height="100"></rect>
+                <g id="PA-Ally" transform="translate(4.166667, 13.888889)">
+                    <path d="M92.6441358,69.9699819 L52.2466698,0 C45.2709283,14.051796 45.2377308,31.2207577 53.6697864,45.8253302 C62.1014301,60.4296969 76.9867658,68.9853809 92.6441358,69.9699819 Z" id="路径" fill="#9D8B7B"></path>
+                    <path d="M0,69.9699819 L40.3972303,9.42422252e-05 C47.3730747,14.0518475 47.4062722,31.2207577 38.9743196,45.8252788 C30.5424185,60.4296969 15.6571343,68.9853809 0,69.9699819 Z" id="路径" fill="#E6007A"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
