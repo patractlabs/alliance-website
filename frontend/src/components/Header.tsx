@@ -1,5 +1,5 @@
 import { CSSProperties, FC } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import LogoSvg from '../assets/imgs/logo.svg';
 import Logo2Svg from '../assets/imgs/logo-black.svg';
@@ -25,13 +25,24 @@ const LinksWrapper = styled.div<{ type: 'home' | '' }>`
 const Logo = styled.img``;
 
 const Links: FC<{ className?: string; type: 'home' | '' }> = ({ className, type }) => {
+  const { pathname } = useLocation();
   return (
     <LinksWrapper className={className} type={type}>
-      <Link to='/'>Home</Link>
-      <Link to='/member'>Members</Link>
-      <Link to='/announcement'>Announcements</Link>
-      <Link to='/candidate'>Candidates</Link>
-      <Link to='/blacklist'>Blacklists</Link>
+      <Link to='/' style={{ color: pathname === '/' ? Style.badge.primary : '' }}>
+        Home
+      </Link>
+      <Link to='/member' style={{ color: pathname.startsWith('/member') ? Style.badge.primary : '' }}>
+        Members
+      </Link>
+      <Link to='/announcement' style={{ color: pathname.startsWith('/announcement') ? Style.badge.primary : '' }}>
+        Announcements
+      </Link>
+      <Link to='/candidate' style={{ color: pathname.startsWith('/candidate') ? Style.badge.primary : '' }}>
+        Candidates
+      </Link>
+      <Link to='/blacklist' style={{ color: pathname.startsWith('/blacklist') ? Style.badge.primary : '' }}>
+        Blacklists
+      </Link>
     </LinksWrapper>
   );
 };
