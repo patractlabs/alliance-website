@@ -1,4 +1,3 @@
-import { Col, Row } from 'antd';
 import { FC, useState } from 'react';
 import styled from 'styled-components';
 import { Member, MemberStatus } from './MembersByRole';
@@ -182,25 +181,25 @@ const CurrentMembers: FC<{ className?: string }> = ({ className }) => {
   return (
     <div className={className}>
       <h2>Current Members</h2>
-      <Row className='roles'>
-        <Col className='role' span={8}>
+      <div className='roles'>
+        <div className='role'>
           <Role
             type={MemberRole.Founder}
             desc='Initially founding Members, have veto rights to motions of setting rule and elevating ally and voting power same with Fellow.'
             members={fellowers}
           />
-        </Col>
-        <Col className='role' span={8}>
+        </div>
+        <div className='role'>
           <Role
             type={MemberRole.Fellow}
             desc='Joining Members, have vote rights for motions of setting rule, elevating ally, kicking member, making announcement, managing candidate and blacklist to pass by super majority, can also nominate a candidate without the need of deposit.'
             members={founders}
           />
-        </Col>
-        <Col className='role' span={8}>
+        </div>
+        <div className='role'>
           <Role type={MemberRole.Ally} desc="Waiting members, don't have vote or veto rights." members={allies} />
-        </Col>
-      </Row>
+        </div>
+      </div>
     </div>
   );
 };
@@ -213,12 +212,18 @@ export default styled(CurrentMembers)`
     margin-bottom: 76px;
   }
   > .roles {
+    display: flex;
     justify-content: center;
 
     > .role {
-      min-width: 350px;
-      max-width: 400px;
-      padding: 0px 20px;
+      flex: 1;
+      min-width: 280px;
+      max-width: 440px;
+      margin-right: 20px;
+
+      &:last-child {
+        margin-right: 0px;
+      }
     }
   }
 `;

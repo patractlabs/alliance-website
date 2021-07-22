@@ -45,6 +45,6 @@ export default styled(AllianceRule)`
 
   > .content {
     margin: 0px auto;
-    width: 76.5%;
+    max-width: 980px;
   }
 `;

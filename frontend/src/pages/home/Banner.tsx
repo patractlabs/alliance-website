@@ -15,10 +15,12 @@ const Banner: FC<{ className?: string }> = ({ className }) => {
 
 export default styled(Banner)`
   height: 680px;
-  padding: 124px 80px 95px 80px;
+  padding: 124px 0px 95px 0px;
   background: ${Style.bg.primary};
 
   .content {
+    margin: 0 auto;
+    max-width: 1122px;
     background-image: url(${BannerSvg});
     background-repeat: repeat;
     display: flex;
