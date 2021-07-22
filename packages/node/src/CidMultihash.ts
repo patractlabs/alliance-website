@@ -34,8 +34,8 @@ export class GenericCidMultihash extends Uint8Array implements Codec {
   registry: Registry;
   createdAtHash?: Hash | undefined;
 
+  // @ts-ignore
   constructor(registry: Registry, value?: AnyU8a) {
-    super();
     const u8a: Uint8Array = u8aToU8a(value);
     const code: u64 = new u64(registry, u8a.slice(0, 8));
 

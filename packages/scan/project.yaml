@@ -12,6 +12,3 @@ dataSources:
       handlers:
         - handler: handleEvent
           kind: substrate/EventHandler
-          filter:
-            module: balances
-            method: Deposit

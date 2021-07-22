@@ -1,19 +1,22 @@
 import { SubstrateEvent } from '@subql/types';
-import { Member } from '../types';
-import { GenericCidMultihash } from '../CidMultihash';
-
-api.registry.setKnownTypes({
-  //@ts-ignore
-  CidMultihash: GenericCidMultihash
-});
+import { Member, Account } from '../types';
 
 export async function handleEvent(event: SubstrateEvent): Promise<void> {
-  console.log(event);
+  logger.info(`hhhh`);
+  logger.info(Object.keys(event));
 
-  let record = Member.create({
+  let account = Account.create({
     id: '5ggqweqweqw',
-    accountId: '5ggqweqweqw'
+    address: '5ggqweqweqw'
   });
 
-  await record.save();
+  await account.save();
+
+  let member = Member.create({
+    id: '5ggqweqweqw',
+    accountId: '5ggqweqweqw',
+    locked: 1000
+  });
+
+  await member.save();
 }

@@ -16,7 +16,7 @@ async function bootstrap() {
     await app.init();
     const indexerManager = app.get(IndexerManager);
     await indexerManager.start();
-    await app.listen(3000);
+    await app.listen(3010);
     getLogger('subql-node').info('node started');
   } catch (e) {
     getLogger('subql-node').error(e, 'node failed to start');
