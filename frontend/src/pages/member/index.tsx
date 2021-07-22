@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import { BorderedRow, Filter, Footer, Search } from '../../components';
+import { BorderedRow, Filter, Footer, PageSkeleton, Search } from '../../components';
 import BorderedTitle from '../../components/BorderedTitle';
 import { Member as MemberType, MemberStatus } from '../home/CurrentMembers/MembersByRole';
 import PolkadotSvg from '../../assets/imgs/polkadot.svg';
@@ -108,16 +108,12 @@ const Member: FC<{ className?: string }> = ({ className }) => {
   const [status, setStatus] = useState(statusOptions[0].value);
 
   return (
-    <React.Fragment>
+    <PageSkeleton>
       <div className={className}>
-        <div className='bg-linear'>
-          <div className='search'>
-            <Search />
-          </div>
-          <div className='filters'>
-            <Filter className='filter' span='Types' onChange={setType} options={typesOptions} defaultValue='All' />
-            <Filter className='filter' span='Status' onChange={setStatus} options={statusOptions} defaultValue='All' />
-          </div>
+        <Search />
+        <div className='filters'>
+          <Filter className='filter' span='Types' onChange={setType} options={typesOptions} defaultValue='All' />
+          <Filter className='filter' span='Status' onChange={setStatus} options={statusOptions} defaultValue='All' />
         </div>
         <div className='table'>
           <BorderedTitle className='table-title'>
@@ -168,53 +164,25 @@ const Member: FC<{ className?: string }> = ({ className }) => {
             ))}
         </div>
       </div>
-      <Footer type='default' />
-    </React.Fragment>
+    </PageSkeleton>
   );
 };
 
 export default styled(Member)`
-  flex: 1;
+  padding-top: 22px;
+  > .filters {
+    display: flex;
+    padding: 0px 15px;
+    margin-bottom: 20px;
+    margin-top: 38px;
 
-  > .bg-linear {
-    background: linear-gradient(180deg, #f5f5f7, #ffffff);
-    padding-top: 130px;
-    padding-bottom: 20px;
-
-    > .search {
-      display: flex;
-      justify-content: center;
-      margin: 34px auto 38px auto;
-
-      > div {
-        flex: 1;
-        padding: 0px 58px;
-        max-width: 827px;
-        min-width: 400px;
-      }
-    }
-    > .filters {
-      display: flex;
-      padding: 0px 60px;
-      margin-bottom: 20px;
-
-      > .filter {
-        &:first-child {
-          margin-right: 20px;
-        }
+    > .filter {
+      &:first-child {
+        margin-right: 20px;
       }
     }
   }
   > .table {
-    padding: 0px 60px;
-
-    > .table-title > div {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    > .table-row {
-    }
     > .table-row > div {
       font-size: 14px;
       font-weight: 400;
@@ -222,8 +190,6 @@ export default styled(Member)`
       overflow: hidden;
 
       > a {
-        text-overflow: ellipsis;
-        overflow: hidden;
         white-space: nowrap;
       }
     }

@@ -1,3 +1,4 @@
+import { Style } from './const';
 import media, { marginMedia } from './media';
 
 export default (): string => `
@@ -252,6 +253,18 @@ export default (): string => `
     ${media('lg')} {
       font-size: 14px;
       line-height: 20px;
+    }
+  }
+  .ant-breadcrumb {
+    font-size: 12px;
+    line-height: 14px;
+
+    a,
+    span {
+      color: ${Style.border.second};
+    }
+    a:hover {
+      color: ${Style.badge.primary};
     }
   }
 `;
