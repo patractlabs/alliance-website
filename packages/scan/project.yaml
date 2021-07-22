@@ -1,0 +1,17 @@
+specVersion: 0.0.1
+description: ''
+repository: ''
+schema: ./schema.graphql
+network:
+  endpoint: wss://ws-alliance.patract.io
+dataSources:
+  - name: main
+    kind: substrate/Runtime
+    startBlock: 1
+    mapping:
+      handlers:
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: balances
+            method: Deposit

@@ -1,0 +1,82 @@
+type Account @entity {
+  id: ID!
+  address: String! @index(unique: true)
+  additional: String
+  display: String
+  legal: String
+  web: String
+  riot: String
+  email: String
+  pgpFingerprint: String
+  image: String
+  twitter: String
+}
+
+type Member @entity {
+  id: ID!
+
+  account: Account!
+  locked: BigInt!
+  status: String # EXIST | RETIRED | KICKED
+  joinTime: Date
+  elevatedTime: Date
+  joinMotionHash: String
+  elevatedMotionHash: String
+}
+
+type Rule @entity {
+  id: ID!
+  cid: Int!
+  content: String
+  createTime: Date!
+  montionHash: String!
+}
+
+type Announcement @entity {
+  id: ID!
+
+  cid: Int!
+  createTime: Date!
+  montionHash: String!
+}
+
+type Candidate @entity {
+  id: ID!
+
+  account: Account
+  locked: BigInt
+  nominator: Account
+  applyTime: Date
+}
+
+type Blacklist @entity {
+  id: ID!
+
+  account: Account
+  addTime: Date
+  removeTime: Date
+  addMotionHash: String
+  removeMotionHash: String
+}
+
+type Motion @entity {
+  id: ID!
+
+  hash: String
+  type: String
+  extrinisc: String
+  proposer: Account
+  index: BigInt
+  createTime: Date
+  closeTime: Date
+}
+
+type MotionAction @entity {
+  id: ID!
+
+  motionHash: String
+  account: Account
+  action: String # APPROVE | DISAPPROVE
+}
+
+
