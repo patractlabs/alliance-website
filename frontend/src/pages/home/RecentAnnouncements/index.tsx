@@ -8,11 +8,17 @@ export interface Announcement {
   content: string;
   motionId: number;
   hash: string;
+  proposer: string;
+  approvers: string[];
+  disapprovers: string[];
 }
 const RecentAnnouncements: FC<{ className?: string }> = ({ className }) => {
   const annoncements: Announcement[] = [
     {
       motionId: 2,
+      proposer: '',
+      approvers: [''],
+      disapprovers: [''],
       hash: '0xasdfasd3412szzxcvzxc',
       date: 'Jun-24-2021',
       content:
@@ -20,6 +26,9 @@ const RecentAnnouncements: FC<{ className?: string }> = ({ className }) => {
     },
     {
       motionId: 8,
+      proposer: '',
+      approvers: [''],
+      disapprovers: [''],
       hash: '0xasdfs4asd3412szzxcvzxc',
       date: 'Jun-24-2021',
       content:
@@ -27,6 +36,9 @@ const RecentAnnouncements: FC<{ className?: string }> = ({ className }) => {
     },
     {
       motionId: 7,
+      proposer: '',
+      approvers: [''],
+      disapprovers: [''],
       hash: '0xa44sdfs4asd3412szzxcvzxc',
       date: 'Jun-24-2021',
       content:
@@ -34,6 +46,9 @@ const RecentAnnouncements: FC<{ className?: string }> = ({ className }) => {
     },
     {
       motionId: 9,
+      proposer: '',
+      approvers: [''],
+      disapprovers: [''],
       hash: '0xas3456dfs4asd3412szzxcvzxc',
       date: 'Jun-24-2021',
       content:
@@ -41,6 +56,9 @@ const RecentAnnouncements: FC<{ className?: string }> = ({ className }) => {
     },
     {
       motionId: 6,
+      proposer: '',
+      approvers: [''],
+      disapprovers: [''],
       hash: '0xas3456756dfs4asd3412szzxcvzxc',
       date: 'Jun-24-2021',
       content:
@@ -48,6 +66,9 @@ const RecentAnnouncements: FC<{ className?: string }> = ({ className }) => {
     },
     {
       motionId: 5,
+      proposer: '',
+      approvers: [''],
+      disapprovers: [''],
       hash: '0xas3456756dfs4dfasd3412szzxcvzxc',
       date: 'Jun-24-2021',
       content:
@@ -55,6 +76,9 @@ const RecentAnnouncements: FC<{ className?: string }> = ({ className }) => {
     },
     {
       motionId: 3,
+      proposer: '',
+      approvers: [''],
+      disapprovers: [''],
       hash: '0xas345675667588dfs4asd3412szzxcvzxc',
       date: 'Jun-24-2021',
       content:

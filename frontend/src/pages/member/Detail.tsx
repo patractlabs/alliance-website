@@ -136,11 +136,14 @@ export default styled(Detail)`
       > div {
         > .key {
           width: 30%;
+          margin-right: 16px;
           font-weight: 600;
           color: ${Style.label.default};
           line-height: 18px;
         }
         > .value {
+          overflow: hidden;
+          text-overflow: ellipsis;
           color: ${Style.label.primary};
         }
         > .member-icon > img {

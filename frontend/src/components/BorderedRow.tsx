@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { Style } from '../shared/style/const';
 
-const BorderedRow = styled.div<{ top?: boolean; bottom?: boolean; borderColor: string; padding: string }>`
+const BorderedRow = styled.div<{ withTop?: boolean; widthoutBottom?: boolean; borderColor: string; padding?: string }>`
   display: flex;
   padding: ${(props) => props.padding};
-  border-top: ${(props) => (props.top ? '1px solid ' + props.borderColor : '')};
-  border-bottom: ${(props) => (!props.bottom ? '1px solid ' + props.borderColor : '')};
+  border-top: ${(props) => (props.withTop ? '1px solid ' + props.borderColor : '')};
+  border-bottom: ${(props) => (!props.widthoutBottom ? '1px solid ' + props.borderColor : '')};
 
   &:hover {
     background-color: ${Style.bg.second};

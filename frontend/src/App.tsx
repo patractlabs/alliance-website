@@ -7,6 +7,7 @@ import Member from './pages/member';
 import Blacklist from './pages/blacklist';
 import Candidate from './pages/candidate';
 import MemberDetail from './pages/member/Detail';
+import AnnouncementDetail from './pages/announcement/Detail';
 
 const App: FC = () => {
   return (
@@ -16,8 +17,11 @@ const App: FC = () => {
         <Route path='/' exact>
           <Home />
         </Route>
-        <Route path='/announcement'>
+        <Route path='/announcement' exact>
           <Announcement />
+        </Route>
+        <Route path='/announcement/:motionId' exact>
+          <AnnouncementDetail />
         </Route>
         <Route path='/member' exact>
           <Member />
