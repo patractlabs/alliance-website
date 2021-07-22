@@ -12,6 +12,13 @@ const BorderedTitle = styled(Row)`
   line-height: 14px;
 
   > div {
+    &:first-child {
+      padding-left: 0px;
+    }
+    &:last-child {
+      padding-right: 0px;
+    }
+    padding: 0px 6px;
     display: flex;
     align-items: center;
   }

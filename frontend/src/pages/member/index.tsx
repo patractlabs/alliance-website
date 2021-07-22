@@ -142,24 +142,24 @@ const Member: FC<{ className?: string }> = ({ className }) => {
                 padding='13px 12px 13px 21px'
                 key={index}
               >
-                <div className='logo'>
+                <div className='cell logo'>
                   <img src={member.icon} alt='' />
                 </div>
-                <div className='badge'>
+                <div className='cell badge'>
                   <img src={badgeImgMap[member.role]} alt='' />
                 </div>
-                <div className='account-id'>
+                <div className='cell account-id'>
                   <a href={`/member/${member.accountID}`}>{member.accountID}</a>
                 </div>
-                <div className='identity'>Identity</div>
-                <div className='website'>
+                <div className='cell identity'>Identity</div>
+                <div className='cell website'>
                   <a href={member.website}>{member.website}</a>
                 </div>
-                <div className='locked'>{member.locked}</div>
-                <div className='joined-date'>{member.joinedDate}</div>
-                <div className='elevated-date'>{member.elevatedDate}</div>
-                <div className='status'>{member.stauts}</div>
-                <div className='more'>
+                <div className='cell locked'>{member.locked}</div>
+                <div className='cell joined-date'>{member.joinedDate}</div>
+                <div className='cell elevated-date'>{member.elevatedDate}</div>
+                <div className='cell status'>{member.stauts}</div>
+                <div className='cell more'>
                   <Link to={`/member/${member.accountID}`}>
                     <img src={MorePrimarySvg} alt='' />
                   </Link>
@@ -211,23 +211,20 @@ export default styled(Member)`
     > .table-title > div {
       overflow: hidden;
       text-overflow: ellipsis;
-      padding: 0px 6px;
+      white-space: nowrap;
     }
     > .table-row {
-      &:hover {
-        background-color: ${Style.bg.second};
-      }
     }
     > .table-row > div {
       font-size: 14px;
       font-weight: 400;
       color: #172026;
       overflow: hidden;
-      padding: 0px 6px;
 
       > a {
         text-overflow: ellipsis;
         overflow: hidden;
+        white-space: nowrap;
       }
     }
     .logo {

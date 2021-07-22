@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import { Style } from '../../../shared/style/const';
-import Content from './Content';
+import { Content } from '../../../components';
 
 const AllianceRule: FC<{ className?: string }> = ({ className }) => {
   return (
@@ -12,7 +12,10 @@ const AllianceRule: FC<{ className?: string }> = ({ className }) => {
         <a>QmSsw6EcnwEiTT9c4rnAGeSENvsJMepNHmbrgi2S9bXNJr</a>
       </div>
       <div className='content'>
-        <Content />
+        <Content>
+          Two groups, administered on the Polkadot relay chain (possible since it’s very low bandwidth). Fellows (of
+          which some are Founders) Members (or “Allies”
+        </Content>
       </div>
     </div>
   );

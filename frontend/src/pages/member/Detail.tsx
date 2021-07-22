@@ -39,7 +39,7 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
   return (
     <React.Fragment>
       <div className={className}>
-        <div className='bg'></div>
+        <div className='bg-linear'></div>
         <div className='content'>
           <Breadcrumb>
             <Breadcrumb.Item>
@@ -103,7 +103,7 @@ export default styled(Detail)`
   flex: 1;
   padding: 0px 60px 30px 60px;
 
-  > .bg {
+  > .bg-linear {
     z-index: 1;
     position: absolute;
     top: 0px;
