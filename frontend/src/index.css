@@ -35,3 +35,14 @@ h6,
 p {
   margin: 0px;
 }
+input {
+  outline: none;
+}
+body > div#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+a {
+  color: #0074f2;
+}

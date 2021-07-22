@@ -2,12 +2,25 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import JumpSvg from '../../../assets/imgs/jump.svg';
+import { Style } from '../../../shared/style/const';
+import { MemberRole } from './Role';
 
 export interface Member {
   icon: string;
   accountID: string;
   name: string;
   website: string;
+  role: MemberRole;
+  locked: string;
+  joinedDate: string;
+  elevatedDate: string;
+  stauts: MemberStatus;
+}
+
+export enum MemberStatus {
+  Existing = 'Existing',
+  Kicked = 'Kicked',
+  Applied = 'Applied'
 }
 
 const MembersByRole: FC<{ className?: string; members: Member[] }> = ({ className, members }) => {
@@ -56,13 +69,13 @@ export default styled(MembersByRole)`
           margin-bottom: 0px;
           height: 20px;
           font-size: 18px;
-          color: #172026;
+          color: ${Style.label.primary};
           line-height: 20px;
         }
         > span {
           opacity: 0.56;
           font-size: 12px;
-          color: #172026;
+          color: ${Style.label.primary};
           line-height: 14px;
         }
       }

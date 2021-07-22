@@ -6,7 +6,6 @@ import Announcement from './pages/announcement';
 import Member from './pages/member';
 import Blacklist from './pages/blacklist';
 import Candidate from './pages/candidate';
-import Footer from './components/Footer';
 
 const App: FC = () => {
   return (
@@ -29,7 +28,6 @@ const App: FC = () => {
           <Blacklist />
         </Route>
       </Switch>
-      <Footer />
     </BrowserRouter>
   );
 };

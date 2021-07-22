@@ -1,32 +1,182 @@
 import { Col, Row } from 'antd';
 import { FC, useState } from 'react';
 import styled from 'styled-components';
-import { Member } from './MembersByRole';
+import { Member, MemberStatus } from './MembersByRole';
 import Role, { MemberRole } from './Role';
 import PolkadotSvg from '../../../assets/imgs/polkadot.svg';
 import ApronSvg from '../../../assets/imgs/apron.png';
 
 const CurrentMembers: FC<{ className?: string }> = ({ className }) => {
   const [founders] = useState<Member[]>([
-    { name: 'Patract', accountID: '', icon: PolkadotSvg, website: 'https://patract.io' },
-    { name: 'Polkadot', accountID: '', icon: PolkadotSvg, website: 'https://polkadot.network' },
-    { name: 'Acala', accountID: '', icon: PolkadotSvg, website: 'https://acala.org' },
-    { name: 'Bifrost', accountID: '', icon: PolkadotSvg, website: 'https://bifrost.org' },
-    { name: 'Litentry', accountID: '', icon: PolkadotSvg, website: 'https://litentry.network' }
+    {
+      joinedDate: 'Jun-1-2021',
+      elevatedDate: 'Jun-24-2021',
+      stauts: MemberStatus.Existing,
+      locked: '1000 DOT',
+      role: MemberRole.Ally,
+      name: 'Patract',
+      accountID: '',
+      icon: PolkadotSvg,
+      website: 'https://patract.io'
+    },
+    {
+      joinedDate: 'Jun-1-2021',
+      elevatedDate: 'Jun-24-2021',
+      stauts: MemberStatus.Existing,
+      locked: '1000 DOT',
+      role: MemberRole.Ally,
+      name: 'Polkadot',
+      accountID: '',
+      icon: PolkadotSvg,
+      website: 'https://polkadot.network'
+    },
+    {
+      joinedDate: 'Jun-1-2021',
+      elevatedDate: 'Jun-24-2021',
+      stauts: MemberStatus.Existing,
+      locked: '1000 DOT',
+      role: MemberRole.Ally,
+      name: 'Acala',
+      accountID: '',
+      icon: PolkadotSvg,
+      website: 'https://acala.org'
+    },
+    {
+      joinedDate: 'Jun-1-2021',
+      elevatedDate: 'Jun-24-2021',
+      stauts: MemberStatus.Existing,
+      locked: '1000 DOT',
+      role: MemberRole.Ally,
+      name: 'Bifrost',
+      accountID: '',
+      icon: PolkadotSvg,
+      website: 'https://bifrost.org'
+    },
+    {
+      joinedDate: 'Jun-1-2021',
+      elevatedDate: 'Jun-24-2021',
+      stauts: MemberStatus.Existing,
+      locked: '1000 DOT',
+      role: MemberRole.Ally,
+      name: 'Litentry',
+      accountID: '',
+      icon: PolkadotSvg,
+      website: 'https://litentry.network'
+    }
   ]);
   const [fellowers] = useState<Member[]>([
-    { name: 'Apron', accountID: '', icon: ApronSvg, website: 'https://apron.network' },
-    { name: 'Bandot', accountID: '', icon: ApronSvg, website: 'https://bandot.org' },
-    { name: 'Clover', accountID: '', icon: ApronSvg, website: 'https://clover.com' },
-    { name: 'Manta', accountID: '', icon: ApronSvg, website: 'https://manta.network' },
-    { name: 'Plasm', accountID: '', icon: ApronSvg, website: 'https://plasm.com' }
+    {
+      joinedDate: 'Jun-1-2021',
+      elevatedDate: 'Jun-24-2021',
+      stauts: MemberStatus.Existing,
+      locked: '1000 DOT',
+      role: MemberRole.Ally,
+      name: 'Apron',
+      accountID: '',
+      icon: ApronSvg,
+      website: 'https://apron.network'
+    },
+    {
+      joinedDate: 'Jun-1-2021',
+      elevatedDate: 'Jun-24-2021',
+      stauts: MemberStatus.Existing,
+      locked: '1000 DOT',
+      role: MemberRole.Ally,
+      name: 'Bandot',
+      accountID: '',
+      icon: ApronSvg,
+      website: 'https://bandot.org'
+    },
+    {
+      joinedDate: 'Jun-1-2021',
+      elevatedDate: 'Jun-24-2021',
+      stauts: MemberStatus.Existing,
+      locked: '1000 DOT',
+      role: MemberRole.Ally,
+      name: 'Clover',
+      accountID: '',
+      icon: ApronSvg,
+      website: 'https://clover.com'
+    },
+    {
+      joinedDate: 'Jun-1-2021',
+      elevatedDate: 'Jun-24-2021',
+      stauts: MemberStatus.Existing,
+      locked: '1000 DOT',
+      role: MemberRole.Ally,
+      name: 'Manta',
+      accountID: '',
+      icon: ApronSvg,
+      website: 'https://manta.network'
+    },
+    {
+      joinedDate: 'Jun-1-2021',
+      elevatedDate: 'Jun-24-2021',
+      stauts: MemberStatus.Existing,
+      locked: '1000 DOT',
+      role: MemberRole.Ally,
+      name: 'Plasm',
+      accountID: '',
+      icon: ApronSvg,
+      website: 'https://plasm.com'
+    }
   ]);
   const [allies] = useState<Member[]>([
-    { name: 'SubDao', accountID: '', icon: PolkadotSvg, website: 'https://subdao.io' },
-    { name: 'Phala', accountID: '', icon: PolkadotSvg, website: 'https://phala.io' },
-    { name: 'Cycan', accountID: '', icon: PolkadotSvg, website: 'https://cycan.network' },
-    { name: 'Zenlink', accountID: '', icon: PolkadotSvg, website: 'https://zenlink.org' },
-    { name: 'OpenSquare', accountID: '', icon: PolkadotSvg, website: 'https://opensquare.network' }
+    {
+      joinedDate: 'Jun-1-2021',
+      elevatedDate: 'Jun-24-2021',
+      stauts: MemberStatus.Existing,
+      locked: '1000 DOT',
+      role: MemberRole.Ally,
+      name: 'SubDao',
+      accountID: '',
+      icon: PolkadotSvg,
+      website: 'https://subdao.io'
+    },
+    {
+      joinedDate: 'Jun-1-2021',
+      elevatedDate: 'Jun-24-2021',
+      stauts: MemberStatus.Existing,
+      locked: '1000 DOT',
+      role: MemberRole.Ally,
+      name: 'Phala',
+      accountID: '',
+      icon: PolkadotSvg,
+      website: 'https://phala.io'
+    },
+    {
+      joinedDate: 'Jun-1-2021',
+      elevatedDate: 'Jun-24-2021',
+      stauts: MemberStatus.Existing,
+      locked: '1000 DOT',
+      role: MemberRole.Ally,
+      name: 'Cycan',
+      accountID: '',
+      icon: PolkadotSvg,
+      website: 'https://cycan.network'
+    },
+    {
+      joinedDate: 'Jun-1-2021',
+      elevatedDate: 'Jun-24-2021',
+      stauts: MemberStatus.Existing,
+      locked: '1000 DOT',
+      role: MemberRole.Ally,
+      name: 'Zenlink',
+      accountID: '',
+      icon: PolkadotSvg,
+      website: 'https://zenlink.org'
+    },
+    {
+      joinedDate: 'Jun-1-2021',
+      elevatedDate: 'Jun-24-2021',
+      stauts: MemberStatus.Existing,
+      locked: '1000 DOT',
+      role: MemberRole.Ally,
+      name: 'OpenSquare',
+      accountID: '',
+      icon: PolkadotSvg,
+      website: 'https://opensquare.network'
+    }
   ]);
 
   return (

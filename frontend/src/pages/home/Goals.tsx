@@ -2,6 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import Goal1Svg from '../../assets/imgs/goal1.svg';
 import Goal2Svg from '../../assets/imgs/goal2.svg';
+import { Style } from '../../shared/style/const';
 
 const Goals: FC<{ className?: string }> = ({ className }) => {
   return (
@@ -52,7 +53,7 @@ export default styled(Goals)`
         margin-bottom: 0px;
         font-size: 24px;
         font-weight: 700;
-        color: #172026;
+        color: ${Style.label.primary};
         line-height: 24px;
       }
     }
@@ -81,7 +82,7 @@ export default styled(Goals)`
         max-width: 1000px;
         opacity: 0.87;
         font-size: 18px;
-        color: #172026;
+        color: ${Style.label.primary};
         line-height: 24px;
         display: flex;
         align-items: center;

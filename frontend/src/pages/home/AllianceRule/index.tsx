@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import styled from 'styled-components';
+import { Style } from '../../../shared/style/const';
 import Content from './Content';
 
 const AllianceRule: FC<{ className?: string }> = ({ className }) => {
@@ -30,12 +31,11 @@ export default styled(AllianceRule)`
       margin-right: 16px;
       font-size: 20px;
       font-weight: 700;
-      color: #172026;
+      color: ${Style.label.primary};
       line-height: 24px;
     }
     > a {
       font-size: 18px;
-      color: #0074f2;
       line-height: 21px;
     }
   }

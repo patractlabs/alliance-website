@@ -19,6 +19,6 @@ export default styled(Content)`
   border-radius: 16px;
   padding: 20px 40px;
   font-size: 16px;
-  color: #172026;
+  color: ${Style.label.primary};
   line-height: 24px;
 `;

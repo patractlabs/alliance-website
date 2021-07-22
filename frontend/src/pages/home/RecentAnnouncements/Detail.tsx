@@ -3,7 +3,7 @@ import { CSSProperties, FC, useState } from 'react';
 import styled from 'styled-components';
 import { Announcement } from './index';
 import ExpandSvg from '../../../assets/imgs/expand.svg';
-import DeexpandSvg from '../../../assets/imgs/expand.svg';
+import DeexpandSvg from '../../../assets/imgs/fold.svg';
 import { Style } from '../../../shared/style/const';
 
 const Status = styled.span<{ expanded: boolean }>`
@@ -22,13 +22,6 @@ const BorderTypeMap = {
 };
 const DetailWrapper = styled.div<{ top: BorderType; bottom: BorderType }>`
   padding: 21px 0px;
-  /* height: ${(props) => (props.top === 'primary' || props.bottom === 'primary' ? '1px' : '0px')};
-  background: linear-gradient(
-    270deg,
-    rgba(255, 255, 255, 0.56),
-    rgba(255, 255, 255, 0.8) 53%,
-    rgba(255, 255, 255, 0.56)
-  ); */
   border-top: ${(props) => BorderTypeMap[props.top]};
   border-bottom: ${(props) => BorderTypeMap[props.bottom]};
   font-size: 15px;
@@ -43,7 +36,7 @@ const DetailWrapper = styled.div<{ top: BorderType; bottom: BorderType }>`
     overflow-y: scroll;
     margin-top: 20px;
     max-height: 256px;
-    background: #172026;
+    background: ${Style.bg.primary};
     font-size: 14px;
     border: 1px solid #6b7076;
     border-radius: 8px;
@@ -74,7 +67,7 @@ const AnnouncementDetail: FC<{
         </Col>
         <Col span={17}>{annoncement.content.split('\n')[0].slice(0, 40)}</Col>
         <Col span={1} style={{ textAlign: 'right', paddingRight: '11px' }}>
-          <img onClick={() => setExpanded((old) => !old)} src={expanded ? ExpandSvg : DeexpandSvg} alt='' />
+          <img onClick={() => setExpanded((old) => !old)} src={expanded ? DeexpandSvg : ExpandSvg} alt='' />
         </Col>
       </Row>
       {expanded && <div className='content'>{annoncement.content}</div>}

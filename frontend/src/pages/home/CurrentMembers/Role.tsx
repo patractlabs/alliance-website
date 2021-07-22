@@ -4,6 +4,7 @@ import MembersByRole, { Member } from './MembersByRole';
 import FounderSvg from '../../../assets/imgs/founder.svg';
 import FellowSvg from '../../../assets/imgs/fellow.svg';
 import AllySvg from '../../../assets/imgs/ally.svg';
+import { Style } from '../../../shared/style/const';
 
 export enum MemberRole {
   Founder = 'Founder',
@@ -43,7 +44,7 @@ export default styled(Role)`
     height: 28px;
     font-size: 24px;
     font-weight: 700;
-    color: #172026;
+    color: ${Style.label.primary};
     line-height: 28px;
     margin-bottom: 12px;
   }
@@ -53,7 +54,7 @@ export default styled(Role)`
     overflow: hidden;
     height: 90px;
     opacity: 0.87;
-    color: #172026;
+    color: ${Style.label.primary};
     line-height: 18px;
   }
 `;
