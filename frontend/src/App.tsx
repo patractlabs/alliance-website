@@ -9,6 +9,7 @@ import Candidate from './pages/candidate';
 import MemberDetail from './pages/member/Detail';
 import AnnouncementDetail from './pages/announcement/Detail';
 import CandidateDetail from './pages/candidate/Detail';
+import BlackDetail from './pages/blacklist/Detail';
 
 const App: FC = () => {
   return (
@@ -36,8 +37,11 @@ const App: FC = () => {
         <Route path='/candidate/:accountId'>
           <CandidateDetail />
         </Route>
-        <Route path='/blacklist'>
+        <Route path='/blacklist' exact>
           <Blacklist />
+        </Route>
+        <Route path='/blacklist/:address'>
+          <BlackDetail />
         </Route>
       </Switch>
     </BrowserRouter>

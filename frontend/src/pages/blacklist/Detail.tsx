@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 import FounderSvg from '../../assets/imgs/founder-big.svg';
 import AllySvg from '../../assets/imgs/ally-big.svg';
 import FellowSvg from '../../assets/imgs/fellow-big.svg';
-import { CandidateType } from './';
 
 export const badgeImgMap = {
   [MemberRole.Founder]: FounderSvg,
@@ -15,18 +14,27 @@ export const badgeImgMap = {
   [MemberRole.Ally]: AllySvg
 };
 
+export interface Blocked {
+  address: string;
+  identity: string;
+  website: string;
+  locked: string;
+  addedDate: string;
+  removedDate: string;
+}
+
 const Detail: FC<{ className?: string }> = ({ className }) => {
-  const { accountId } = useParams<{ accountId: string }>();
-  const [candidate, setCandidate] = useState<CandidateType>();
+  const { address } = useParams<{ address: string }>();
+  const [blocked, setCandidate] = useState<Blocked>();
 
   useEffect(() => {
     setCandidate({
-      nominator: 'Cycan',
+      address: '1629Shw6w88GnyXyyUbRtX7YFipQnjScGKcWr1BaRiMhvmAg',
+      identity: 'Davaid',
+      website: 'www.12345.com',
       locked: '1000 DOT',
-      accountID: 'sH768Ct9LYgqpn222eYEftRCuZZz9rvW7zwfjrWAEzwGLp4H',
-      identity: 'xxx',
-      website: 'https://cycan.network',
-      appliedDate: 'Jun-10-2021'
+      addedDate: 'Jun-24-2021',
+      removedDate: 'Jun-24-2021'
     });
   }, []);
 
@@ -35,7 +43,7 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
       <div className={className}>
         <Breadcrumb>
           <Breadcrumb.Item>
-            <a href='/candidate'>Candidates</a>
+            <a href='/blacklist'>Blacklist</a>
           </Breadcrumb.Item>
           <Breadcrumb.Item>Details</Breadcrumb.Item>
         </Breadcrumb>
@@ -43,15 +51,15 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
         <KeyValuePage
           className='key-values'
           pairs={[
-            { name: 'AccountID', render: <>{candidate?.accountID}</> },
-            { name: 'Identity', render: <>{candidate?.identity}</> },
+            { name: 'Address', render: <>{blocked?.address}</> },
+            { name: 'Identity', render: <>{blocked?.identity}</> },
             {
               name: 'Website',
-              render: <a href={candidate?.website}>{candidate?.website}</a>
+              render: <a href={blocked?.website}>{blocked?.website}</a>
             },
-            { name: 'Locked', render: <>{candidate?.locked}</> },
-            { name: 'Nominator', render: <>{candidate?.nominator}</> },
-            { name: 'Applied Date (Ordinary to Candidate)', render: <>{candidate?.appliedDate}</> }
+            { name: 'Locked', render: <>{blocked?.locked}</> },
+            { name: 'Added Date', render: <>{blocked?.addedDate}</> },
+            { name: 'Removed Date', render: <>{blocked?.removedDate}</> }
           ]}
         ></KeyValuePage>
       </div>
