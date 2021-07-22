@@ -55,4 +55,5 @@ export default styled(Header)`
   justify-content: space-between;
   padding: 0px 58px;
   width: 100%;
+  z-index: 100;
 `;

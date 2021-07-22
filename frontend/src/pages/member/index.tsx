@@ -30,6 +30,9 @@ const Member: FC<{ className?: string }> = ({ className }) => {
       accountID: '5H1CKbZYQc4Uk7DAvEwJyXsteGy1jXsYrAEGK16gDLPm4NCt',
       icon: PolkadotSvg,
       role: MemberRole.Founder,
+      identity: 'xxx',
+      initiatedDate: 'Jun-1-2021',
+      appliedDate: 'Jun-10-2021',
       website: 'https://subdao.io'
     },
     {
@@ -41,6 +44,9 @@ const Member: FC<{ className?: string }> = ({ className }) => {
       accountID: '5H768Ct9LYgqpn222eYEftRCuZZz9rvW7zwfjrWAEzwGLp4H',
       icon: ApronSvg,
       role: MemberRole.Ally,
+      initiatedDate: 'Jun-1-2021',
+      appliedDate: 'Jun-10-2021',
+      identity: 'xxx',
       website: 'https://phala.io'
     },
     {
@@ -52,7 +58,10 @@ const Member: FC<{ className?: string }> = ({ className }) => {
       accountID: 'sH768Ct9LYgqpn222eYEftRCuZZz9rvW7zwfjrWAEzwGLp4H',
       icon: PolkadotSvg,
       role: MemberRole.Fellow,
-      website: 'https://cycan.network'
+      identity: 'xxx',
+      website: 'https://cycan.network',
+      initiatedDate: 'Jun-1-2021',
+      appliedDate: 'Jun-10-2021'
     },
     {
       joinedDate: 'Jun-1-2021',
@@ -63,17 +72,23 @@ const Member: FC<{ className?: string }> = ({ className }) => {
       accountID: 'sdfss768Ct9LYgqpn222eYEftRCuZZz9rvW7zwfjrWAEzwGLp4H',
       icon: ApronSvg,
       role: MemberRole.Fellow,
+      identity: 'xxx',
+      initiatedDate: 'Jun-1-2021',
+      appliedDate: 'Jun-10-2021',
       website: 'https://zenlink.org'
     },
     {
-      joinedDate: 'Jun-1-2021',
-      elevatedDate: 'Jun-24-2021',
       stauts: MemberStatus.Applied,
       locked: '1000 DOT',
       name: 'OpenSquare',
       accountID: '5sH768Ct9LYgqpn222eYEftRCuZZz9rvW7zwfjrWAEzwGLp4H',
       icon: PolkadotSvg,
       role: MemberRole.Ally,
+      identity: 'xxx',
+      initiatedDate: 'Jun-1-2021',
+      appliedDate: 'Jun-10-2021',
+      joinedDate: 'Jun-1-2021',
+      elevatedDate: 'Jun-24-2021',
       website: 'https://opensquare.network'
     }
   ];
@@ -134,7 +149,7 @@ const Member: FC<{ className?: string }> = ({ className }) => {
                   <img src={badgeImgMap[member.role]} alt='' />
                 </div>
                 <div className='account-id'>
-                  <a href={member.website}>{member.accountID}</a>
+                  <a href={`/member/${member.accountID}`}>{member.accountID}</a>
                 </div>
                 <div className='identity'>Identity</div>
                 <div className='website'>

@@ -7,7 +7,8 @@ export const Style = {
     primary: '#E6007A',
     default: 'rgba(255, 255, 255, 0.32)',
     second: 'rgba(23, 32, 38, 0.56)',
-    negative: 'rgba(23, 32, 38, 0.24)'
+    negative: 'rgba(23, 32, 38, 0.24)',
+    lighter: 'rgba(23, 32, 38, 0.16)'
   },
   badge: {
     primary: '#e6007a',

@@ -12,6 +12,9 @@ export interface Member {
   website: string;
   role: MemberRole;
   locked: string;
+  identity: string;
+  initiatedDate: string;
+  appliedDate: string;
   joinedDate: string;
   elevatedDate: string;
   stauts: MemberStatus;

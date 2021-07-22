@@ -66,7 +66,6 @@ export default (): string => `
     font-family: WorkSans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
       'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
       'Segoe UI Symbol', 'Noto Color Emoji';
-    font-size: 16px;
     color: #000;
   }
 

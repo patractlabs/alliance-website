@@ -6,6 +6,7 @@ import Announcement from './pages/announcement';
 import Member from './pages/member';
 import Blacklist from './pages/blacklist';
 import Candidate from './pages/candidate';
+import MemberDetail from './pages/member/Detail';
 
 const App: FC = () => {
   return (
@@ -18,8 +19,11 @@ const App: FC = () => {
         <Route path='/announcement'>
           <Announcement />
         </Route>
-        <Route path='/member'>
+        <Route path='/member' exact>
           <Member />
+        </Route>
+        <Route path='/member/:accountId'>
+          <MemberDetail />
         </Route>
         <Route path='/candidate'>
           <Candidate />

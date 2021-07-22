@@ -63,7 +63,7 @@ const CurrentMembers: FC<{ className?: string }> = ({ className }) => {
       icon: PolkadotSvg,
       website: 'https://litentry.network'
     }
-  ]);
+  ] as any);
   const [fellowers] = useState<Member[]>([
     {
       joinedDate: 'Jun-1-2021',
@@ -120,7 +120,7 @@ const CurrentMembers: FC<{ className?: string }> = ({ className }) => {
       icon: ApronSvg,
       website: 'https://plasm.com'
     }
-  ]);
+  ] as any);
   const [allies] = useState<Member[]>([
     {
       joinedDate: 'Jun-1-2021',
@@ -177,7 +177,7 @@ const CurrentMembers: FC<{ className?: string }> = ({ className }) => {
       icon: PolkadotSvg,
       website: 'https://opensquare.network'
     }
-  ]);
+  ] as any);
 
   return (
     <div className={className}>
