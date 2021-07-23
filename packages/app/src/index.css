@@ -53,3 +53,13 @@ span.alliance-span-link {
 span.alliance-span-link:hover {
   color: #e6007a;
 }
+.allicance-cutsom-scroll::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
+
+.allicance-cutsom-scroll {
+  scrollbar-width: none; /* firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+  overflow-x: hidden;
+  overflow-y: auto;
+}

@@ -20,7 +20,7 @@ const AllianceRule: FC<{ className?: string }> = ({ className }) => {
       <div className='content'>
         {!fetching ? (
           content && (
-            <Content className='announcement-content'>
+            <Content>
               <Markdown>{content || ''}</Markdown>
             </Content>
           )
@@ -61,10 +61,5 @@ export default styled(AllianceRule)`
     display: flex;
     justify-content: center;
     align-items: center;
-    > .announcement-content {
-      width: 100%;
-      height: 100%;
-      overflow-y: auto;
-    }
   }
 `;

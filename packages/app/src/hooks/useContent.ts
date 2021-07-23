@@ -21,7 +21,7 @@ async function fetchData(url: string): Promise<string | null> {
         }
       })
       .catch((e) => console.error(e)),
-    new Promise<string | null>((resolve) => setTimeout(() => resolve(null), 10000))
+    new Promise<string | null>((resolve) => setTimeout(() => resolve(null), 100000))
   ]);
 
   return text ?? null;

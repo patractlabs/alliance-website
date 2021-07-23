@@ -1,16 +1,48 @@
+import { CSSProperties, FC, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Style } from '../shared/style/const';
+import Scroll from './Scroll';
 
-const Content = styled.div`
-  min-height: 382px;
+const Wrapper = styled.div`
+  height: 382px;
   border: 1px solid ${Style.border.primary};
   background: #fffbfd;
   border-radius: 16px;
-  padding: 20px 40px;
   font-size: 16px;
-  color: ${Style.label.primary};
   line-height: 24px;
-  overflow-y: auto;
+  color: ${Style.label.primary};
+  padding: 16px 0px;
+
+  > div {
+    display: flex;
+    height: 100%;
+    > .content-main {
+      flex: 1;
+      border: 2px solid black;
+      padding: 40px 40px;
+    }
+    > .scrollbar {
+      height: 100%;
+      margin-right: 1px;
+    }
+  }
 `;
+
+const Content: FC<{ className?: string; style?: CSSProperties }> = ({ className, style, children }) => {
+  const target = useRef<HTMLElement>(null);
+
+  useEffect(() => console.log('target.current', target.current), []);
+
+  return (
+    <Wrapper className={className} style={style}>
+      <div>
+        <div ref={target as any} className='content-main allicance-cutsom-scroll'>
+          <div>{children}</div>
+        </div>
+        <Scroll className='scrollbar' target={target} />
+      </div>
+    </Wrapper>
+  );
+};
 
 export default Content;
