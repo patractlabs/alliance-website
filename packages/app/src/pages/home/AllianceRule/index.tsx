@@ -1,23 +1,31 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import { Style } from '../../../shared/style/const';
-import { Content } from '../../../components';
+import { Content, Spinner } from '../../../components';
+import { useContent } from '../../../hooks/useContent';
+import Markdown from 'react-markdown';
+
+const rule = 'QmYzwQ9nvyugGxmqmZbU1oND3AjreXpiMdwJhGisEYSGZr';
 
 const AllianceRule: FC<{ className?: string }> = ({ className }) => {
+  const { content, fetching } = useContent(rule);
+
+  console.log('content', content);
   return (
     <div className={className}>
       <h2>Alliance Rule</h2>
       <div className='ipfs-hash'>
         <span>IPFS Hash</span>
-        <a href='https://ipfs.io/ipfs/QmRZdc3mAMXpv6Akz9Ekp1y4vDSjazTx2dCQRkxVy1yUj6'>
-          QmRZdc3mAMXpv6Akz9Ekp1y4vDSjazTx2dCQRkxVy1yUj6
-        </a>
+        <a href={`https://ipfs.io/ipfs/${rule}`}>{rule}</a>
       </div>
       <div className='content'>
-        <Content>
-          Two groups, administered on the Polkadot relay chain (possible since it’s very low bandwidth). Fellows (of
-          which some are Founders) Members (or “Allies”
-        </Content>
+        {!fetching ? (
+          <Content className='announcement-content'>
+            <Markdown>{content || ''}</Markdown>
+          </Content>
+        ) : (
+          <Spinner />
+        )}
       </div>
     </div>
   );
@@ -48,5 +56,13 @@ export default styled(AllianceRule)`
   > .content {
     margin: 0px auto;
     max-width: 980px;
+    height: 382px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    > .announcement-content {
+      height: 100%;
+      overflow-y: auto;
+    }
   }
 `;
