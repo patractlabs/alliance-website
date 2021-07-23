@@ -1,5 +1,5 @@
-import { CSSProperties, FC } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { FC } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import LogoSvg from '../assets/imgs/logo.svg';
 import Logo2Svg from '../assets/imgs/logo-black.svg';
@@ -52,19 +52,28 @@ const Header: FC<{ className?: string }> = ({ className }) => {
 
   return (
     <div className={className}>
-      <Logo src={pathname === '/' ? LogoSvg : Logo2Svg} alt='' />
-      <Links type={pathname === '/' ? 'home' : ''} />
+      <div>
+        <Logo src={pathname === '/' ? LogoSvg : Logo2Svg} alt='' />
+        <Links type={pathname === '/' ? 'home' : ''} />
+      </div>
     </div>
   );
 };
 
 export default styled(Header)`
   position: absolute;
-  display: flex;
-  align-items: center;
   height: 96px;
-  justify-content: space-between;
   padding: 0px 58px;
   width: 100%;
   z-index: 100;
+  display: flex;
+  justify-content: center;
+
+  > div {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1170px;
+  }
 `;

@@ -37,6 +37,9 @@ export default styled(Search)`
       height: 56px;
       border: 1px solid ${Style.border.primary};
       border-radius: 28px;
+      &:hover {
+        border: 1px solid ${Style.border.primaryActive};
+      }
       > img {
         width: 24px;
         height: 24px;
@@ -61,6 +64,11 @@ export default styled(Search)`
       height: 56px;
       border: 1px solid ${Style.border.primary};
       border-radius: 28px;
+
+      &:hover {
+        color: ${Style.border.primaryActive};
+        border: 1px solid ${Style.border.primaryActive};
+      }
     }
   }
 `;

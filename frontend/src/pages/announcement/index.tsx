@@ -5,6 +5,7 @@ import { Style } from '../../shared/style/const';
 import { Announcement } from '../home/RecentAnnouncements';
 import FoldSvg from '../../assets/imgs/fold-primary.svg';
 import ExpandSvg from '../../assets/imgs/expand-primary.svg';
+import { useHistory } from 'react-router-dom';
 
 const Row = styled(BorderedRow)`
   display: block;
@@ -23,20 +24,39 @@ const AnnouncementRow: FC<{ className?: string; annoncement: Announcement; defau
   defaultExpanded
 }) => {
   const [expanded, setExpanded] = useState(defaultExpanded);
+  const history = useHistory();
 
   return (
-    <Row className='table-row' borderColor={Style.border.negative} padding='13px 12px 13px 21px'>
+    <Row
+      className='table-row'
+      borderColor={Style.border.negative}
+      padding='13px 12px 13px 21px'
+      onClick={() => history.push(`/announcement/${annoncement.motionId}`)}
+    >
       <div className='cells'>
         <div className='cell motion-id'>
-          <a href={`/announcement/${annoncement.motionId}`}>#{annoncement.motionId}</a>
+          <span className='alliance-span-link'>#{annoncement.motionId}</span>
         </div>
         <div className='cell announcement-date'>{annoncement.date}</div>
         <div className='cell announcement-hash'>{annoncement.hash}</div>
-        <div className='cell first-line'>
+        <div
+          className='cell first-line'
+          onClick={(e) => {
+            e.stopPropagation();
+            setExpanded((old) => !old);
+          }}
+        >
           <span>{annoncement.content.split('\n')[0]}</span>
         </div>
         <div className='cell more'>
-          <img onClick={() => setExpanded((old) => !old)} src={expanded ? FoldSvg : ExpandSvg} alt='' />
+          <img
+            onClick={(e) => {
+              e.stopPropagation();
+              setExpanded((old) => !old);
+            }}
+            src={expanded ? FoldSvg : ExpandSvg}
+            alt=''
+          />
         </div>
       </div>
       {expanded && (
@@ -141,6 +161,9 @@ const Announcements: FC<{ className?: string }> = ({ className }) => {
 
 export default styled(Announcements)`
   padding-top: 52px;
+  > .table-row {
+    cursor: pointer;
+  }
   .motion-id {
     width: 19.5%;
   }
@@ -151,6 +174,8 @@ export default styled(Announcements)`
     width: 30.1%;
   }
   .first-line {
+    user-select: none;
+    cursor: pointer;
     flex: 1;
     overflow: hidden;
     > span {

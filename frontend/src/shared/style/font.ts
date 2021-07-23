@@ -1,7 +1,7 @@
 import { Style } from './const';
 import media, { marginMedia } from './media';
 
-export default (): string => `
+const createGlobal = (): string => `
   @font-face {
     font-family: 'WorkSans';
     font-style: normal;
@@ -245,7 +245,7 @@ export default (): string => `
 
   p {
     margin: 0 0 10px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     line-height: 24px;
     color: inherit;
@@ -259,12 +259,11 @@ export default (): string => `
     font-size: 12px;
     line-height: 14px;
 
-    a,
-    span {
-      color: ${Style.border.second};
-    }
+
     a:hover {
       color: ${Style.badge.primary};
     }
   }
 `;
+
+export default createGlobal;

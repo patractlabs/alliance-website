@@ -4,8 +4,8 @@ import { Style } from '../shared/style/const';
 
 const BorderedTitle = styled(Row)`
   padding: 8px 12px 8px 21px;
-  border-top: 1px solid ${Style.border.second};
-  border-bottom: 1px solid ${Style.border.second};
+  border-top: 1px solid #7b8083;
+  border-bottom: 1px solid #7b8083;
   font-size: 12px;
   font-weight: 700;
   color: ${Style.label.primary};

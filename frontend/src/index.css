@@ -46,3 +46,10 @@ body > div#root {
 a {
   color: #0074f2;
 }
+span.alliance-span-link {
+  cursor: pointer;
+  color: #0074f2;
+}
+span.alliance-span-link:hover {
+  color: #e6007a;
+}

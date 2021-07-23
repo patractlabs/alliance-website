@@ -1,12 +1,12 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { BorderedRow, Footer } from '../../components';
+import { BorderedRow, PageSkeleton } from '../../components';
 import { Member, MemberStatus } from '../home/CurrentMembers/MembersByRole';
 import PolkadotSvg from '../../assets/imgs/polkadot.svg';
 import { Style } from '../../shared/style/const';
 import { Breadcrumb } from 'antd';
 import { MemberRole } from '../home/CurrentMembers/Role';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import FounderSvg from '../../assets/imgs/founder-big.svg';
 import AllySvg from '../../assets/imgs/ally-big.svg';
 import FellowSvg from '../../assets/imgs/fellow-big.svg';
@@ -16,7 +16,7 @@ export const badgeImgMap = {
   [MemberRole.Ally]: AllySvg
 };
 const Detail: FC<{ className?: string }> = ({ className }) => {
-  const { accountId } = useParams<{ accountId: string }>();
+  // const { accountId } = useParams<{ accountId: string }>();
   const [member, setMember] = useState<Member>();
 
   useEffect(() => {
@@ -37,122 +37,86 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
   }, []);
 
   return (
-    <React.Fragment>
+    <PageSkeleton>
       <div className={className}>
-        <div className='bg-linear'></div>
-        <div className='content'>
-          <Breadcrumb>
-            <Breadcrumb.Item>
-              <a href='/member'>Members</a>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>Details</Breadcrumb.Item>
-          </Breadcrumb>
+        <Breadcrumb>
+          <Breadcrumb.Item>
+            <a href='/member'>Members</a>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>Details</Breadcrumb.Item>
+        </Breadcrumb>
 
-          <div className='info'>
-            <BorderedRow borderColor={Style.border.lighter} padding='16px'>
-              <div className='key member-icon'>{member && <img src={member?.icon} alt='' />}</div>
-              <div className='value member-role'>{member && <img src={badgeImgMap[member.role]} alt='' />}</div>
-            </BorderedRow>
-            <BorderedRow borderColor={Style.border.lighter} padding='16px'>
-              <div className='key'>AccountID</div>
-              <div className='value'>{member?.accountID}</div>
-            </BorderedRow>
-            <BorderedRow borderColor={Style.border.lighter} padding='16px'>
-              <div className='key'>Identity</div>
-              <div className='value'>{member?.identity}</div>
-            </BorderedRow>
-            <BorderedRow borderColor={Style.border.lighter} padding='16px'>
-              <div className='key'>Website</div>
-              <div className='value'>
-                <a href={member?.website}>{member?.website}</a>
-              </div>
-            </BorderedRow>
-            <BorderedRow borderColor={Style.border.lighter} padding='16px'>
-              <div className='key'>Locked</div>
-              <div className='value'>{member?.locked}</div>
-            </BorderedRow>
-            <BorderedRow borderColor={Style.border.lighter} padding='16px'>
-              <div className='key'>Initiated Date(Ordinary to Founder)</div>
-              <div className='value'>{member?.initiatedDate}</div>
-            </BorderedRow>
-            <BorderedRow borderColor={Style.border.lighter} padding='16px'>
-              <div className='key'>Applied Date(Ordinary to Candidate)</div>
-              <div className='value'>{member?.appliedDate}</div>
-            </BorderedRow>
-            <BorderedRow borderColor={Style.border.lighter} padding='16px'>
-              <div className='key'>Join Date(Candidate to Ally)</div>
-              <div className='value'>{member?.joinedDate}</div>
-            </BorderedRow>
-            <BorderedRow borderColor={Style.border.lighter} padding='16px'>
-              <div className='key'>Elevated Date(Ally to Fellow)</div>
-              <div className='value'>{member?.elevatedDate}</div>
-            </BorderedRow>
-            <BorderedRow borderColor={Style.border.lighter} padding='16px'>
-              <div className='key'>Status</div>
-              <div className='value'>{member?.stauts}</div>
-            </BorderedRow>
-          </div>
+        <div className='info'>
+          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+            <div className='key member-icon'>{member && <img src={member?.icon} alt='' />}</div>
+            <div className='value member-role'>{member && <img src={badgeImgMap[member.role]} alt='' />}</div>
+          </BorderedRow>
+          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+            <div className='key'>AccountID</div>
+            <div className='value'>{member?.accountID}</div>
+          </BorderedRow>
+          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+            <div className='key'>Identity</div>
+            <div className='value'>{member?.identity}</div>
+          </BorderedRow>
+          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+            <div className='key'>Website</div>
+            <div className='value'>
+              <a href={member?.website}>{member?.website}</a>
+            </div>
+          </BorderedRow>
+          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+            <div className='key'>Locked</div>
+            <div className='value'>{member?.locked}</div>
+          </BorderedRow>
+          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+            <div className='key'>Initiated Date(Ordinary to Founder)</div>
+            <div className='value'>{member?.initiatedDate}</div>
+          </BorderedRow>
+          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+            <div className='key'>Applied Date(Ordinary to Candidate)</div>
+            <div className='value'>{member?.appliedDate}</div>
+          </BorderedRow>
+          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+            <div className='key'>Join Date(Candidate to Ally)</div>
+            <div className='value'>{member?.joinedDate}</div>
+          </BorderedRow>
+          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+            <div className='key'>Elevated Date(Ally to Fellow)</div>
+            <div className='value'>{member?.elevatedDate}</div>
+          </BorderedRow>
+          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+            <div className='key'>Status</div>
+            <div className='value'>{member?.stauts}</div>
+          </BorderedRow>
         </div>
       </div>
-      <Footer type='default' />
-    </React.Fragment>
+    </PageSkeleton>
   );
 };
 
 export default styled(Detail)`
-  flex: 1;
-  padding: 0px 60px 30px 60px;
-
-  > .bg-linear {
-    z-index: 1;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    height: 315px;
-    background: linear-gradient(180deg, #f5f5f7, #ffffff);
-  }
-
-  > .content {
-    margin-top: 108px;
-    z-index: 10;
-    position: relative;
-
-    > .ant-breadcrumb {
-      font-size: 12px;
-      line-height: 14px;
-
-      a,
-      span {
-        color: ${Style.border.second};
+  > .info {
+    margin-top: 24px;
+    > div {
+      > .key {
+        width: 30%;
+        margin-right: 16px;
+        font-weight: 600;
+        color: ${Style.label.default};
+        line-height: 18px;
       }
-      a:hover {
-        color: ${Style.badge.primary};
+      > .value {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: ${Style.label.primary};
       }
-    }
-
-    > .info {
-      margin-top: 24px;
-      > div {
-        > .key {
-          width: 30%;
-          margin-right: 16px;
-          font-weight: 600;
-          color: ${Style.label.default};
-          line-height: 18px;
-        }
-        > .value {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          color: ${Style.label.primary};
-        }
-        > .member-icon > img {
-          height: 60px;
-          width: 60px;
-        }
-        > .member-role > img {
-          height: 60px;
-        }
+      > .member-icon > img {
+        height: 60px;
+        width: 60px;
+      }
+      > .member-role > img {
+        height: 60px;
       }
     }
   }

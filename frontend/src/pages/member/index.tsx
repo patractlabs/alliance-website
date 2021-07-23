@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import { BorderedRow, Filter, Footer, PageSkeleton, Search } from '../../components';
+import { BorderedRow, Filter, PageSkeleton, Search } from '../../components';
 import BorderedTitle from '../../components/BorderedTitle';
 import { Member as MemberType, MemberStatus } from '../home/CurrentMembers/MembersByRole';
 import PolkadotSvg from '../../assets/imgs/polkadot.svg';
@@ -10,7 +10,7 @@ import AllySvg from '../../assets/imgs/ally.svg';
 import FellowSvg from '../../assets/imgs/fellow.svg';
 import ApronSvg from '../../assets/imgs/apron.png';
 import { Style } from '../../shared/style/const';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { MemberRole } from '../home/CurrentMembers/Role';
 
 const badgeImgMap = {
@@ -106,6 +106,7 @@ const Member: FC<{ className?: string }> = ({ className }) => {
   ];
   const [type, setType] = useState(typesOptions[0].value);
   const [status, setStatus] = useState(statusOptions[0].value);
+  const history = useHistory();
 
   return (
     <PageSkeleton>
@@ -137,6 +138,7 @@ const Member: FC<{ className?: string }> = ({ className }) => {
                 borderColor={Style.border.negative}
                 padding='13px 12px 13px 21px'
                 key={index}
+                onClick={() => history.push(`/member/${member.accountID}`)}
               >
                 <div className='cell logo'>
                   <img src={member.icon} alt='' />
@@ -145,20 +147,20 @@ const Member: FC<{ className?: string }> = ({ className }) => {
                   <img src={badgeImgMap[member.role]} alt='' />
                 </div>
                 <div className='cell account-id'>
-                  <a href={`/member/${member.accountID}`}>{member.accountID}</a>
+                  <span className='alliance-span-link'>#{member.accountID}</span>
                 </div>
                 <div className='cell identity'>Identity</div>
                 <div className='cell website'>
-                  <a href={member.website}>{member.website}</a>
+                  <a target='_blank' rel='noreferrer' href={member.website} onClick={(e) => e.stopPropagation()}>
+                    {member.website}
+                  </a>
                 </div>
                 <div className='cell locked'>{member.locked}</div>
                 <div className='cell joined-date'>{member.joinedDate}</div>
                 <div className='cell elevated-date'>{member.elevatedDate}</div>
                 <div className='cell status'>{member.stauts}</div>
                 <div className='cell more'>
-                  <Link to={`/member/${member.accountID}`}>
-                    <img src={MorePrimarySvg} alt='' />
-                  </Link>
+                  <img src={MorePrimarySvg} alt='' />
                 </div>
               </BorderedRow>
             ))}
@@ -184,6 +186,7 @@ export default styled(Member)`
   }
   > .table {
     > .table-row > div {
+      cursor: pointer;
       font-size: 14px;
       font-weight: 400;
       color: #172026;

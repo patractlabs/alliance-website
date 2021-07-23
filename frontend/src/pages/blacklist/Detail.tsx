@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { KeyValuePage, PageSkeleton } from '../../components';
 import { Breadcrumb } from 'antd';
 import { MemberRole } from '../home/CurrentMembers/Role';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import FounderSvg from '../../assets/imgs/founder-big.svg';
 import AllySvg from '../../assets/imgs/ally-big.svg';
 import FellowSvg from '../../assets/imgs/fellow-big.svg';
@@ -24,7 +24,7 @@ export interface Blocked {
 }
 
 const Detail: FC<{ className?: string }> = ({ className }) => {
-  const { address } = useParams<{ address: string }>();
+  // const { address } = useParams<{ address: string }>();
   const [blocked, setCandidate] = useState<Blocked>();
 
   useEffect(() => {

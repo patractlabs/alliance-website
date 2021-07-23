@@ -9,7 +9,9 @@ const AllianceRule: FC<{ className?: string }> = ({ className }) => {
       <h2>Alliance Rule</h2>
       <div className='ipfs-hash'>
         <span>IPFS Hash</span>
-        <a>QmSsw6EcnwEiTT9c4rnAGeSENvsJMepNHmbrgi2S9bXNJr</a>
+        <a href='https://ipfs.io/ipfs/QmRZdc3mAMXpv6Akz9Ekp1y4vDSjazTx2dCQRkxVy1yUj6'>
+          QmRZdc3mAMXpv6Akz9Ekp1y4vDSjazTx2dCQRkxVy1yUj6
+        </a>
       </div>
       <div className='content'>
         <Content>

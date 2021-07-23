@@ -7,7 +7,9 @@ const PageSkeleton: FC<{ className?: string }> = ({ className, children }) => {
     <React.Fragment>
       <div className={className}>
         <div className='bg-linear'></div>
-        <div className='content'>{children}</div>
+        <div className='content'>
+          <div>{children}</div>
+        </div>
       </div>
       <Footer type='default' />
     </React.Fragment>
@@ -16,7 +18,7 @@ const PageSkeleton: FC<{ className?: string }> = ({ className, children }) => {
 
 export default styled(PageSkeleton)`
   flex: 1;
-  padding: 0px 60px 30px 60px;
+  padding-bottom: 30px;
 
   > .bg-linear {
     z-index: 1;
@@ -29,8 +31,15 @@ export default styled(PageSkeleton)`
   }
 
   > .content {
+    display: flex;
+    justify-content: center;
     margin-top: 108px;
     z-index: 10;
     position: relative;
+
+    > div {
+      max-width: 1170px;
+      flex: 1;
+    }
   }
 `;

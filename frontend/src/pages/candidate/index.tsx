@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { PageSkeleton, BorderedTitle, Search, BorderedRow } from '../../components';
 import { Style } from '../../shared/style/const';
@@ -73,6 +73,8 @@ const Candidate: FC<{ className?: string }> = ({ className }) => {
       appliedDate: 'Jun-10-2021'
     }
   ];
+  const history = useHistory();
+
   return (
     <PageSkeleton>
       <div className={className}>
@@ -91,9 +93,10 @@ const Candidate: FC<{ className?: string }> = ({ className }) => {
             borderColor={Style.border.negative}
             style={{ height: '60px', padding: '0px 11px 0px 21px' }}
             key={index}
+            onClick={() => history.push(`/candidate/${candidate.accountID}`)}
           >
             <div style={{ width: '14.7%' }} className='cell'>
-              <a href={`/candidate/${candidate.accountID}`}>{candidate.accountID}</a>
+              <span className='alliance-span-link'>{candidate.accountID}</span>
             </div>
             <div style={{ width: '18.3%' }} className='cell'>
               Identity
@@ -109,9 +112,7 @@ const Candidate: FC<{ className?: string }> = ({ className }) => {
             </div>
             <div className='cell'>{candidate.appliedDate}</div>
             <div className='cell' style={{ justifyContent: 'flex-end', flex: 1 }}>
-              <Link to={`/candidate/${candidate.accountID}`}>
-                <img src={MorePrimarySvg} alt='' />
-              </Link>
+              <img src={MorePrimarySvg} alt='' />
             </div>
           </BorderedRow>
         ))}
@@ -125,5 +126,9 @@ export default styled(Candidate)`
 
   > .table-title {
     margin-top: 60px;
+  }
+
+  > .table-row {
+    cursor: pointer;
   }
 `;

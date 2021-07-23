@@ -7,32 +7,31 @@ import { Style } from '../../shared/style/const';
 const Goals: FC<{ className?: string }> = ({ className }) => {
   return (
     <div className={className}>
-      <div className='title'>
-        <div>
+      <div>
+        <div className='title'>
           <h2>This is an industry group</h2>
           <h2>that focus on 2 main goals：</h2>
         </div>
-        <div className='holder'></div>
-      </div>
-      <div className='goals'>
-        <div className='goal'>
-          <div className='goal-icon'>
-            <img src={Goal1Svg} alt='' />
+        <div className='goals'>
+          <div className='goal'>
+            <div className='goal-icon'>
+              <img src={Goal1Svg} alt='' />
+            </div>
+            <p className='goal-content'>
+              Provide a set of ethics (against unattributed code re-use, launching rival relay-chains, shit-talking,
+              scammy raises on ETH, polka-branding despite having no credible plans to become a parachain, acting
+              against Web3 Foundation’s guidelines, adhering to requirements over trademark use…)
+            </p>
           </div>
-          <p className='goal-content'>
-            Provide a set of ethics (against unattributed code re-use, launching rival relay-chains, shit-talking,
-            scammy raises on ETH, polka-branding despite having no credible plans to become a parachain, acting against
-            Web3 Foundation’s guidelines, adhering to requirements over trademark use…)
-          </p>
-        </div>
-        <div className='goal'>
-          <div className='goal-icon'>
-            <img src={Goal2Svg} alt='' />
+          <div className='goal'>
+            <div className='goal-icon'>
+              <img src={Goal2Svg} alt='' />
+            </div>
+            <p className='goal-content'>
+              Provide recognition and influence for those teams that contribute something back to the Polkadot ecosystem
+              (code, funding, infra, education, …)
+            </p>
           </div>
-          <p className='goal-content'>
-            Provide recognition and influence for those teams that contribute something back to the Polkadot ecosystem
-            (code, funding, infra, education, …)
-          </p>
         </div>
       </div>
     </div>
@@ -42,13 +41,10 @@ const Goals: FC<{ className?: string }> = ({ className }) => {
 export default styled(Goals)`
   background-color: rgb(250, 250, 251);
   padding: 60px 0px 66px 0px;
-  > .title {
-    padding: 0px 11.7%;
-    justify-content: center;
-    display: flex;
-
-    > div:first-child {
-      width: 340px;
+  > div {
+    max-width: 980px;
+    margin: 0 auto;
+    > .title {
       h2 {
         margin-bottom: 0px;
         font-size: 24px;
@@ -57,36 +53,32 @@ export default styled(Goals)`
         line-height: 24px;
       }
     }
-    > .holder {
-      flex: 1;
-      max-width: 1000px;
-    }
-  }
 
-  > .goals {
-    margin-top: 58px;
+    > .goals {
+      margin-top: 58px;
 
-    > .goal {
-      padding: 20px 12%;
-      justify-content: center;
-      display: flex;
-
-      > .goal-icon {
+      > .goal {
+        padding: 20px 0px;
         display: flex;
-        align-items: center;
-        margin-right: 100px;
-      }
 
-      > .goal-content {
-        flex: 1;
-        max-width: 1000px;
-        opacity: 0.87;
-        font-size: 18px;
-        color: ${Style.label.primary};
-        line-height: 24px;
-        display: flex;
-        align-items: center;
-        margin-bottom: 0px;
+        > .goal-icon {
+          display: flex;
+          align-items: center;
+          margin-right: 100px;
+          margin-left: 20px;
+        }
+
+        > .goal-content {
+          flex: 1;
+          max-width: 1000px;
+          opacity: 0.87;
+          font-size: 18px;
+          color: ${Style.label.primary};
+          line-height: 24px;
+          display: flex;
+          align-items: center;
+          margin-bottom: 0px;
+        }
       }
     }
   }
