@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="212px" height="72px" viewBox="0 0 212 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Polkadot Alliance logo备份</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Polkadot-Alliance-Development-Plan-" transform="translate(-57.000000, -217.000000)">
+            <g id="Polkadot-Alliance-logo备份" transform="translate(57.000000, 217.000000)">
+                <g id="编组">
+                    <rect id="矩形" x="0" y="0" width="72" height="72"></rect>
+                    <path d="M33.4026149,12.9994903 C36.9891424,22.9517745 36.0408637,34.4065938 29.834879,43.9629722 C23.6288943,53.5193506 13.5500959,59.0447411 2.99945964,59.8162438 Z" id="形状结合" fill="#FF0087"></path>
+                    <path d="M75.710542,33.2494384 C69.3172171,41.677756 59.1939277,47.1212043 47.7992529,47.1212043 C36.404578,47.1212043 26.2812886,41.677756 19.8879637,33.2494384 Z" id="形状结合备份-7" fill="#D38A32" transform="translate(47.799253, 40.185537) scale(-1, 1) rotate(-57.000000) translate(-47.799253, -40.185537) "></path>
+                </g>
+                <text id="Polkadot-Alliance" font-family="WorkSans-Medium, Work Sans" font-size="15" font-weight="400" letter-spacing="-0.166666667" fill="#040404">
+                    <tspan x="87" y="34">Polkadot Alliance</tspan>
+                </text>
+                <text id="Member-Founder" font-family="WorkSans-Regular, Work Sans" font-size="15" font-weight="normal" letter-spacing="-0.166666667" fill="#A4B1B2">
+                    <tspan x="87" y="51">Member Founder</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

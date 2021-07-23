@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="215px" height="56px" viewBox="0 0 215 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>logo 2</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Members" transform="translate(-61.000000, -20.000000)">
+            <g id="编组" transform="translate(61.000000, 20.000000)">
+                <g>
+                    <rect id="矩形" x="0" y="0" width="56" height="56"></rect>
+                    <g id="PA_logo" transform="translate(3.000000, 9.000000)" fill="#E6007A">
+                        <path d="M50,37.762769 L28.1975051,0 C24.4327004,7.58374823 24.4147838,16.8498294 28.9655605,24.7319109 C33.516115,32.6138813 41.5497242,37.2313802 50,37.762769 Z" id="路径"></path>
+                        <path d="M0,37.762769 L21.8023677,5.08624881e-05 C25.5672279,7.58377601 25.5851446,16.8498294 21.0344234,24.7318831 C16.48373,32.6138813 8.45014859,37.2313802 0,37.762769 Z" id="路径"></path>
+                    </g>
+                </g>
+                <text id="Polkadot-Alliance" font-family="WorkSans-Medium, Work Sans" font-size="18" font-weight="400" letter-spacing="-0.2" fill="#040404">
+                    <tspan x="65" y="33">Polkadot Alliance</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>
