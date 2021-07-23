@@ -67,6 +67,11 @@ export default styled(MembersByRole)`
         height: 56px;
       }
       > div {
+        overflow: hidden;
+        height: 42px;
+        word-break: break-all;
+        overflow: hidden;
+        text-overflow: ellipsis;
         > h6 {
           text-align: left;
           margin-bottom: 0px;

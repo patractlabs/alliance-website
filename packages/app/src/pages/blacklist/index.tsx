@@ -42,22 +42,22 @@ const Blacklist: FC<{ className?: string }> = ({ className }) => {
       website: 'https://www.abddcd.com',
       addedDate: 'Jun-24-2021',
       removedDate: ''
+    },
+    {
+      website: 'https://www.abc4ccd.com',
+      addedDate: 'Jun-6-2021',
+      removedDate: ''
+    },
+    {
+      website: 'https://www.abacd.com',
+      addedDate: 'Jun-24-2021',
+      removedDate: ''
+    },
+    {
+      website: 'https://www.abch1d.com',
+      addedDate: 'Jun-6-2021',
+      removedDate: ''
     }
-    // {
-    //   website: 'https://www.abc4ccd.com',
-    //   addedDate: 'Jun-6-2021',
-    //   removedDate: ''
-    // },
-    // {
-    //   website: 'https://www.abacd.com',
-    //   addedDate: 'Jun-24-2021',
-    //   removedDate: ''
-    // },
-    // {
-    //   website: 'https://www.abch1d.com',
-    //   addedDate: 'Jun-6-2021',
-    //   removedDate: ''
-    // }
   ];
 
   const accounts: Blocked[] = [
@@ -68,31 +68,31 @@ const Blacklist: FC<{ className?: string }> = ({ className }) => {
       locked: '1000 DOT',
       addedDate: 'Jun-6-2021',
       removedDate: 'Jun-24-2021'
+    },
+    {
+      address: '1629Shw6w88GnyXyyUbsdfRtX7YFipQnjScGKcWr1BaRiMhvmAg',
+      identity: 'Davaid',
+      website: 'www.12345.com',
+      locked: '1000 DOT',
+      addedDate: 'Jun-24-2021',
+      removedDate: ''
+    },
+    {
+      address: '1629Shw6w88GnyXyyUbRtX7YzdFipQnjScGKcWr1BaRiMhvmAg',
+      identity: 'Davaid',
+      website: 'www.12345.com',
+      locked: '1000 DOT',
+      addedDate: 'Jun-2-2021',
+      removedDate: 'Jun-24-2021'
+    },
+    {
+      address: '1629Shw6w88GnyXyyUbRvtX7YFipQnjScGKcWr1BaRiMhvmAg',
+      identity: 'Davaid',
+      website: 'www.12345.com',
+      locked: '1000 DOT',
+      addedDate: 'Jun-24-2021',
+      removedDate: ''
     }
-    // {
-    //   address: '1629Shw6w88GnyXyyUbsdfRtX7YFipQnjScGKcWr1BaRiMhvmAg',
-    //   identity: 'Davaid',
-    //   website: 'www.12345.com',
-    //   locked: '1000 DOT',
-    //   addedDate: 'Jun-24-2021',
-    //   removedDate: ''
-    // },
-    // {
-    //   address: '1629Shw6w88GnyXyyUbRtX7YzdFipQnjScGKcWr1BaRiMhvmAg',
-    //   identity: 'Davaid',
-    //   website: 'www.12345.com',
-    //   locked: '1000 DOT',
-    //   addedDate: 'Jun-2-2021',
-    //   removedDate: 'Jun-24-2021'
-    // },
-    // {
-    //   address: '1629Shw6w88GnyXyyUbRvtX7YFipQnjScGKcWr1BaRiMhvmAg',
-    //   identity: 'Davaid',
-    //   website: 'www.12345.com',
-    //   locked: '1000 DOT',
-    //   addedDate: 'Jun-24-2021',
-    //   removedDate: ''
-    // }
   ];
 
   const [accountType, setAccountType] = useState('All');

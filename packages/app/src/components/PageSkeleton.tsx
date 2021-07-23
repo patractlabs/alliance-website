@@ -36,8 +36,10 @@ export default styled(PageSkeleton)`
     margin-top: 108px;
     z-index: 10;
     position: relative;
+    padding: 0px 55px;
 
     > div {
+      width: 0;
       max-width: 1170px;
       flex: 1;
     }

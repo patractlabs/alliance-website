@@ -217,7 +217,7 @@ export default styled(CurrentMembers)`
 
     > .role {
       flex: 1;
-      min-width: 280px;
+      min-width: 260px;
       max-width: 440px;
       margin-right: 20px;
 

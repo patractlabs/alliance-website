@@ -40,7 +40,7 @@ const Goals: FC<{ className?: string }> = ({ className }) => {
 
 export default styled(Goals)`
   background-color: rgb(250, 250, 251);
-  padding: 60px 0px 66px 0px;
+  padding: 60px 55px;
   > div {
     max-width: 980px;
     margin: 0 auto;

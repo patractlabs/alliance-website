@@ -5,12 +5,11 @@ import { Content, Spinner } from '../../../components';
 import { useContent } from '../../../hooks/useContent';
 import Markdown from 'react-markdown';
 
-const rule = 'QmYzwQ9nvyugGxmqmZbU1oND3AjreXpiMdwJhGisEYSGZr';
+const rule = 'QmU3NtgsSvekBwiZkryRx6pGbCwyGeHtn4Gm4v2qkkJWWh';
 
 const AllianceRule: FC<{ className?: string }> = ({ className }) => {
   const { content, fetching } = useContent(rule);
 
-  console.log('content', content);
   return (
     <div className={className}>
       <h2>Alliance Rule</h2>
@@ -20,9 +19,11 @@ const AllianceRule: FC<{ className?: string }> = ({ className }) => {
       </div>
       <div className='content'>
         {!fetching ? (
-          <Content className='announcement-content'>
-            <Markdown>{content || ''}</Markdown>
-          </Content>
+          content && (
+            <Content className='announcement-content'>
+              <Markdown>{content || ''}</Markdown>
+            </Content>
+          )
         ) : (
           <Spinner />
         )}
@@ -33,7 +34,7 @@ const AllianceRule: FC<{ className?: string }> = ({ className }) => {
 
 export default styled(AllianceRule)`
   background-color: white;
-  padding: 80px 0px;
+  padding: 80px 55px;
   > h2 {
     text-align: center;
   }
@@ -55,12 +56,13 @@ export default styled(AllianceRule)`
 
   > .content {
     margin: 0px auto;
-    max-width: 980px;
+    max-width: 1360px;
     height: 382px;
     display: flex;
     justify-content: center;
     align-items: center;
     > .announcement-content {
+      width: 100%;
       height: 100%;
       overflow-y: auto;
     }

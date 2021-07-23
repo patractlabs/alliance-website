@@ -21,6 +21,7 @@ const BorderTypeMap = {
   none: ''
 };
 const DetailWrapper = styled.div<{ top: BorderType; bottom: BorderType }>`
+  cursor: pointer;
   padding: 21px 0px;
   border-top: ${(props) => BorderTypeMap[props.top]};
   border-bottom: ${(props) => BorderTypeMap[props.bottom]};
@@ -58,16 +59,21 @@ const AnnouncementDetail: FC<{
   const [expanded, setExpanded] = useState(defaultExpanded);
 
   return (
-    <DetailWrapper className={className} style={style} top={top} bottom={bottom}>
+    <DetailWrapper
+      className={className}
+      style={style}
+      top={top}
+      bottom={bottom}
+      onClick={() => setExpanded((old) => !old)}
+    >
       <Row className='info'>
         <Col span={6} style={{ paddingLeft: '16px' }}>
           <Status expanded={expanded} />
-          <span className='status'></span>
           {annoncement.date}
         </Col>
         <Col span={17}>{annoncement.content.split('\n')[0].slice(0, 40)}</Col>
         <Col span={1} style={{ textAlign: 'right', paddingRight: '11px' }}>
-          <img onClick={() => setExpanded((old) => !old)} src={expanded ? DeexpandSvg : ExpandSvg} alt='' />
+          <img src={expanded ? DeexpandSvg : ExpandSvg} alt='' />
         </Col>
       </Row>
       {expanded && <div className='content'>{annoncement.content}</div>}
