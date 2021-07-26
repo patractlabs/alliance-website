@@ -14,9 +14,9 @@ export class MotionAction implements Entity {
 
     public motionHash?: string;
 
-    public accountId?: string;
+    public account?: string;
 
-    public action?: string;
+    public approve?: boolean;
 
 
     async save(): Promise<void>{

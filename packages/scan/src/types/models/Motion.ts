@@ -12,13 +12,9 @@ export class Motion implements Entity {
 
     public id: string;
 
-    public hash?: string;
+    public hash: string;
 
-    public type?: string;
-
-    public extrinisc?: string;
-
-    public proposerId?: string;
+    public proposer?: string;
 
     public index?: bigint;
 
