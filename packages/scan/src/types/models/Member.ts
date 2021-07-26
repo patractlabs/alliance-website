@@ -12,11 +12,13 @@ export class Member implements Entity {
 
     public id: string;
 
-    public accountId: string;
+    public account: string;
 
-    public locked: bigint;
+    public locked?: bigint;
 
-    public status?: string;
+    public type: string;
+
+    public status: string;
 
     public joinTime?: Date;
 

@@ -12,7 +12,9 @@ export class Blacklist implements Entity {
 
     public id: string;
 
-    public accountId?: string;
+    public value: string;
+
+    public isAccount?: boolean;
 
     public addTime?: Date;
 
@@ -43,6 +45,17 @@ export class Blacklist implements Entity {
         }
     }
 
+
+    static async getByValue(value: string): Promise<Blacklist | undefined>{
+      
+      const record = await store.getOneByField('Blacklist', 'value', value);
+      if (record){
+          return Blacklist.create(record);
+      }else{
+          return;
+      }
+      
+    }
 
 
     static create(record){

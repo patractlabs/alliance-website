@@ -15,9 +15,10 @@ type Account @entity {
 type Member @entity {
   id: ID!
 
-  account: Account!
-  locked: BigInt!
-  status: String # EXIST | RETIRED | KICKED
+  account: String!
+  locked: BigInt
+  type: String! # FOUNDER | FELLOW | ALLY
+  status: String! # EXIST | RETIRED | KICKED
   joinTime: Date
   elevatedTime: Date
   joinMotionHash: String
@@ -43,16 +44,17 @@ type Announcement @entity {
 type Candidate @entity {
   id: ID!
 
-  account: Account
+  account: String
   locked: BigInt
-  nominator: Account
+  nominator: String
   applyTime: Date
 }
 
 type Blacklist @entity {
   id: ID!
 
-  account: Account
+  value: String! @index(unique: true)
+  isAccount: Boolean
   addTime: Date
   removeTime: Date
   addMotionHash: String
@@ -62,10 +64,8 @@ type Blacklist @entity {
 type Motion @entity {
   id: ID!
 
-  hash: String
-  type: String
-  extrinisc: String
-  proposer: Account
+  hash: String!
+  proposer: String
   index: BigInt
   createTime: Date
   closeTime: Date
@@ -74,9 +74,9 @@ type Motion @entity {
 type MotionAction @entity {
   id: ID!
 
-  motionHash: String
-  account: Account
-  action: String # APPROVE | DISAPPROVE
+  motionHash: String!
+  account: String!
+  approve: Boolean
 }
 
 
