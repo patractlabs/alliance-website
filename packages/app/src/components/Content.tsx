@@ -18,8 +18,7 @@ const Wrapper = styled.div`
     height: 100%;
     > .content-main {
       flex: 1;
-      border: 2px solid black;
-      padding: 40px 40px;
+      padding: 0px 40px;
     }
     > .scrollbar {
       height: 100%;
