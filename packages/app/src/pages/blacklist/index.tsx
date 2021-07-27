@@ -4,96 +4,98 @@ import styled from 'styled-components';
 import { BorderedRow, BorderedTitle, Filter, PageSkeleton, Search } from '../../components';
 import MorePrimarySvg from '../../assets/imgs/more-primary.svg';
 import { Col, Row } from 'antd';
-import { Blocked } from './Detail';
 import { Style } from '../../shared/style/const';
+import { useBlacklists } from '../../hooks';
 
 const Blacklist: FC<{ className?: string }> = ({ className }) => {
-  const websites: {
-    website: string;
-    addedDate: string;
-    removedDate: string;
-  }[] = [
-    {
-      website: 'https://www.abcd1.com',
-      addedDate: 'Jun-6-2021',
-      removedDate: 'Jun-24-2021'
-    },
-    {
-      website: 'https://www.abcasd2.com',
-      addedDate: 'Jun-24-2021',
-      removedDate: ''
-    },
-    {
-      website: 'https://www.abcad.com',
-      addedDate: 'Jun-24-2021',
-      removedDate: 'Jun-2-2021'
-    },
-    {
-      website: 'https://www.abcdss.com',
-      addedDate: 'Jun-24-2021',
-      removedDate: ''
-    },
-    {
-      website: 'https://www.affbc3d.com',
-      addedDate: 'Jun-6-2021',
-      removedDate: 'Jun-2-2021'
-    },
-    {
-      website: 'https://www.abddcd.com',
-      addedDate: 'Jun-24-2021',
-      removedDate: ''
-    },
-    {
-      website: 'https://www.abc4ccd.com',
-      addedDate: 'Jun-6-2021',
-      removedDate: ''
-    },
-    {
-      website: 'https://www.abacd.com',
-      addedDate: 'Jun-24-2021',
-      removedDate: ''
-    },
-    {
-      website: 'https://www.abch1d.com',
-      addedDate: 'Jun-6-2021',
-      removedDate: ''
-    }
-  ];
+  const { data } = useBlacklists();
 
-  const accounts: Blocked[] = [
-    {
-      address: '1629Shw6asw88GnyXyyUbRtX7YFipQnjScGKcWr1BaRiMhvmAg',
-      identity: 'Davaid',
-      website: 'www.12345.com',
-      locked: '1000 DOT',
-      addedDate: 'Jun-6-2021',
-      removedDate: 'Jun-24-2021'
-    },
-    {
-      address: '1629Shw6w88GnyXyyUbsdfRtX7YFipQnjScGKcWr1BaRiMhvmAg',
-      identity: 'Davaid',
-      website: 'www.12345.com',
-      locked: '1000 DOT',
-      addedDate: 'Jun-24-2021',
-      removedDate: ''
-    },
-    {
-      address: '1629Shw6w88GnyXyyUbRtX7YzdFipQnjScGKcWr1BaRiMhvmAg',
-      identity: 'Davaid',
-      website: 'www.12345.com',
-      locked: '1000 DOT',
-      addedDate: 'Jun-2-2021',
-      removedDate: 'Jun-24-2021'
-    },
-    {
-      address: '1629Shw6w88GnyXyyUbRvtX7YFipQnjScGKcWr1BaRiMhvmAg',
-      identity: 'Davaid',
-      website: 'www.12345.com',
-      locked: '1000 DOT',
-      addedDate: 'Jun-24-2021',
-      removedDate: ''
-    }
-  ];
+  // const websites: {
+  //   website: string;
+  //   addedDate: string;
+  //   removedDate: string;
+  // }[] = [
+  //   {
+  //     website: 'https://www.abcd1.com',
+  //     addedDate: 'Jun-6-2021',
+  //     removedDate: 'Jun-24-2021'
+  //   },
+  //   {
+  //     website: 'https://www.abcasd2.com',
+  //     addedDate: 'Jun-24-2021',
+  //     removedDate: ''
+  //   },
+  //   {
+  //     website: 'https://www.abcad.com',
+  //     addedDate: 'Jun-24-2021',
+  //     removedDate: 'Jun-2-2021'
+  //   },
+  //   {
+  //     website: 'https://www.abcdss.com',
+  //     addedDate: 'Jun-24-2021',
+  //     removedDate: ''
+  //   },
+  //   {
+  //     website: 'https://www.affbc3d.com',
+  //     addedDate: 'Jun-6-2021',
+  //     removedDate: 'Jun-2-2021'
+  //   },
+  //   {
+  //     website: 'https://www.abddcd.com',
+  //     addedDate: 'Jun-24-2021',
+  //     removedDate: ''
+  //   },
+  //   {
+  //     website: 'https://www.abc4ccd.com',
+  //     addedDate: 'Jun-6-2021',
+  //     removedDate: ''
+  //   },
+  //   {
+  //     website: 'https://www.abacd.com',
+  //     addedDate: 'Jun-24-2021',
+  //     removedDate: ''
+  //   },
+  //   {
+  //     website: 'https://www.abch1d.com',
+  //     addedDate: 'Jun-6-2021',
+  //     removedDate: ''
+  //   }
+  // ];
+
+  // const accounts: Blocked[] = [
+  //   {
+  //     address: '1629Shw6asw88GnyXyyUbRtX7YFipQnjScGKcWr1BaRiMhvmAg',
+  //     identity: 'Davaid',
+  //     website: 'www.12345.com',
+  //     locked: '1000 DOT',
+  //     addedDate: 'Jun-6-2021',
+  //     removedDate: 'Jun-24-2021'
+  //   },
+  //   {
+  //     address: '1629Shw6w88GnyXyyUbsdfRtX7YFipQnjScGKcWr1BaRiMhvmAg',
+  //     identity: 'Davaid',
+  //     website: 'www.12345.com',
+  //     locked: '1000 DOT',
+  //     addedDate: 'Jun-24-2021',
+  //     removedDate: ''
+  //   },
+  //   {
+  //     address: '1629Shw6w88GnyXyyUbRtX7YzdFipQnjScGKcWr1BaRiMhvmAg',
+  //     identity: 'Davaid',
+  //     website: 'www.12345.com',
+  //     locked: '1000 DOT',
+  //     addedDate: 'Jun-2-2021',
+  //     removedDate: 'Jun-24-2021'
+  //   },
+  //   {
+  //     address: '1629Shw6w88GnyXyyUbRvtX7YFipQnjScGKcWr1BaRiMhvmAg',
+  //     identity: 'Davaid',
+  //     website: 'www.12345.com',
+  //     locked: '1000 DOT',
+  //     addedDate: 'Jun-24-2021',
+  //     removedDate: ''
+  //   }
+  // ];
 
   const [accountType, setAccountType] = useState('All');
   const [websiteType, setWebsiteType] = useState('All');
@@ -125,15 +127,17 @@ const Blacklist: FC<{ className?: string }> = ({ className }) => {
               <div style={{ width: '18%' }}>Added Date</div>
               <div>Removed Date</div>
             </BorderedTitle>
-            {accounts
+            {data
+              .filter((website) => website.isAccount)
               .filter((account) => {
                 if (accountType === 'Added') {
-                  return !account.removedDate;
+                  return !account.removeTime;
                 }
 
                 if (accountType === 'Removed') {
-                  return !!account.removedDate;
+                  return !!account.removeTime;
                 }
+
                 return true;
               })
               .map((account, index) => (
@@ -142,18 +146,18 @@ const Blacklist: FC<{ className?: string }> = ({ className }) => {
                   borderColor={Style.border.negative}
                   style={{ height: '60px', padding: '0px 11px 0px 21px' }}
                   key={index}
-                  onClick={() => history.push(`/blacklist/${account.address}`)}
+                  onClick={() => history.push(`/blacklist/${account.account?.id}`)}
                 >
                   <div style={{ width: '20%' }} className='cell'>
-                    <span className='alliance-span-link'>{account.address}</span>
+                    <span className='alliance-span-link'>{account.account?.display}</span>
                   </div>
                   <div style={{ width: '30%' }} className='cell'>
-                    {account.identity}
+                    {/* {account} */}
                   </div>
                   <div style={{ width: '18%' }} className='cell'>
-                    {account.addedDate}
+                    {account.addTime}
                   </div>
-                  <div className='cell'>{account.removedDate || '-'}</div>
+                  <div className='cell'>{account.removeTime || '-'}</div>
                   <div className='cell' style={{ justifyContent: 'flex-end', flex: 1 }}>
                     <img src={MorePrimarySvg} alt='' />
                   </div>
@@ -179,14 +183,15 @@ const Blacklist: FC<{ className?: string }> = ({ className }) => {
               <div style={{ width: '30%' }}>Added Date</div>
               <div>Removed Date</div>
             </BorderedTitle>
-            {websites
+            {data
+              .filter((website) => !website.isAccount)
               .filter((website) => {
                 if (websiteType === 'Added') {
-                  return !website.removedDate;
+                  return !website.removeTime;
                 }
 
                 if (websiteType === 'Removed') {
-                  return !!website.removedDate;
+                  return !!website.removeTime;
                 }
                 return true;
               })
@@ -202,9 +207,9 @@ const Blacklist: FC<{ className?: string }> = ({ className }) => {
                     <span className='alliance-span-link'>{website.website}</span>
                   </div>
                   <div style={{ width: '30%' }} className='cell'>
-                    {website.addedDate}
+                    {website.addTime}
                   </div>
-                  <div className='cell'>{website.removedDate || '-'}</div>
+                  <div className='cell'>{website.removeTime || '-'}</div>
                   <div className='cell' style={{ justifyContent: 'flex-end', flex: 1 }}>
                     <img src={MorePrimarySvg} alt='' />
                   </div>

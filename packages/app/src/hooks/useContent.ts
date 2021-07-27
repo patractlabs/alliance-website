@@ -1,6 +1,3 @@
-// Copyright 2017-2021 @polkadot/app-alliance authors & contributors
-// SPDX-License-Identifier: Apache-2.0
-
 import { useEffect, useState } from 'react';
 
 export const IPFS_GATEWAY = 'https://ipfs.io';

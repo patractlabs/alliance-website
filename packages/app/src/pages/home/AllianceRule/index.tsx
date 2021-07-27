@@ -4,18 +4,18 @@ import { Style } from '../../../shared/style/const';
 import { Content, Spinner } from '../../../components';
 import { useContent } from '../../../hooks/useContent';
 import Markdown from 'react-markdown';
-
-const rule = 'QmU3NtgsSvekBwiZkryRx6pGbCwyGeHtn4Gm4v2qkkJWWh';
+import { useRule } from '../../../hooks';
 
 const AllianceRule: FC<{ className?: string }> = ({ className }) => {
-  const { content, fetching } = useContent(rule);
+  const { data } = useRule();
+  const { content, fetching } = useContent(data?.cid || '');
 
   return (
     <div className={className}>
       <h2>Alliance Rule</h2>
       <div className='ipfs-hash'>
         <span>IPFS Hash</span>
-        <a href={`https://ipfs.io/ipfs/${rule}`}>{rule}</a>
+        <a href={`https://ipfs.io/ipfs/${data?.cid}`}>{data?.cid}</a>
       </div>
       <div className='content'>
         {!fetching ? (

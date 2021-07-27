@@ -1,21 +1,16 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import MembersByRole, { Member } from './MembersByRole';
+import MembersByRole from './MembersByRole';
 import FounderSvg from '../../../assets/imgs/founder.svg';
 import FellowSvg from '../../../assets/imgs/fellow.svg';
 import AllySvg from '../../../assets/imgs/ally.svg';
 import { Style } from '../../../shared/style/const';
-
-export enum MemberRole {
-  Founder = 'Founder',
-  Fellow = 'Fellow',
-  Ally = 'Ally'
-}
+import { Member, MemberRole } from '../../../hooks';
 
 const RoleMap = {
-  [MemberRole.Founder]: FounderSvg,
-  [MemberRole.Fellow]: FellowSvg,
-  [MemberRole.Ally]: AllySvg
+  [MemberRole.FOUNDER]: FounderSvg,
+  [MemberRole.FELLOW]: FellowSvg,
+  [MemberRole.ALLY]: AllySvg
 };
 
 const Role: FC<{ className?: string; type: MemberRole; desc: string; members: Member[] }> = ({

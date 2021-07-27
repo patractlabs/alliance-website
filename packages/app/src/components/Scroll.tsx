@@ -1,8 +1,13 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { CSSProperties, FC, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-const Scroll: FC<{ className?: string; target: React.RefObject<HTMLElement> }> = ({ className, target }) => {
-  const [thumb, setThumb] = useState<{ height: number; top: number }>({ height: 50, top: 0 });
+const Scroll: FC<{
+  className?: string;
+  target: React.RefObject<HTMLElement>;
+  thumbStyle?: CSSProperties;
+  trackStyle?: CSSProperties;
+}> = ({ className, target, thumbStyle, trackStyle }) => {
+  const [thumb, setThumb] = useState<{ height: number; top: number }>({ height: 0, top: 0 });
   const track = useRef<HTMLElement>(null);
   const thumbTop = useRef(0);
   const mousedown = useRef(false);
@@ -16,11 +21,11 @@ const Scroll: FC<{ className?: string; target: React.RefObject<HTMLElement> }> =
       return;
     }
 
-    const content = container.children[0] as HTMLElement;
     const containerPaddingTop = parseInt(getComputedStyle(container, null).getPropertyValue('padding-top'));
     const containerBorderTop = parseInt(getComputedStyle(container, null).getPropertyValue('border-top'));
     const containerPaddingBottom = parseInt(getComputedStyle(container, null).getPropertyValue('padding-bottom'));
     const containerHeight = container.getBoundingClientRect().height - containerPaddingTop - containerPaddingBottom;
+    const content = container.children[0] as HTMLElement;
     const contentHeight = content.scrollHeight;
     const trackHeight = trackDom.getBoundingClientRect().height;
     const thumbHeight = (containerHeight / contentHeight) * trackHeight;
@@ -28,6 +33,9 @@ const Scroll: FC<{ className?: string; target: React.RefObject<HTMLElement> }> =
     const thumbMaxMovable = trackHeight - thumbHeight;
     console.log('content height', contentHeight, containerHeight);
 
+    if (containerHeight >= contentHeight) {
+      return;
+    }
     const wheelCb = (event: WheelEvent) => {
       const topStart = container.getBoundingClientRect().top + containerBorderTop + containerPaddingTop;
       const moved = topStart - content.getBoundingClientRect().top;
@@ -43,7 +51,6 @@ const Scroll: FC<{ className?: string; target: React.RefObject<HTMLElement> }> =
       thumbTop.current = top;
     };
     const mousedownCb = (e: MouseEvent) => {
-      console.log('mousedonw');
       mousedown.current = true;
       mousedownOffsetTop.current = e.clientY - trackDom.getBoundingClientRect().top - thumbTop.current;
     };
@@ -69,7 +76,7 @@ const Scroll: FC<{ className?: string; target: React.RefObject<HTMLElement> }> =
       thumbTop.current = _thumbTop;
       container.scrollTop = contentTop;
     };
-    const resize = (e: Event) => console.log('resize', e);
+    // const resize = (e: Event) => console.log('resize', e);
     console.log(
       'container hegiht',
       containerHeight,
@@ -91,11 +98,11 @@ const Scroll: FC<{ className?: string; target: React.RefObject<HTMLElement> }> =
     document.addEventListener('mouseup', mouseupCb, false);
     document.addEventListener('mousemove', mousemoveCb, false);
     content.addEventListener('wheel', wheelCb, false);
-    window.addEventListener('resize', resize, false);
+    // window.addEventListener('resize', resize, false);
 
     return () => {
       content.removeEventListener('wheel', wheelCb);
-      window.removeEventListener('resize', resize, false);
+      // window.removeEventListener('resize', resize, false);
       document.removeEventListener('mouseup', mouseupCb, false);
       document.removeEventListener('mousemove', mousemoveCb, false);
       (trackDom.children[0] as HTMLDivElement).removeEventListener('mousedown', mousedownCb, false);
@@ -103,14 +110,13 @@ const Scroll: FC<{ className?: string; target: React.RefObject<HTMLElement> }> =
   }, [target, track]);
 
   return (
-    <div ref={track as any} className={className}>
-      <div style={{ height: thumb?.height, transform: `translateY(${thumb?.top}px)` }}></div>
+    <div style={{ ...thumbStyle, width: thumb.height <= 0 ? '0px' : '12px' }} ref={track as any} className={className}>
+      <div style={{ ...trackStyle, height: thumb?.height, transform: `translateY(${thumb?.top}px)` }}></div>
     </div>
   );
 };
 
 export default styled(Scroll)`
-  width: 12px;
   background: #fbf4f7;
   border-radius: 7px;
   > div {

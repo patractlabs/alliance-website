@@ -1,17 +1,17 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { KeyValuePage, PageSkeleton } from '../../components';
 import { Breadcrumb } from 'antd';
-import { MemberRole } from '../home/CurrentMembers/Role';
-// import { useParams } from 'react-router-dom';
 import FounderSvg from '../../assets/imgs/founder-big.svg';
 import AllySvg from '../../assets/imgs/ally-big.svg';
 import FellowSvg from '../../assets/imgs/fellow-big.svg';
+import { MemberRole, useBlacklist } from '../../hooks';
+import { useParams } from 'react-router-dom';
 
 export const badgeImgMap = {
-  [MemberRole.Founder]: FounderSvg,
-  [MemberRole.Fellow]: FellowSvg,
-  [MemberRole.Ally]: AllySvg
+  [MemberRole.FOUNDER]: FounderSvg,
+  [MemberRole.FELLOW]: FellowSvg,
+  [MemberRole.ALLY]: AllySvg
 };
 
 export interface Blocked {
@@ -24,19 +24,8 @@ export interface Blocked {
 }
 
 const Detail: FC<{ className?: string }> = ({ className }) => {
-  // const { address } = useParams<{ address: string }>();
-  const [blocked, setCandidate] = useState<Blocked>();
-
-  useEffect(() => {
-    setCandidate({
-      address: '1629Shw6w88GnyXyyUbRtX7YFipQnjScGKcWr1BaRiMhvmAg',
-      identity: 'Davaid',
-      website: 'www.12345.com',
-      locked: '1000 DOT',
-      addedDate: 'Jun-24-2021',
-      removedDate: 'Jun-24-2021'
-    });
-  }, []);
+  const { address } = useParams<{ address: string }>();
+  const { data: blocked } = useBlacklist(address);
 
   return (
     <PageSkeleton>
@@ -51,15 +40,15 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
         <KeyValuePage
           className='key-values'
           pairs={[
-            { name: 'Address', render: <>{blocked?.address}</> },
-            { name: 'Identity', render: <>{blocked?.identity}</> },
+            { name: 'Address', render: <>{blocked?.account?.id}</> },
+            { name: 'Identity', render: <>{blocked?.account?.display}</> },
             {
               name: 'Website',
-              render: <a href={blocked?.website}>{blocked?.website}</a>
+              render: <a href={blocked?.website || ''}>{blocked?.website}</a>
             },
-            { name: 'Locked', render: <>{blocked?.locked}</> },
-            { name: 'Added Date', render: <>{blocked?.addedDate}</> },
-            { name: 'Removed Date', render: <>{blocked?.removedDate}</> }
+            { name: 'Locked', render: <>{}</> },
+            { name: 'Added Date', render: <>{blocked?.addTime}</> },
+            { name: 'Removed Date', render: <>{blocked?.removeTime}</> }
           ]}
         ></KeyValuePage>
       </div>

@@ -1,24 +1,23 @@
 import { CSSProperties, FC, useRef } from 'react';
 import styled from 'styled-components';
-import { Style } from '../shared/style/const';
-import Scroll from './Scroll';
+import { Style } from '../../../shared/style/const';
+import Scroll from '../../../components/Scroll';
 
 const Wrapper = styled.div`
   height: 382px;
   border: 1px solid ${Style.border.primary};
-  background: #fffbfd;
-  border-radius: 16px;
-  font-size: 16px;
-  line-height: 24px;
-  color: ${Style.label.primary};
-  padding: 30px 0px;
+  background: ${Style.bg.primary};
+  font-size: 14px;
+  opacity: 0.87;
+  line-height: 18px;
+  color: #ffffff;
 
   > div {
     display: flex;
     height: 100%;
     > .content-main {
+      padding: 16px;
       flex: 1;
-      padding: 0px 40px;
     }
     > .scrollbar {
       height: 100%;
@@ -36,7 +35,12 @@ const Content: FC<{ className?: string; style?: CSSProperties }> = ({ className,
         <div ref={target as any} className='content-main allicance-cutsom-scroll'>
           <div>{children}</div>
         </div>
-        <Scroll className='scrollbar' target={target} />
+        <Scroll
+          thumbStyle={{ background: 'rgba(41, 49, 55)' }}
+          trackStyle={{ background: 'rgb(82, 89, 94)' }}
+          className='scrollbar'
+          target={target}
+        />
       </div>
     </Wrapper>
   );

@@ -5,6 +5,7 @@ import { Announcement } from './index';
 import ExpandSvg from '../../../assets/imgs/expand.svg';
 import DeexpandSvg from '../../../assets/imgs/fold.svg';
 import { Style } from '../../../shared/style/const';
+import Content from './Content';
 
 const Status = styled.span<{ expanded: boolean }>`
   display: inline-block;
@@ -34,14 +35,12 @@ const DetailWrapper = styled.div<{ top: BorderType; bottom: BorderType }>`
     }
   }
   > .content {
-    overflow-y: scroll;
     margin-top: 20px;
     max-height: 256px;
-    background: ${Style.bg.primary};
-    font-size: 14px;
     border: 1px solid #6b7076;
     border-radius: 8px;
-    padding: 17px 16px;
+    background: ${Style.bg.primary};
+    font-size: 14px;
     opacity: 0.87;
     line-height: 18px;
   }
@@ -59,14 +58,8 @@ const AnnouncementDetail: FC<{
   const [expanded, setExpanded] = useState(defaultExpanded);
 
   return (
-    <DetailWrapper
-      className={className}
-      style={style}
-      top={top}
-      bottom={bottom}
-      onClick={() => setExpanded((old) => !old)}
-    >
-      <Row className='info'>
+    <DetailWrapper className={className} style={style} top={top} bottom={bottom}>
+      <Row className='info' onClick={() => setExpanded((old) => !old)}>
         <Col span={6} style={{ paddingLeft: '16px' }}>
           <Status expanded={expanded} />
           {annoncement.date}
@@ -76,7 +69,7 @@ const AnnouncementDetail: FC<{
           <img src={expanded ? DeexpandSvg : ExpandSvg} alt='' />
         </Col>
       </Row>
-      {expanded && <div className='content'>{annoncement.content}</div>}
+      {expanded && <Content className='content'>{annoncement.content}</Content>}
     </DetailWrapper>
   );
 };

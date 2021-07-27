@@ -1,46 +1,27 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import JumpSvg from '../../../assets/imgs/jump.svg';
+import { Member } from '../../../hooks';
 import { Style } from '../../../shared/style/const';
-import { MemberRole } from './Role';
 
-export interface Member {
-  icon: string;
-  accountID: string;
-  name: string;
-  website: string;
-  role: MemberRole;
-  locked: string;
-  identity: string;
-  initiatedDate: string;
-  appliedDate: string;
-  joinedDate: string;
-  elevatedDate: string;
-  stauts: MemberStatus;
-}
-
-export enum MemberStatus {
-  Existing = 'Existing',
-  Kicked = 'Kicked',
-  Applied = 'Applied'
-}
+export const DEFAULT_ICON = '';
 
 const MembersByRole: FC<{ className?: string; members: Member[] }> = ({ className, members }) => {
+  const history = useHistory();
+
   return (
     <div className={className}>
       {members.map((member, index) => (
-        <div className='role' key={index}>
+        <div className='role' key={index} onClick={() => history.push(`/member/${member.id}`)}>
           <div>
-            <img src={member.icon} alt='' />
+            <img src={member.account.image || DEFAULT_ICON} alt='' />
             <div>
-              <h6>{member.name}</h6>
-              <span>{member.website}</span>
+              <h6>{member.account.display}</h6>
+              <span>{member.account.web}</span>
             </div>
           </div>
-          <Link to={`/member/${member.accountID}`}>
-            <img src={JumpSvg} alt='' />
-          </Link>
+          <img src={JumpSvg} alt='' />
         </div>
       ))}
     </div>
@@ -48,6 +29,7 @@ const MembersByRole: FC<{ className?: string; members: Member[] }> = ({ classNam
 };
 
 export default styled(MembersByRole)`
+  cursor: pointer;
   border-radius: 8px;
   box-shadow: 0px 4px 48px 0px rgba(23, 32, 38, 0.08);
   > .role {
