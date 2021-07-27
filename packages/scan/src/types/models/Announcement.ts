@@ -12,7 +12,7 @@ export class Announcement implements Entity {
 
     public id: string;
 
-    public cid: number;
+    public cid: string;
 
     public createTime: Date;
 

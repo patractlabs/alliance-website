@@ -7,11 +7,10 @@ import type {
 } from '@polkadot/types/interfaces';
 
 import { SubstrateEvent } from '@subql/types';
-import { Blacklist, Candidate } from '../types';
+import { Announcement, Blacklist, Candidate, Rule } from '../types';
 import { Member } from '../types';
 import { createAccounts } from './createAccounts';
 
-/** @name BlacklistItem */
 export interface BlacklistItem extends Enum {
   readonly isAccountId: boolean;
   readonly asAccountId: AccountId;
@@ -193,6 +192,42 @@ export async function handleAlliance(
     member.status = 'RETIRED';
     await member.save();
   } else if (method === 'NewAnnouncement') {
+    const motionIndex =
+      extrinsic.events.findIndex((event) => event.event.index.eq(index)) + 1;
+    const motionHash = extrinsic.events[motionIndex].event.data[0] as Hash;
+    const motionResult = extrinsic.events[motionIndex].event
+      .data[1] as DispatchResult;
+    if (!motionResult.isOk) {
+      return;
+    }
+
+    const cid = data[0].toHex();
+
+    const announcement = Announcement.create({
+      id: cid,
+      cid,
+      createTime: block.timestamp,
+      motionHash: motionHash.toHex()
+    });
+    await announcement.save();
   } else if (method === 'NewRule') {
+    const motionIndex =
+      extrinsic.events.findIndex((event) => event.event.index.eq(index)) + 1;
+    const motionHash = extrinsic.events[motionIndex].event.data[0] as Hash;
+    const motionResult = extrinsic.events[motionIndex].event
+      .data[1] as DispatchResult;
+    if (!motionResult.isOk) {
+      return;
+    }
+
+    const cid = data[0].toHex();
+
+    const rule = Rule.create({
+      id: cid,
+      cid,
+      createTime: block.timestamp,
+      motionHash: motionHash.toHex()
+    });
+    await rule.save();
   }
 }

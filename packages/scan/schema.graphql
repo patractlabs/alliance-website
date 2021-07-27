@@ -27,8 +27,8 @@ type Member @entity {
 
 type Rule @entity {
   id: ID!
-  cid: Int!
-  content: String
+
+  cid: String!
   createTime: Date!
   montionHash: String!
 }
@@ -36,7 +36,7 @@ type Rule @entity {
 type Announcement @entity {
   id: ID!
 
-  cid: Int!
+  cid: String!
   createTime: Date!
   montionHash: String!
 }

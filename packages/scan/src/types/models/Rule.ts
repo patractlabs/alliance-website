@@ -12,9 +12,7 @@ export class Rule implements Entity {
 
     public id: string;
 
-    public cid: number;
-
-    public content?: string;
+    public cid: string;
 
     public createTime: Date;
 

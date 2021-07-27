@@ -12,9 +12,9 @@ export class MotionAction implements Entity {
 
     public id: string;
 
-    public motionHash?: string;
+    public motionHash: string;
 
-    public account?: string;
+    public account: string;
 
     public approve?: boolean;
 
