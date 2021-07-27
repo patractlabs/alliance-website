@@ -4,7 +4,6 @@
 import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import {
-  BestBlockPayload,
   EventPayload,
   IndexerEvent,
   NetworkMetadataPayload,
@@ -20,7 +19,6 @@ const { version: packageVersion } = require('../../package.json');
 export class MetaService {
   private currentProcessingHeight: number;
   private currentProcessingTimestamp: number;
-  private bestHeight: number;
   private targetHeight: number;
   private networkMeta: NetworkMetadataPayload;
   private apiConnected: boolean;
@@ -34,7 +32,6 @@ export class MetaService {
       currentProcessingHeight: this.currentProcessingHeight,
       currentProcessingTimestamp: this.currentProcessingTimestamp,
       targetHeight: this.targetHeight,
-      bestHeight: this.bestHeight,
       indexerNodeVersion: packageVersion,
       lastProcessedHeight: this.lastProcessedHeight,
       lastProcessedTimestamp: this.lastProcessedTimestamp,
@@ -62,11 +59,6 @@ export class MetaService {
   @OnEvent(IndexerEvent.BlockTarget)
   handleTargetBlock(blockPayload: TargetBlockPayload): void {
     this.targetHeight = blockPayload.height;
-  }
-
-  @OnEvent(IndexerEvent.BlockBest)
-  handleBestBlock(blockPayload: BestBlockPayload): void {
-    this.bestHeight = blockPayload.height;
   }
 
   @OnEvent(IndexerEvent.NetworkMetadata)

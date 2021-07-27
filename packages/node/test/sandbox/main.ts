@@ -2,6 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 export async function testSandbox(): Promise<void> {
-  await new Promise((resolve) => setTimeout(resolve, 3010));
+  await new Promise((resolve) => setTimeout(resolve, 3000));
   console.log('OK');
 }

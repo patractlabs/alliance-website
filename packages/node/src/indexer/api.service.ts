@@ -130,15 +130,11 @@ export class ApiService implements OnApplicationShutdown {
       value: 1,
     });
     this.patchedApi = patchedApi;
-    await this.patchApi();
+    this.patchApi();
     return this.patchedApi;
   }
 
-  private async patchApi(
-    registry?: Registry,
-    blockHash?: BlockHash,
-  ): Promise<void> {
-    //To support api.findCall & api.findError
+  private patchApi(registry?: Registry): void {
     if (registry) {
       Object.defineProperty(this.patchedApi, 'registry', {
         value: registry,
@@ -146,10 +142,7 @@ export class ApiService implements OnApplicationShutdown {
         configurable: true,
       });
     }
-    if (blockHash) {
-      await this.patchApiQuery(this.patchedApi, blockHash);
-    }
-    this.patchApiAt(this.patchedApi);
+    this.patchApiQuery(this.patchedApi);
     this.patchApiTx(this.patchedApi);
     this.patchApiQueryMulti(this.patchedApi);
     this.patchDerive(this.patchedApi);
@@ -157,13 +150,16 @@ export class ApiService implements OnApplicationShutdown {
     (this.patchedApi as any).isPatched = true;
   }
 
-  async setBlockhash(blockHash: BlockHash): Promise<void> {
+  async setBlockhash(blockHash: BlockHash, inject = false): Promise<void> {
     if (!this.patchedApi) {
       await this.getPatchedApi();
     }
-    const { registry } = await this.api.getBlockRegistry(blockHash);
     this.currentBlockHash = blockHash;
-    await this.patchApi(registry, blockHash);
+    if (inject) {
+      const { metadata, registry } = await this.api.getBlockRegistry(blockHash);
+      this.patchedApi.injectMetadata(metadata, true, registry);
+      this.patchApi(registry);
+    }
   }
 
   private replaceToAtVersion(
@@ -179,7 +175,10 @@ export class ApiService implements OnApplicationShutdown {
     original: QueryableStorageEntry<'promise' | 'rxjs', AnyTuple>,
     apiType: 'promise' | 'rxjs',
   ): QueryableStorageEntry<'promise' | 'rxjs', AnyTuple> {
-    const newEntryFunc = original;
+    const newEntryFunc = this.replaceToAtVersion(
+      original,
+      'at',
+    ) as QueryableStorageEntry<'promise' | 'rxjs', AnyTuple>;
     newEntryFunc.at = NOT_SUPPORT('at');
     newEntryFunc.creator = original.creator;
     newEntryFunc.entries = this.replaceToAtVersion(original, 'entriesAt');
@@ -201,7 +200,6 @@ export class ApiService implements OnApplicationShutdown {
         newEntryFunc as QueryableStorageEntry<'rxjs', AnyTuple>,
       );
     }
-    // wait polkadot/api fix isssue #3763 to support multi
     newEntryFunc.multi = ((args: any[]) => {
       const keys = args.map((arg) => {
         const key = new StorageKey(
@@ -209,11 +207,6 @@ export class ApiService implements OnApplicationShutdown {
           original.key(
             ...(original.creator.meta.type.isDoubleMap ? arg : [arg]),
           ),
-        );
-        console.log(
-          JSON.stringify([
-            ...(original.creator.meta.type.isDoubleMap ? arg : [arg]),
-          ]),
         );
         key.setMeta(original.creator.meta);
         return key;
@@ -253,7 +246,7 @@ export class ApiService implements OnApplicationShutdown {
         return ret;
       }
     }
-    const ret = NOT_SUPPORT('api.rpc.*.*') as unknown as RpcMethodResult<
+    const ret = (NOT_SUPPORT('api.rpc.*.*') as unknown) as RpcMethodResult<
       T,
       AnyFunction
     >;
@@ -277,12 +270,8 @@ export class ApiService implements OnApplicationShutdown {
       combineLatest(keys.map((key) => newEntryFunc(key)))) as any;
   }
 
-  private async patchApiQuery(
-    api: ApiPromise,
-    blockHash: BlockHash,
-  ): Promise<void> {
-    const apiAt = await this.api.at(blockHash);
-    (api as any)._query = Object.entries(apiAt.query).reduce(
+  private patchApiQuery(api: ApiPromise): void {
+    (api as any)._query = Object.entries(api.query).reduce(
       (acc, [module, moduleStorageItems]) => {
         acc[module] = Object.entries(moduleStorageItems).reduce(
           (accInner, [storageName, storageEntry]) => {
@@ -433,9 +422,5 @@ export class ApiService implements OnApplicationShutdown {
       },
       {},
     );
-  }
-
-  private patchApiAt(api: ApiPromise): void {
-    (api as any).at = NOT_SUPPORT('api.at()');
   }
 }

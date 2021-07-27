@@ -1,7 +1,7 @@
 // Copyright 2020-2021 OnFinality Limited authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { underscoredIf } from 'sequelize/lib/utils';
+import { snakeCase } from 'lodash';
 
 export function smartTags(tags: Record<string, string>): string {
   return Object.entries(tags)
@@ -9,14 +9,12 @@ export function smartTags(tags: Record<string, string>): string {
     .join('\n');
 }
 
-const underscored = (input) => underscoredIf(input, true);
-
 export function getFkConstraint(tableName: string, foreignKey: string): string {
-  return [tableName, foreignKey, 'fkey'].map(underscored).join('_');
+  return [tableName, foreignKey, 'fkey'].map(snakeCase).join('_');
 }
 
 export function getUniqConstraint(tableName: string, field: string): string {
-  return [tableName, field, 'uindex'].map(underscored).join('_');
+  return [tableName, field, 'uindex'].map(snakeCase).join('_');
 }
 
 export function commentConstraintQuery(
@@ -35,5 +33,5 @@ export function createUniqueIndexQuery(
   return `create unique index if not exists ${getUniqConstraint(
     table,
     field,
-  )} on ${schema}.${table} (${underscored(field)})`;
+  )} on ${schema}.${table} (${snakeCase(field)})`;
 }
