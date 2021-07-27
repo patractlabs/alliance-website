@@ -5,7 +5,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.testSandbox = void 0;
 async function testSandbox() {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await new Promise((resolve) => setTimeout(resolve, 3010));
     console.log('OK');
 }
 exports.testSandbox = testSandbox;
