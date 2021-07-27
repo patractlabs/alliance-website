@@ -9,6 +9,7 @@ import type {
 import { SubstrateEvent } from '@subql/types';
 import { Blacklist, Candidate } from '../types';
 import { Member } from '../types';
+import { createAccounts } from './createAccounts';
 
 /** @name BlacklistItem */
 export interface BlacklistItem extends Enum {
@@ -34,19 +35,18 @@ export async function handleAlliance(
     const motionHash = extrinsic.events[motionIndex].event.data[0] as Hash;
     const motionResult = extrinsic.events[motionIndex].event
       .data[1] as DispatchResult;
-    logger.info(motionResult.isOk);
     if (!motionResult.isOk) {
       return;
     }
 
     const address = data[0].toString();
+    await createAccounts([address]);
 
-    logger.info(motionHash.toHex());
     const member = await Member.get(address);
     member.elevatedMotionHash = motionHash.toHex();
     member.elevatedTime = block.timestamp;
     member.type = 'FELLOW';
-    await member.save().catch((error) => console.error(error.toString()));
+    await member.save();
   } else if (method === 'BlacklistAdded') {
     const motionIndex =
       extrinsic.events.findIndex((event) => event.event.index.eq(index)) + 1;
@@ -59,7 +59,7 @@ export async function handleAlliance(
 
     const blacklistItems = data[0] as Vec<BlacklistItem>;
     await Promise.all(
-      blacklistItems.map((item) => {
+      blacklistItems.map(async (item) => {
         const blacklist = Blacklist.create({
           id: item.hash.toHex(),
           value: item.isAccountId
@@ -69,6 +69,9 @@ export async function handleAlliance(
           addTime: block.timestamp,
           addMotionHash: motionHash.toHex()
         });
+        if (item.isAccountId) {
+          await createAccounts([item.asAccountId.toString()]);
+        }
         return blacklist.save();
       })
     );
@@ -104,6 +107,8 @@ export async function handleAlliance(
       ? null
       : (data[2] as Option<BalanceOf>).unwrap().toBigInt();
 
+    await createAccounts([address]);
+
     const candidate = Candidate.create({
       id: address,
       account: address,
@@ -123,6 +128,7 @@ export async function handleAlliance(
     }
 
     const address = data[0].toString();
+    await createAccounts([address]);
 
     const member = Member.create({
       id: address,
@@ -132,9 +138,13 @@ export async function handleAlliance(
       joinTime: block.timestamp,
       joinMotionHash: motionHash.toHex()
     });
-    await member.save().catch((error) => console.error(error.toString()));
+    await member.save();
   } else if (method === 'CandidateRejected') {
   } else if (method === 'FoundersInitialized') {
+    await createAccounts(
+      (data[0] as Vec<AccountId>).map((accountId) => accountId.toString())
+    );
+
     await Promise.all(
       (data[0] as Vec<AccountId>).map((accountId: AccountId) => {
         const address = accountId.toString();
@@ -147,7 +157,7 @@ export async function handleAlliance(
           status: 'EXIST',
           joinTime
         });
-        return member.save().catch((error) => console.error(error.toString()));
+        return member.save();
       })
     );
   } else if (method === 'MemberKicked') {
@@ -161,10 +171,11 @@ export async function handleAlliance(
     }
 
     const address = data[0].toString();
+    await createAccounts([address]);
 
     const member = await Member.get(address);
     member.status = 'KICKED';
-    await member.save().catch((error) => console.error(error.toString()));
+    await member.save();
   } else if (method === 'MemberRetired') {
     const motionIndex =
       extrinsic.events.findIndex((event) => event.event.index.eq(index)) + 1;
@@ -176,10 +187,11 @@ export async function handleAlliance(
     }
 
     const address = data[0].toString();
+    await createAccounts([address]);
 
     const member = await Member.get(address);
     member.status = 'RETIRED';
-    await member.save().catch((error) => console.error(error.toString()));
+    await member.save();
   } else if (method === 'NewAnnouncement') {
   } else if (method === 'NewRule') {
   }

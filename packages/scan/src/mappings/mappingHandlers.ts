@@ -1,30 +1,27 @@
 import { SubstrateEvent } from '@subql/types';
 import { handleAlliance } from './handleAlliance';
 import { handleAllianceMotion } from './handleAllianceMotion';
+import { handleIdentity } from './handleIdentity';
 
 export async function handleEvent(event: SubstrateEvent): Promise<void> {
   const {
-    event: { method, section},
+    event: { method, section }
   } = event;
   if (section === 'alliance') {
-    handleAlliance(method, event)
-    // let account = Account.create({
-    //   id: '5ggqweqweqw',
-    //   address: '5ggqweqweqw'
-    // });
-
-    // await account.save();
-
-    // let member = Member.create({
-    //   id: '5ggqweqweqw',
-    //   accountId: '5ggqweqweqw',
-    //   locked: 1000
-    // });
-
-    // await member.save();
+    await handleAlliance(method, event).catch((error) =>
+      logger.error(error.toString())
+    );
   }
 
   if (section === 'allianceMotion') {
-    handleAllianceMotion(method, event)
+    await handleAllianceMotion(method, event).catch((error) =>
+      logger.error(error.toString())
+    );
+  }
+
+  if (section === 'identity') {
+    await handleIdentity(method, event).catch((error) =>
+      logger.error(error.toString())
+    );
   }
 }
