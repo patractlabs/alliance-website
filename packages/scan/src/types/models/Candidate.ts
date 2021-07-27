@@ -12,11 +12,11 @@ export class Candidate implements Entity {
 
     public id: string;
 
-    public account?: string;
+    public accountId: string;
 
     public locked?: bigint;
 
-    public nominator?: string;
+    public nominatorId?: string;
 
     public applyTime?: Date;
 

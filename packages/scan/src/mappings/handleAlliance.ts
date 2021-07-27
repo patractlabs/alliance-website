@@ -9,7 +9,7 @@ import type {
 import { SubstrateEvent } from '@subql/types';
 import { Announcement, Blacklist, Candidate, Rule } from '../types';
 import { Member } from '../types';
-import { createAccounts } from './createAccounts';
+import { createAccount } from './createAccount';
 
 export interface BlacklistItem extends Enum {
   readonly isAccountId: boolean;
@@ -39,7 +39,7 @@ export async function handleAlliance(
     }
 
     const address = data[0].toString();
-    await createAccounts([address]);
+    await createAccount(address);
 
     const member = await Member.get(address);
     member.elevatedMotionHash = motionHash.toHex();
@@ -60,16 +60,17 @@ export async function handleAlliance(
     await Promise.all(
       blacklistItems.map(async (item) => {
         const blacklist = Blacklist.create({
-          id: item.hash.toHex(),
-          value: item.isAccountId
+          id: item.isAccountId
             ? item.asAccountId.toString()
             : item.asWebsite.toString(),
+          accountId: item.isAccountId ? item.asAccountId.toString() : null,
+          website: item.isAccountId ? null : item.asWebsite.toString(),
           isAccount: item.isAccountId,
           addTime: block.timestamp,
           addMotionHash: motionHash.toHex()
         });
         if (item.isAccountId) {
-          await createAccounts([item.asAccountId.toString()]);
+          await createAccount(item.asAccountId.toString());
         }
         return blacklist.save();
       })
@@ -87,7 +88,7 @@ export async function handleAlliance(
     const blacklistItems = data[0] as Vec<BlacklistItem>;
     await Promise.all(
       blacklistItems.map(async (item) => {
-        const blacklist = await Blacklist.getByValue(
+        const blacklist = await Blacklist.get(
           item.isAccountId
             ? item.asAccountId.toString()
             : item.asWebsite.toString()
@@ -106,12 +107,12 @@ export async function handleAlliance(
       ? null
       : (data[2] as Option<BalanceOf>).unwrap().toBigInt();
 
-    await createAccounts([address]);
+    await createAccount(address);
 
     const candidate = Candidate.create({
       id: address,
-      account: address,
-      nominator,
+      accountId: address,
+      nominatorId: nominator,
       locked,
       applyTime: block.timestamp
     });
@@ -127,11 +128,11 @@ export async function handleAlliance(
     }
 
     const address = data[0].toString();
-    await createAccounts([address]);
+    await createAccount(address);
 
     const member = Member.create({
       id: address,
-      account: address,
+      accountId: address,
       type: 'ALLY',
       status: 'EXIST',
       joinTime: block.timestamp,
@@ -140,18 +141,16 @@ export async function handleAlliance(
     await member.save();
   } else if (method === 'CandidateRejected') {
   } else if (method === 'FoundersInitialized') {
-    await createAccounts(
-      (data[0] as Vec<AccountId>).map((accountId) => accountId.toString())
-    );
-
     await Promise.all(
-      (data[0] as Vec<AccountId>).map((accountId: AccountId) => {
+      (data[0] as Vec<AccountId>).map(async (accountId: AccountId) => {
         const address = accountId.toString();
         const joinTime = block.timestamp;
 
+        await createAccount(accountId.toString());
+
         const member = Member.create({
           id: address,
-          account: address,
+          accountId: address,
           type: 'FOUNDER',
           status: 'EXIST',
           joinTime
@@ -170,7 +169,7 @@ export async function handleAlliance(
     }
 
     const address = data[0].toString();
-    await createAccounts([address]);
+    await createAccount(address);
 
     const member = await Member.get(address);
     member.status = 'KICKED';
@@ -186,7 +185,7 @@ export async function handleAlliance(
     }
 
     const address = data[0].toString();
-    await createAccounts([address]);
+    await createAccount(address);
 
     const member = await Member.get(address);
     member.status = 'RETIRED';

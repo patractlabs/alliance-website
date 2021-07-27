@@ -14,7 +14,7 @@ export class Motion implements Entity {
 
     public hash: string;
 
-    public proposer?: string;
+    public proposerId?: string;
 
     public index?: bigint;
 

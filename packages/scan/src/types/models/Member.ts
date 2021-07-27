@@ -12,7 +12,7 @@ export class Member implements Entity {
 
     public id: string;
 
-    public account: string;
+    public accountId: string;
 
     public locked?: bigint;
 

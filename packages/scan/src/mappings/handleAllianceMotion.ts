@@ -4,7 +4,7 @@ import type { ProposalIndex } from '@polkadot/types/interfaces';
 
 import { SubstrateEvent } from '@subql/types';
 import { Motion, MotionAction } from '../types';
-import { createAccounts } from './createAccounts';
+import { createAccount } from './createAccount';
 
 export async function handleAllianceMotion(
   method: string,
@@ -26,12 +26,12 @@ export async function handleAllianceMotion(
   } else if (method === 'Executed') {
   } else if (method === 'MemberExecuted') {
   } else if (method === 'Proposed') {
-    await createAccounts([data[0].toString()]);
+    await createAccount(data[0].toString());
 
     const motion = Motion.create({
       id: data[2].toHex(),
       hash: data[2].toHex(),
-      proposer: data[0].toString(),
+      proposerId: data[0].toString(),
       index: (data[1] as ProposalIndex).toBigInt(),
       createTime: block.timestamp
     });
@@ -39,12 +39,12 @@ export async function handleAllianceMotion(
     await motion.save();
   } else if (method === 'Voted') {
     const [accountId, hash, approve, yes, no]: Codec[] = data.map((d) => d);
-    await createAccounts([accountId.toString()]);
+    await createAccount(accountId.toString());
 
     const motionAction = MotionAction.create({
       id: event.hash.toHex(),
       motionHash: hash.toHex(),
-      account: accountId.toString(),
+      accountId: accountId.toString(),
       approve: (approve as bool).valueOf()
     });
     await motionAction.save();
