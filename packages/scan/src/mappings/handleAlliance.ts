@@ -183,7 +183,7 @@ export async function handleAlliance(
     const cid = data[0].toHex();
 
     const announcement = Announcement.create({
-      id: cid,
+      id: extrinsic.extrinsic.hash.toHex(),
       cid,
       createTime: block.timestamp,
       createBlock: block.block.header.number.toBigInt(),
@@ -199,7 +199,7 @@ export async function handleAlliance(
     const cid = data[0].toHex();
 
     const rule = Rule.create({
-      id: cid,
+      id: extrinsic.extrinsic.hash.toHex(),
       cid,
       createTime: block.timestamp,
       createBlock: block.block.header.number.toBigInt(),
