@@ -4,19 +4,20 @@ import { Style } from '../../shared/style/const';
 import Scroll from '../../components/Scroll';
 
 const Wrapper = styled.div`
-  height: 382px;
+  height: 280px;
   border: 1px solid ${Style.border.primary};
   background: #fffbfd;
   border-radius: 16px;
   font-size: 16px;
   line-height: 24px;
   color: ${Style.label.primary};
-  padding: 30px 0px;
+  padding: 16px 0px;
 
   > div {
     display: flex;
     height: 100%;
     > .content-main {
+      padding: 0px 16px;
       flex: 1;
     }
     > .scrollbar {

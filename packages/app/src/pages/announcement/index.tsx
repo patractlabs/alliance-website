@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import { BorderedTitle, BorderedRow, PageSkeleton, Content } from '../../components';
+import { BorderedTitle, BorderedRow, PageSkeleton } from '../../components';
 import { Style } from '../../shared/style/const';
 import FoldSvg from '../../assets/imgs/fold-primary.svg';
 import ExpandSvg from '../../assets/imgs/expand-primary.svg';
@@ -9,6 +9,7 @@ import { useAnnouncements, Announcement, useContent } from '../../hooks';
 import { decodeCid } from '../../core/util/decode-cid-hex';
 import Markdown from 'react-markdown';
 import { useMotionByIndex } from '../../hooks/useMotionByIndex';
+import Content from './Content';
 
 const Row = styled(BorderedRow)`
   display: block;
@@ -62,7 +63,7 @@ const AnnouncementRow: FC<{ className?: string; announcement: Announcement; defa
         </div>
       </div>
       {expanded && content && (
-        <Content style={{ maxHeight: '280px', padding: '16px', lineHeight: '20px' }} className='content'>
+        <Content>
           <Markdown>{content}</Markdown>
         </Content>
       )}

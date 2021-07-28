@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { AccountDisplay, Content, KeyValuePage, PageSkeleton } from '../../components';
+import { AccountDisplay, KeyValuePage, PageSkeleton } from '../../components';
 import { Breadcrumb } from 'antd';
 import { useParams } from 'react-router-dom';
 import { useAnnouncement, useContent } from '../../hooks';
@@ -34,15 +34,7 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
             { name: 'Hash', render: <>{motion?.hash}</> },
             {
               name: 'Content',
-              render: (
-                <div className='announcement-content'>
-                  {content && (
-                    <Content>
-                      <Markdown>{content}</Markdown>
-                    </Content>
-                  )}
-                </div>
-              )
+              render: <div className='announcement-content'>{content ? <Markdown>{content}</Markdown> : '-'}</div>
             },
             {
               name: 'Motion Proposer',
@@ -55,25 +47,25 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
             {
               name: 'Motion Approvers',
               render: (
-                <>
-                  {actions
-                    ?.filter((action) => action.approve)
-                    .map((action) => (
-                      <AccountDisplay id={action.accountId} key={action.accountId} />
-                    ))}
-                </>
+                <div className='accounts'>
+                  {actions?.filter((action) => action.approve).length
+                    ? actions
+                        ?.filter((action) => action.approve)
+                        .map((action) => <AccountDisplay id={action.accountId} key={action.accountId} />)
+                    : '-'}
+                </div>
               )
             },
             {
               name: 'Motion Disapprovers',
               render: (
-                <>
-                  {' '}
-                  {actions
-                    ?.filter((action) => !action.approve)
-                    .map((action) => action.accountId)
-                    .join('-')}
-                </>
+                <div className='accounts'>
+                  {actions?.filter((action) => !action.approve).length
+                    ? actions
+                        ?.filter((action) => !action.approve)
+                        .map((action) => <AccountDisplay id={action.accountId} key={action.accountId} />)
+                    : '-'}
+                </div>
               )
             }
           ]}
@@ -86,11 +78,11 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
 export default styled(Detail)`
   > .key-values {
     margin-top: 40px;
-    > .announcement-content {
-      line-height: 20px;
-      /* word-break: break-all; */
-      /* white-space: pre-wrap; */
-      white-space: nowrap;
+    .accounts {
+      display: flex;
+      > * {
+        margin-right: 24px;
+      }
     }
   }
 `;
