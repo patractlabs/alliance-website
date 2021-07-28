@@ -39,7 +39,7 @@ type Rule @entity {
 
   cid: String!
   createTime: Date!
-  motionIndex: String!
+  motionIndex: Int!
 }
 
 type Announcement @entity {
@@ -47,7 +47,7 @@ type Announcement @entity {
 
   cid: String!
   createTime: Date!
-  motionIndex: String!
+  motionIndex: Int!
 }
 
 type Candidate @entity {
