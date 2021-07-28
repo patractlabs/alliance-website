@@ -5,17 +5,20 @@ import { Content, Spinner } from '../../../components';
 import { useContent } from '../../../hooks/useContent';
 import Markdown from 'react-markdown';
 import { useRule } from '../../../hooks';
+import { decodeCid } from '../../../core/util/decode-cid-hex';
 
 const AllianceRule: FC<{ className?: string }> = ({ className }) => {
   const { data } = useRule();
-  const { content, fetching } = useContent(data?.cid || '');
+  const { content, fetching } = useContent(decodeCid(data?.cid));
 
   return (
     <div className={className}>
       <h2>Alliance Rule</h2>
       <div className='ipfs-hash'>
         <span>IPFS Hash</span>
-        <a href={`https://ipfs.io/ipfs/${data?.cid}`}>{data?.cid}</a>
+        <a target='_blank' rel='noreferrer' href={`https://ipfs.io/ipfs/${decodeCid(data?.cid)}`}>
+          {decodeCid(data?.cid)}
+        </a>
       </div>
       <div className='content'>
         {!fetching ? (
@@ -56,7 +59,7 @@ export default styled(AllianceRule)`
 
   > .content {
     margin: 0px auto;
-    max-width: 1360px;
+    max-width: 1160px;
     height: 382px;
     display: flex;
     justify-content: center;

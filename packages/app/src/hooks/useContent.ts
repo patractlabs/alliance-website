@@ -24,7 +24,7 @@ async function fetchData(url: string): Promise<string | null> {
   return text ?? null;
 }
 
-export function useContent(cid: string | null): UseContent {
+export function useContent(cid?: string): UseContent {
   const [content, setContent] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
 

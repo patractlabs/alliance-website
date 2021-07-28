@@ -43,8 +43,6 @@ const Scroll: FC<{
 
       top = top > thumbMaxMovable ? thumbMaxMovable : top;
 
-      console.log('wheel', event, container.scrollTop);
-
       // console.log('rate', rate, 'moved',   moved, top > thumbMaxMovable ? thumbMaxMovable : top, 'topStart', topStart);
       setThumb((old) => ({ ...old, top }));
       thumbTop.current = top;
@@ -66,7 +64,7 @@ const Scroll: FC<{
       const rate = _thumbTop / thumbMaxMovable;
       let contentTop = contentMaxMovable * rate;
 
-      console.log('content max movable', contentMaxMovable, rate);
+      // console.log('content max movable', contentMaxMovable, rate);
       contentTop = contentTop > contentMaxMovable ? contentMaxMovable : contentTop;
       setThumb((old) => ({
         ...old,

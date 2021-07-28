@@ -22,8 +22,8 @@ const GET_MEMBER = gql`
       status
       joinTime
       elevatedTime
-      joinMotionHash
-      elevatedMotionHash
+      joinMotionIndex
+      elevatedMotionIndex
     }
   }
 `;
@@ -62,8 +62,8 @@ export interface Member {
   status: MemberStatus;
   joinTime: string | null;
   elevatedTime: string | null;
-  joinMotionHash: string | null;
-  elevatedMotionHash: string | null;
+  joinMotionIndex: number | null;
+  elevatedMotionIndex: number | null;
 }
 
 interface QueryList<T> {

@@ -7,7 +7,7 @@ const query = gql`
         id
         cid
         createTime
-        motionHash
+        motionIndex
       }
     }
   }
@@ -17,7 +17,7 @@ interface Rule {
   id: string;
   cid: string;
   createTime: string;
-  motionHash: string;
+  motionIndex: number;
 }
 
 interface QueryList<T> {

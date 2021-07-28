@@ -25,8 +25,8 @@ const GET_MEMBERS = gql`
           status
           joinTime
           elevatedTime
-          joinMotionHash
-          elevatedMotionHash
+          joinMotionIndex
+          elevatedMotionIndex
         }
       }
     }

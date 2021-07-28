@@ -40,21 +40,21 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
           </BorderedRow>
           <BorderedRow borderColor={Style.border.lighter} padding='16px'>
             <div className='key'>AccountID</div>
-            <div className='value'>{member?.id}</div>
+            <div className='value'>{member?.id || '-'}</div>
           </BorderedRow>
           <BorderedRow borderColor={Style.border.lighter} padding='16px'>
             <div className='key'>Identity</div>
-            <div className='value'>{member?.account.display}</div>
+            <div className='value'>{member?.account.display || '-'}</div>
           </BorderedRow>
           <BorderedRow borderColor={Style.border.lighter} padding='16px'>
             <div className='key'>Website</div>
             <div className='value'>
-              <a href={member?.account.web || ''}>{member?.account.web}</a>
+              {!member?.account.web ? '-' : <a href={member.account.web}>{member.account.web}</a>}
             </div>
           </BorderedRow>
           <BorderedRow borderColor={Style.border.lighter} padding='16px'>
             <div className='key'>Locked</div>
-            <div className='value'>{member?.locked}</div>
+            <div className='value'>{member?.locked || '-'}</div>
           </BorderedRow>
           <BorderedRow borderColor={Style.border.lighter} padding='16px'>
             <div className='key'>Initiated Date(Ordinary to Founder)</div>
@@ -66,15 +66,15 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
           </BorderedRow>
           <BorderedRow borderColor={Style.border.lighter} padding='16px'>
             <div className='key'>Join Date(Candidate to Ally)</div>
-            <div className='value'>{member?.joinTime}</div>
+            <div className='value'>{member?.joinTime || '-'}</div>
           </BorderedRow>
           <BorderedRow borderColor={Style.border.lighter} padding='16px'>
             <div className='key'>Elevated Date(Ally to Fellow)</div>
-            <div className='value'>{member?.elevatedTime}</div>
+            <div className='value'>{member?.elevatedTime || '-'}</div>
           </BorderedRow>
           <BorderedRow borderColor={Style.border.lighter} padding='16px'>
             <div className='key'>Status</div>
-            <div className='value'>{member?.status}</div>
+            <div className='value'>{member?.status || '-'}</div>
           </BorderedRow>
         </div>
       </div>
