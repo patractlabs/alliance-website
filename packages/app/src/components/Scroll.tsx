@@ -31,7 +31,6 @@ const Scroll: FC<{
     const thumbHeight = (containerHeight / contentHeight) * trackHeight;
     const contentMaxMovable = contentHeight - containerHeight;
     const thumbMaxMovable = trackHeight - thumbHeight;
-    console.log('content height', contentHeight, containerHeight);
 
     if (containerHeight >= contentHeight) {
       return;

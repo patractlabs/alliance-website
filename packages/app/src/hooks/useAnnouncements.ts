@@ -8,7 +8,7 @@ const GET_ANNOUNCEMENTS = gql`
           id
           cid
           createTime
-          montionHash
+          motionHash
         }
       }
     }
@@ -19,7 +19,7 @@ export interface Announcement {
   id: string;
   cid: string;
   createTime: string;
-  montionHash: string;
+  motionHash: string;
 }
 
 interface QueryList<T> {

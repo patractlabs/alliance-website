@@ -6,6 +6,8 @@ import FoldSvg from '../../assets/imgs/fold-primary.svg';
 import ExpandSvg from '../../assets/imgs/expand-primary.svg';
 import { useHistory } from 'react-router-dom';
 import { useAnnouncements, Announcement, useContent } from '../../hooks';
+import { decodeCid } from '../../core/util/encode-cid';
+import { hexToString } from '@polkadot/util';
 
 const Row = styled(BorderedRow)`
   display: block;
@@ -18,22 +20,23 @@ const Row = styled(BorderedRow)`
   }
 `;
 
-const AnnouncementRow: FC<{ className?: string; annoncement: Announcement; defaultExpanded: boolean }> = ({
-  annoncement,
+const AnnouncementRow: FC<{ className?: string; announcement: Announcement; defaultExpanded: boolean }> = ({
+  announcement: annoncement,
   defaultExpanded
 }) => {
   const history = useHistory();
   const [expanded, setExpanded] = useState(defaultExpanded);
-  const { content } = useContent(annoncement.cid);
+  console.log('annou', annoncement);
+  const { content } = useContent(decodeCid(annoncement.cid));
 
   return (
     <Row className='table-row' borderColor={Style.border.negative} padding='13px 12px 13px 21px'>
-      <div className='cells' onClick={() => history.push(`/announcement/${annoncement.montionHash}`)}>
+      <div className='cells' onClick={() => history.push(`/announcement/${annoncement.motionHash}`)}>
         <div className='cell motion-id'>
           <span className='alliance-span-link'>#{annoncement.id}</span>
         </div>
         <div className='cell announcement-date'>{annoncement.createTime}</div>
-        <div className='cell announcement-hash'>{annoncement.montionHash}</div>
+        <div className='cell announcement-hash'>{annoncement.motionHash}</div>
         <div
           className='cell first-line'
           onClick={(e) => {
@@ -76,7 +79,7 @@ const Announcements: FC<{ className?: string }> = ({ className }) => {
           <div>First Line</div>
         </BorderedTitle>
         {data?.map((annoncement, index) => (
-          <AnnouncementRow key={index} annoncement={annoncement} defaultExpanded={index === 0} />
+          <AnnouncementRow key={index} announcement={annoncement} defaultExpanded={index === 0} />
         ))}
       </div>
     </PageSkeleton>

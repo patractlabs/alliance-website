@@ -5,6 +5,7 @@ export * from './useMembers';
 export * from './useMember';
 export * from './useCandidate';
 export * from './useCandidates';
+export * from './useCandidates';
 export * from './useBlacklists';
 export * from './useBlacklist';
 export * from './useRule';

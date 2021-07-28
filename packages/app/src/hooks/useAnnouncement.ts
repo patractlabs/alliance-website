@@ -7,7 +7,7 @@ const query = gql`
       id
       cid
       createTime
-      montionHash
+      motionHash
     }
   }
 `;

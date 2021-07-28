@@ -38,8 +38,7 @@ type Rule @entity {
 
   cid: String!
   createTime: Date!
-  createBlock: BigInt!
-  motionIndex: Int!
+  motionHash: String!
 }
 
 type Announcement @entity {
@@ -47,8 +46,7 @@ type Announcement @entity {
 
   cid: String!
   createTime: Date!
-  createBlock: BigInt!
-  motionIndex: Int!
+  motionHash: String!
 }
 
 type Candidate @entity {

@@ -33,7 +33,7 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
           pairs={[
             { name: 'Motion ID', render: <>#{announcement?.cid}</> },
             { name: 'Date', render: <>{announcement?.createTime}</> },
-            { name: 'Hash', render: <>{announcement?.montionHash}</> },
+            { name: 'Hash', render: <>{announcement?.motionHash}</> },
             {
               name: 'Content',
               render: <div className='announcement-content'>-</div>
