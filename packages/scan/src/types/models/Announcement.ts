@@ -16,9 +16,7 @@ export class Announcement implements Entity {
 
     public createTime: Date;
 
-    public createBlock: bigint;
-
-    public motionIndex: number;
+    public motionIndex: string;
 
 
     async save(): Promise<void>{

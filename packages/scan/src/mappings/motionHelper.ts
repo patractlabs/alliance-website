@@ -13,9 +13,6 @@ export type Motion = {
 };
 
 export function getMotionFromExtrinsic(extrinsic: SubstrateExtrinsic): Motion {
-  extrinsic.extrinsic.args.forEach((arg) => {
-    logger.info(arg.toString());
-  });
   const index = (extrinsic.extrinsic.args[1] as ProposalIndex).toNumber();
   const hash = extrinsic.extrinsic.args[0] as Hash;
   let isOk: boolean = false;
