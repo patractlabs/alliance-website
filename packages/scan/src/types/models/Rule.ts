@@ -16,7 +16,7 @@ export class Rule implements Entity {
 
     public createTime: Date;
 
-    public montionHash: string;
+    public motionHash: string;
 
 
     async save(): Promise<void>{

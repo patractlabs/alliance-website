@@ -30,7 +30,7 @@ type Rule @entity {
 
   cid: String!
   createTime: Date!
-  montionHash: String!
+  motionHash: String!
 }
 
 type Announcement @entity {
@@ -38,7 +38,7 @@ type Announcement @entity {
 
   cid: String!
   createTime: Date!
-  montionHash: String!
+  motionHash: String!
 }
 
 type Candidate @entity {

@@ -16,7 +16,7 @@ export class Announcement implements Entity {
 
     public createTime: Date;
 
-    public montionHash: string;
+    public motionHash: string;
 
 
     async save(): Promise<void>{
