@@ -16,7 +16,7 @@ export class Motion implements Entity {
 
     public proposerId?: string;
 
-    public index?: bigint;
+    public index: number;
 
     public createTime?: Date;
 
@@ -47,6 +47,17 @@ export class Motion implements Entity {
         }
     }
 
+
+    static async getByIndex(index: number): Promise<Motion | undefined>{
+      
+      const record = await store.getOneByField('Motion', 'index', index);
+      if (record){
+          return Motion.create(record);
+      }else{
+          return;
+      }
+      
+    }
 
 
     static create(record){

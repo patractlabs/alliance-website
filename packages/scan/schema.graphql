@@ -21,10 +21,16 @@ type Member @entity {
   status: String! # EXIST | RETIRED | KICKED
   joinBlock: BigInt
   joinTime: Date
+  joinMotionIndex: Int
   elevatedBlock: BigInt
   elevatedTime: Date
-  joinMotionHash: String
-  elevatedMotionHash: String
+  elevatedMotionIndex: Int
+  kickedBlock: BigInt
+  kickedTime: Date
+  kickedMotionIndex: Int
+  retiredBlock: BigInt
+  retiredTime: Date
+  retiredMotionIndex: Int
 }
 
 type Rule @entity {
@@ -33,7 +39,7 @@ type Rule @entity {
   cid: String!
   createTime: Date!
   createBlock: BigInt!
-  motionHash: String!
+  motionIndex: Int!
 }
 
 type Announcement @entity {
@@ -42,7 +48,7 @@ type Announcement @entity {
   cid: String!
   createTime: Date!
   createBlock: BigInt!
-  motionHash: String!
+  motionIndex: Int!
 }
 
 type Candidate @entity {
@@ -65,8 +71,8 @@ type Blacklist @entity {
   addBlock: BigInt
   removeTime: Date
   removeBlock: BigInt
-  addMotionHash: String
-  removeMotionHash: String
+  addMotionIndex: Int
+  removeMotionIndex: Int
 }
 
 type Motion @entity {
@@ -74,7 +80,7 @@ type Motion @entity {
 
   hash: String!
   proposer: Account
-  index: BigInt
+  index: Int! @index(unique: true)
   createTime: Date
   createBlock: BigInt
   closeTime: Date
@@ -84,7 +90,7 @@ type Motion @entity {
 type MotionAction @entity {
   id: ID!
 
-  motionHash: String!
+  motionIndex: Int!
   account: Account!
   approve: Boolean
   block: BigInt

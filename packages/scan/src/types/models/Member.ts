@@ -24,13 +24,25 @@ export class Member implements Entity {
 
     public joinTime?: Date;
 
+    public joinMotionIndex?: number;
+
     public elevatedBlock?: bigint;
 
     public elevatedTime?: Date;
 
-    public joinMotionHash?: string;
+    public elevatedMotionIndex?: number;
 
-    public elevatedMotionHash?: string;
+    public kickedBlock?: bigint;
+
+    public kickedTime?: Date;
+
+    public kickedMotionIndex?: number;
+
+    public retiredBlock?: bigint;
+
+    public retiredTime?: Date;
+
+    public retiredMotionIndex?: number;
 
 
     async save(): Promise<void>{

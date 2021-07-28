@@ -1,15 +1,11 @@
 import type { Bytes, Enum, Vec, Option } from '@polkadot/types';
-import type {
-  DispatchResult,
-  AccountId,
-  Hash,
-  BalanceOf
-} from '@polkadot/types/interfaces';
+import type { AccountId, BalanceOf } from '@polkadot/types/interfaces';
 
 import { SubstrateEvent } from '@subql/types';
 import { Announcement, Blacklist, Candidate, Rule } from '../types';
 import { Member } from '../types';
 import { createAccount } from './createAccount';
+import { getMotionFromExtrinsic } from './motionHelper';
 
 export interface BlacklistItem extends Enum {
   readonly isAccountId: boolean;
@@ -23,18 +19,14 @@ export async function handleAlliance(
   event: SubstrateEvent
 ): Promise<void> {
   const {
-    event: { data, index },
+    event: { data },
     extrinsic,
     block
   } = event;
 
   if (method === 'AllyElevated') {
-    const motionIndex =
-      extrinsic.events.findIndex((event) => event.event.index.eq(index)) + 1;
-    const motionHash = extrinsic.events[motionIndex].event.data[0] as Hash;
-    const motionResult = extrinsic.events[motionIndex].event
-      .data[1] as DispatchResult;
-    if (!motionResult.isOk) {
+    const motion = getMotionFromExtrinsic(extrinsic);
+    if (!motion.isOk) {
       return;
     }
 
@@ -42,18 +34,14 @@ export async function handleAlliance(
     await createAccount(address);
 
     const member = await Member.get(address);
-    member.elevatedMotionHash = motionHash.toHex();
+    member.elevatedMotionIndex = motion.index;
     member.elevatedTime = block.timestamp;
     member.elevatedBlock = block.block.header.number.toBigInt();
     member.type = 'FELLOW';
     await member.save();
   } else if (method === 'BlacklistAdded') {
-    const motionIndex =
-      extrinsic.events.findIndex((event) => event.event.index.eq(index)) + 1;
-    const motionHash = extrinsic.events[motionIndex].event.data[0] as Hash;
-    const motionResult = extrinsic.events[motionIndex].event
-      .data[1] as DispatchResult;
-    if (!motionResult.isOk) {
+    const motion = getMotionFromExtrinsic(extrinsic);
+    if (!motion.isOk) {
       return;
     }
 
@@ -69,7 +57,7 @@ export async function handleAlliance(
           isAccount: item.isAccountId,
           addTime: block.timestamp,
           addBlock: block.block.header.number.toBigInt(),
-          addMotionHash: motionHash.toHex()
+          addMotionIndex: motion.index
         });
         if (item.isAccountId) {
           await createAccount(item.asAccountId.toString());
@@ -78,12 +66,8 @@ export async function handleAlliance(
       })
     );
   } else if (method === 'BlacklistRemoved') {
-    const motionIndex =
-      extrinsic.events.findIndex((event) => event.event.index.eq(index)) + 1;
-    const motionHash = extrinsic.events[motionIndex].event.data[0] as Hash;
-    const motionResult = extrinsic.events[motionIndex].event
-      .data[1] as DispatchResult;
-    if (!motionResult.isOk) {
+    const motion = getMotionFromExtrinsic(extrinsic);
+    if (!motion.isOk) {
       return;
     }
 
@@ -97,7 +81,7 @@ export async function handleAlliance(
         );
         blacklist.removeTime = block.timestamp;
         blacklist.removeBlock = block.block.header.number.toBigInt();
-        blacklist.removeMotionHash = motionHash.toHex();
+        blacklist.removeMotionIndex = motion.index;
         return blacklist.save();
       })
     );
@@ -122,12 +106,8 @@ export async function handleAlliance(
     });
     await candidate.save();
   } else if (method === 'CandidateApproved') {
-    const motionIndex =
-      extrinsic.events.findIndex((event) => event.event.index.eq(index)) + 1;
-    const motionHash = extrinsic.events[motionIndex].event.data[0] as Hash;
-    const motionResult = extrinsic.events[motionIndex].event
-      .data[1] as DispatchResult;
-    if (!motionResult.isOk) {
+    const motion = getMotionFromExtrinsic(extrinsic);
+    if (!motion.isOk) {
       return;
     }
 
@@ -141,7 +121,7 @@ export async function handleAlliance(
       status: 'EXIST',
       joinTime: block.timestamp,
       joinBlock: block.block.header.number.toBigInt(),
-      joinMotionHash: motionHash.toHex()
+      joinMotionIndex: motion.index
     });
     await member.save();
   } else if (method === 'CandidateRejected') {
@@ -165,12 +145,8 @@ export async function handleAlliance(
       })
     );
   } else if (method === 'MemberKicked') {
-    const motionIndex =
-      extrinsic.events.findIndex((event) => event.event.index.eq(index)) + 1;
-    const motionHash = extrinsic.events[motionIndex].event.data[0] as Hash;
-    const motionResult = extrinsic.events[motionIndex].event
-      .data[1] as DispatchResult;
-    if (!motionResult.isOk) {
+    const motion = getMotionFromExtrinsic(extrinsic);
+    if (!motion.isOk) {
       return;
     }
 
@@ -179,14 +155,13 @@ export async function handleAlliance(
 
     const member = await Member.get(address);
     member.status = 'KICKED';
+    member.kickedTime = block.timestamp;
+    member.kickedBlock = block.block.header.number.toBigInt();
+    member.kickedMotionIndex = motion.index;
     await member.save();
   } else if (method === 'MemberRetired') {
-    const motionIndex =
-      extrinsic.events.findIndex((event) => event.event.index.eq(index)) + 1;
-    const motionHash = extrinsic.events[motionIndex].event.data[0] as Hash;
-    const motionResult = extrinsic.events[motionIndex].event
-      .data[1] as DispatchResult;
-    if (!motionResult.isOk) {
+    const motion = getMotionFromExtrinsic(extrinsic);
+    if (!motion.isOk) {
       return;
     }
 
@@ -195,14 +170,13 @@ export async function handleAlliance(
 
     const member = await Member.get(address);
     member.status = 'RETIRED';
+    member.retiredTime = block.timestamp;
+    member.retiredBlock = block.block.header.number.toBigInt();
+    member.retiredMotionIndex = motion.index;
     await member.save();
   } else if (method === 'NewAnnouncement') {
-    const motionIndex =
-      extrinsic.events.findIndex((event) => event.event.index.eq(index)) + 1;
-    const motionHash = extrinsic.events[motionIndex].event.data[0] as Hash;
-    const motionResult = extrinsic.events[motionIndex].event
-      .data[1] as DispatchResult;
-    if (!motionResult.isOk) {
+    const motion = getMotionFromExtrinsic(extrinsic);
+    if (!motion.isOk) {
       return;
     }
 
@@ -213,16 +187,12 @@ export async function handleAlliance(
       cid,
       createTime: block.timestamp,
       createBlock: block.block.header.number.toBigInt(),
-      motionHash: motionHash.toHex()
+      motionIndex: motion.index
     });
     await announcement.save();
   } else if (method === 'NewRule') {
-    const motionIndex =
-      extrinsic.events.findIndex((event) => event.event.index.eq(index)) + 1;
-    const motionHash = extrinsic.events[motionIndex].event.data[0] as Hash;
-    const motionResult = extrinsic.events[motionIndex].event
-      .data[1] as DispatchResult;
-    if (!motionResult.isOk) {
+    const motion = getMotionFromExtrinsic(extrinsic);
+    if (!motion.isOk) {
       return;
     }
 
@@ -233,7 +203,7 @@ export async function handleAlliance(
       cid,
       createTime: block.timestamp,
       createBlock: block.block.header.number.toBigInt(),
-      motionHash: motionHash.toHex()
+      motionIndex: motion.index
     });
     await rule.save();
   }

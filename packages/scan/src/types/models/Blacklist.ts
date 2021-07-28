@@ -26,9 +26,9 @@ export class Blacklist implements Entity {
 
     public removeBlock?: bigint;
 
-    public addMotionHash?: string;
+    public addMotionIndex?: number;
 
-    public removeMotionHash?: string;
+    public removeMotionIndex?: number;
 
 
     async save(): Promise<void>{

@@ -12,7 +12,7 @@ export class MotionAction implements Entity {
 
     public id: string;
 
-    public motionHash: string;
+    public motionIndex: number;
 
     public accountId: string;
 

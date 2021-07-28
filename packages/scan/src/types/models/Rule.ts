@@ -18,7 +18,7 @@ export class Rule implements Entity {
 
     public createBlock: bigint;
 
-    public motionHash: string;
+    public motionIndex: number;
 
 
     async save(): Promise<void>{
