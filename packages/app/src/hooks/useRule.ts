@@ -20,14 +20,14 @@ interface Rule {
   motionIndex: number;
 }
 
-interface QueryList<T> {
+interface QueryResult<T> {
   rules: {
     nodes: T[];
   };
 }
 
 export function useRule() {
-  const { data, loading, error } = useQuery<QueryList<Rule>>(query);
+  const { data, loading, error } = useQuery<QueryResult<Rule>>(query);
 
   console.log('data', data);
   return { data: data?.rules.nodes[0], loading, error };

@@ -1,22 +1,20 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { KeyValuePage, PageSkeleton } from '../../components';
+import { AccountDisplay, Content, KeyValuePage, PageSkeleton } from '../../components';
 import { Breadcrumb } from 'antd';
 import { useParams } from 'react-router-dom';
-import FounderSvg from '../../assets/imgs/founder-big.svg';
-import AllySvg from '../../assets/imgs/ally-big.svg';
-import FellowSvg from '../../assets/imgs/fellow-big.svg';
-import { MemberRole, useAnnouncement } from '../../hooks';
-
-export const badgeImgMap = {
-  [MemberRole.FOUNDER]: FounderSvg,
-  [MemberRole.FELLOW]: FellowSvg,
-  [MemberRole.ALLY]: AllySvg
-};
+import { useAnnouncement, useContent } from '../../hooks';
+import { decodeCid } from '../../core/util/decode-cid-hex';
+import Markdown from 'react-markdown';
+import { useMotionByIndex } from '../../hooks/useMotionByIndex';
+import { useActionByMotionIndex } from '../../hooks/useActionByMotionIndex';
 
 const Detail: FC<{ className?: string }> = ({ className }) => {
-  const { motionId } = useParams<{ motionId: string }>();
-  const { data: announcement } = useAnnouncement(motionId);
+  const { announcementId } = useParams<{ announcementId: string }>();
+  const { data: announcement } = useAnnouncement(announcementId);
+  const { content } = useContent(decodeCid(announcement?.cid));
+  const { data: motion } = useMotionByIndex(announcement?.motionIndex);
+  const { data: actions } = useActionByMotionIndex(announcement?.motionIndex);
 
   return (
     <PageSkeleton>
@@ -31,16 +29,53 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
         <KeyValuePage
           className='key-values'
           pairs={[
-            { name: 'Motion ID', render: <>#{announcement?.cid}</> },
+            { name: 'Motion Index', render: <>#{announcement?.motionIndex}</> },
             { name: 'Date', render: <>{announcement?.createTime}</> },
-            { name: 'Hash', render: <>{announcement?.motionIndex}</> },
+            { name: 'Hash', render: <>{motion?.hash}</> },
             {
               name: 'Content',
-              render: <div className='announcement-content'>-</div>
+              render: (
+                <div className='announcement-content'>
+                  {content && (
+                    <Content>
+                      <Markdown>{content}</Markdown>
+                    </Content>
+                  )}
+                </div>
+              )
             },
-            { name: 'Motion Proposer', render: <></> },
-            { name: 'Motion Approvers', render: <></> },
-            { name: 'Motion Disapprovers', render: <></> }
+            {
+              name: 'Motion Proposer',
+              render: (
+                <>
+                  <AccountDisplay id={motion?.proposerId || ''} />
+                </>
+              )
+            },
+            {
+              name: 'Motion Approvers',
+              render: (
+                <>
+                  {actions
+                    ?.filter((action) => action.approve)
+                    .map((action) => (
+                      <AccountDisplay id={action.accountId} key={action.accountId} />
+                    ))}
+                </>
+              )
+            },
+            {
+              name: 'Motion Disapprovers',
+              render: (
+                <>
+                  {' '}
+                  {actions
+                    ?.filter((action) => !action.approve)
+                    .map((action) => action.accountId)
+                    .join('-')}
+                </>
+              )
+            }
           ]}
         ></KeyValuePage>
       </div>

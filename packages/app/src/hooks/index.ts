@@ -1,3 +1,4 @@
+export * from './useAccount';
 export * from './useAnnouncements';
 export * from './useAnnouncement';
 export * from './useContent';

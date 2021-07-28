@@ -32,15 +32,19 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
         <KeyValuePage
           className='key-values'
           pairs={[
-            { name: 'AccountID', render: <>{candidate?.id}</> },
-            { name: 'Identity', render: <>{candidate?.account.display}</> },
+            { name: 'AccountID', render: <>{candidate?.id || '-'}</> },
+            { name: 'Identity', render: <>{candidate?.account.display || '-'}</> },
             {
               name: 'Website',
-              render: <a href={candidate?.account.web || ''}>{candidate?.account.web}</a>
+              render: !candidate?.account.web ? (
+                <></>
+              ) : (
+                <a href={candidate.account.web || ''}>{candidate.account.web}</a>
+              )
             },
-            { name: 'Locked', render: <>{candidate?.locked}</> },
-            { name: 'Nominator', render: <>{candidate?.nominator?.display}</> },
-            { name: 'Applied Date (Ordinary to Candidate)', render: <>{candidate?.applyTime}</> }
+            { name: 'Locked', render: <>{candidate?.locked || '-'}</> },
+            { name: 'Nominator', render: <>{candidate?.nominator?.display || '-'}</> },
+            { name: 'Applied Date (Ordinary to Candidate)', render: <>{candidate?.applyTime || '-'}</> }
           ]}
         ></KeyValuePage>
       </div>

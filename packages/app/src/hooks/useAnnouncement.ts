@@ -12,13 +12,13 @@ const query = gql`
   }
 `;
 
-interface QueryList<T> {
+interface QueryResult<T> {
   announcement: T;
 }
 
 export function useAnnouncement(id: string) {
-  const { data, loading, error } = useQuery<QueryList<Announcement>>(query, { variables: { id } });
+  const { data, loading, error } = useQuery<QueryResult<Announcement>>(query, { variables: { id } });
 
-  console.log('data', data);
+  console.log('useAnnouncement', data);
   return { data: data?.announcement, loading, error };
 }

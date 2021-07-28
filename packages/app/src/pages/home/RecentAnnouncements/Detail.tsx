@@ -1,11 +1,13 @@
 import { Col, Row } from 'antd';
 import { CSSProperties, FC, useState } from 'react';
 import styled from 'styled-components';
-import { Announcement } from './index';
 import ExpandSvg from '../../../assets/imgs/expand.svg';
 import DeexpandSvg from '../../../assets/imgs/fold.svg';
 import { Style } from '../../../shared/style/const';
 import Content from './Content';
+import { Announcement, useContent } from '../../../hooks';
+import { decodeCid } from '../../../core/util/decode-cid-hex';
+import Markdown from 'react-markdown';
 
 const Status = styled.span<{ expanded: boolean }>`
   display: inline-block;
@@ -49,27 +51,32 @@ const DetailWrapper = styled.div<{ top: BorderType; bottom: BorderType }>`
 type BorderType = 'primary' | 'default' | 'none';
 const AnnouncementDetail: FC<{
   className?: string;
-  annoncement: Announcement;
+  announcement: Announcement;
   defaultExpanded?: boolean;
   style?: CSSProperties;
   top?: BorderType;
   bottom?: BorderType;
-}> = ({ className, annoncement, style, defaultExpanded = false, top = 'none', bottom = 'default' }) => {
+}> = ({ className, announcement, style, defaultExpanded = false, top = 'none', bottom = 'default' }) => {
   const [expanded, setExpanded] = useState(defaultExpanded);
+  const { content } = useContent(decodeCid(announcement?.cid));
 
   return (
     <DetailWrapper className={className} style={style} top={top} bottom={bottom}>
       <Row className='info' onClick={() => setExpanded((old) => !old)}>
         <Col span={6} style={{ paddingLeft: '16px' }}>
           <Status expanded={expanded} />
-          {annoncement.date}
+          {announcement.createTime}
         </Col>
-        <Col span={17}>{annoncement.content.split('\n')[0].slice(0, 40)}</Col>
+        <Col span={17}>{content?.split('\n')[0].slice(0, 40)}</Col>
         <Col span={1} style={{ textAlign: 'right', paddingRight: '11px' }}>
           <img src={expanded ? DeexpandSvg : ExpandSvg} alt='' />
         </Col>
       </Row>
-      {expanded && <Content className='content'>{annoncement.content}</Content>}
+      {expanded && (
+        <Content className='content'>
+          <Markdown>{content || ''}</Markdown>
+        </Content>
+      )}
     </DetailWrapper>
   );
 };

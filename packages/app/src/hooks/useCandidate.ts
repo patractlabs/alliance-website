@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { Account } from './useMember';
 
-const GET_CANDIDATE = gql`
+const QUERY = gql`
   query Query($id: String!) {
     candidate(id: $id) {
       id
@@ -41,8 +41,9 @@ interface QueryList<T> {
   candidate: T;
 }
 
+// addres not id
 export function useCandidate(id: string) {
-  const { data, loading, error } = useQuery<QueryList<Candidate>>(GET_CANDIDATE, { variables: { id } });
+  const { data, loading, error } = useQuery<QueryList<Candidate>>(QUERY, { variables: { id } });
 
   console.log('data', data);
   return { data: data?.candidate, loading, error };

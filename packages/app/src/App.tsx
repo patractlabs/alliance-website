@@ -22,7 +22,7 @@ const App: FC = () => {
         <Route path='/announcement' exact>
           <Announcement />
         </Route>
-        <Route path='/announcement/:motionId' exact>
+        <Route path='/announcement/:announcementId' exact>
           <AnnouncementDetail />
         </Route>
         <Route path='/member' exact>

@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { KeyValuePage, PageSkeleton } from '../../components';
+import { BorderedRow, MotionHistory, KeyValuePage, PageSkeleton } from '../../components';
 import { Breadcrumb } from 'antd';
 import FounderSvg from '../../assets/imgs/founder-big.svg';
 import AllySvg from '../../assets/imgs/ally-big.svg';
 import FellowSvg from '../../assets/imgs/fellow-big.svg';
-import { MemberRole, useBlacklist } from '../../hooks';
+import { MemberRole, useBlacklist, useCandidate, useMember } from '../../hooks';
 import { useParams } from 'react-router-dom';
+import { Style } from '../../shared/style/const';
 
 export const badgeImgMap = {
   [MemberRole.FOUNDER]: FounderSvg,
@@ -24,8 +25,11 @@ export interface Blocked {
 }
 
 const Detail: FC<{ className?: string }> = ({ className }) => {
-  const { address } = useParams<{ address: string }>();
+  let { address } = useParams<{ address: string }>();
+  address = decodeURIComponent(address);
   const { data: blocked } = useBlacklist(address);
+  const { data: candidate } = useCandidate(address);
+  const { data: member } = useMember(address);
 
   return (
     <PageSkeleton>
@@ -39,18 +43,40 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
 
         <KeyValuePage
           className='key-values'
+          pairs={
+            [
+              blocked?.isAccount && { name: 'Address', render: <>{blocked?.account?.id}</> },
+              blocked?.isAccount && { name: 'Identity', render: <>{blocked?.account?.display}</> },
+              !blocked?.isAccount && {
+                name: 'Website',
+                render: !blocked?.website ? <>-</> : <a href={blocked.website}>{blocked.id}</a>
+              },
+              blocked?.isAccount && {
+                name: 'Website',
+                render: !blocked?.account?.web ? <>-</> : <a href={blocked.account.web}>{blocked.account.web}</a>
+              },
+              blocked?.isAccount && { name: 'Locked', render: <>{candidate?.locked || member?.locked || '-'}</> }
+            ].filter(Boolean) as any
+          }
+        ></KeyValuePage>
+        <KeyValuePage
+          className='key-values key-values-no-margin-top'
           pairs={[
-            { name: 'Address', render: <>{blocked?.account?.id}</> },
-            { name: 'Identity', render: <>{blocked?.account?.display}</> },
-            {
-              name: 'Website',
-              render: <a href={blocked?.website || ''}>{blocked?.website}</a>
-            },
-            { name: 'Locked', render: <>{}</> },
-            { name: 'Added Date', render: <>{blocked?.addTime}</> },
-            { name: 'Removed Date', render: <>{blocked?.removeTime}</> }
+            { name: 'Added Date', render: <>{blocked?.addTime || '-'}</>, withoutTop: true, withoutBottom: true }
           ]}
         ></KeyValuePage>
+        <BorderedRow borderColor={Style.border.lighter} padding='0px'>
+          <MotionHistory motionIndex={blocked?.addMotionIndex} />
+        </BorderedRow>
+        <KeyValuePage
+          className='key-values key-values-no-margin-top'
+          pairs={[
+            { name: 'Removed Date', render: <>{blocked?.removeTime || '-'}</>, withoutTop: true, withoutBottom: true }
+          ]}
+        ></KeyValuePage>
+        <BorderedRow borderColor={Style.border.lighter} padding='0px'>
+          <MotionHistory motionIndex={blocked?.removeMotionIndex} />
+        </BorderedRow>
       </div>
     </PageSkeleton>
   );
@@ -59,5 +85,8 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
 export default styled(Detail)`
   > .key-values {
     margin-top: 40px;
+  }
+  > .key-values-no-margin-top {
+    margin-top: 0px;
   }
 `;

@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import { useAnnouncements, Announcement, useContent } from '../../hooks';
 import { decodeCid } from '../../core/util/decode-cid-hex';
 import Markdown from 'react-markdown';
+import { useMotionByIndex } from '../../hooks/useMotionByIndex';
 
 const Row = styled(BorderedRow)`
   display: block;
@@ -21,22 +22,25 @@ const Row = styled(BorderedRow)`
 `;
 
 const AnnouncementRow: FC<{ className?: string; announcement: Announcement; defaultExpanded: boolean }> = ({
-  announcement: annoncement,
+  announcement,
   defaultExpanded
 }) => {
   const history = useHistory();
   const [expanded, setExpanded] = useState(defaultExpanded);
-  console.log('annou', decodeCid(annoncement.cid));
-  const { content } = useContent(decodeCid(annoncement.cid));
+  console.log('annou', decodeCid(announcement.cid));
+  const { content } = useContent(decodeCid(announcement.cid));
+  const { data: motion } = useMotionByIndex(announcement.motionIndex);
 
   return (
     <Row className='table-row' borderColor={Style.border.negative} padding='13px 12px 13px 21px'>
-      <div className='cells' onClick={() => history.push(`/announcement/${annoncement.motionIndex}`)}>
+      <div className='cells' onClick={() => history.push(`/announcement/${announcement.id}`)}>
         <div className='cell motion-id'>
-          <span className='alliance-span-link'>#{annoncement.id}</span>
+          <span className='alliance-span-link'>#{announcement.motionIndex}</span>
         </div>
-        <div className='cell announcement-date'>{annoncement.createTime}</div>
-        <div className='cell announcement-hash'>{annoncement.motionIndex}</div>
+        <div className='cell announcement-date'>{announcement.createTime}</div>
+        <div className='cell announcement-hash'>
+          <span>{motion?.hash}</span>
+        </div>
         <div
           className='cell first-line'
           onClick={(e) => {
@@ -78,7 +82,7 @@ const Announcements: FC<{ className?: string }> = ({ className }) => {
           <div style={{ width: '30.1%' }}>Hash</div>
           <div>First Line</div>
         </BorderedTitle>
-        {[...(data || [])].reverse()?.map((annoncement, index) => (
+        {[...data].reverse().map((annoncement, index) => (
           <AnnouncementRow key={index} announcement={annoncement} defaultExpanded={index === 0} />
         ))}
       </div>

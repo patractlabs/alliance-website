@@ -31,7 +31,7 @@ const GET_CANDIDATES = gql`
   }
 `;
 
-interface QueryList<T> {
+interface QueryResult<T> {
   query: {
     candidates: {
       nodes: T[];
@@ -40,7 +40,7 @@ interface QueryList<T> {
 }
 
 export function useCandidates() {
-  const { data, loading, error } = useQuery<QueryList<Candidate>>(GET_CANDIDATES);
+  const { data, loading, error } = useQuery<QueryResult<Candidate>>(GET_CANDIDATES);
 
   console.log('data', data);
   return { data: data?.query.candidates.nodes || [], loading, error };

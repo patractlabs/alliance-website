@@ -66,12 +66,13 @@ export interface Member {
   elevatedMotionIndex: number | null;
 }
 
-interface QueryList<T> {
+interface QueryResult<T> {
   member: T;
 }
 
+// fix: addres not id
 export function useMember(id: string) {
-  const { data, loading, error } = useQuery<QueryList<Member>>(GET_MEMBER, { variables: { id } });
+  const { data, loading, error } = useQuery<QueryResult<Member>>(GET_MEMBER, { variables: { id } });
 
   console.log('data', data);
   return { data: data?.member, loading, error };

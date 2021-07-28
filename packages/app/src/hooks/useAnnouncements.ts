@@ -1,15 +1,13 @@
 import { gql, useQuery } from '@apollo/client';
 
 const GET_ANNOUNCEMENTS = gql`
-  {
-    query {
-      announcements {
-        nodes {
-          id
-          cid
-          createTime
-          motionIndex
-        }
+  query {
+    announcements {
+      nodes {
+        id
+        cid
+        createTime
+        motionIndex
       }
     }
   }
@@ -22,16 +20,15 @@ export interface Announcement {
   motionIndex: number;
 }
 
-interface QueryList<T> {
-  query: {
-    announcements: {
-      nodes: T[];
-    };
+interface QueryResult<T> {
+  announcements: {
+    nodes: T[];
   };
 }
 
 export function useAnnouncements() {
-  const { data, loading, error } = useQuery<QueryList<Announcement>>(GET_ANNOUNCEMENTS);
+  const { data, loading, error } = useQuery<QueryResult<Announcement>>(GET_ANNOUNCEMENTS);
 
-  return { data: data?.query.announcements.nodes, loading, error };
+  console.log('useAnnouncements', data);
+  return { data: data?.announcements.nodes || [], loading, error };
 }

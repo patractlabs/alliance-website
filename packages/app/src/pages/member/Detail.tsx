@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { BorderedRow, PageSkeleton } from '../../components';
+import { BorderedRow, MotionHistory, PageSkeleton } from '../../components';
 import { Style } from '../../shared/style/const';
 import { Breadcrumb } from 'antd';
-import { MemberRole } from '../../hooks';
+import { MemberRole, useCandidate } from '../../hooks';
 import FounderSvg from '../../assets/imgs/founder-big.svg';
 import AllySvg from '../../assets/imgs/ally-big.svg';
 import FellowSvg from '../../assets/imgs/fellow-big.svg';
@@ -20,6 +20,7 @@ export const badgeImgMap = {
 const Detail: FC<{ className?: string }> = ({ className }) => {
   const { accountId } = useParams<{ accountId: string }>();
   const { data: member } = useMember(accountId);
+  const { data: candidate } = useCandidate(accountId);
 
   return (
     <PageSkeleton>
@@ -58,19 +59,25 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
           </BorderedRow>
           <BorderedRow borderColor={Style.border.lighter} padding='16px'>
             <div className='key'>Initiated Date(Ordinary to Founder)</div>
-            <div className='value'></div>
+            <div className='value'>{(member?.type === MemberRole.FOUNDER && member.joinTime) || '-'}</div>
           </BorderedRow>
           <BorderedRow borderColor={Style.border.lighter} padding='16px'>
             <div className='key'>Applied Date(Ordinary to Candidate)</div>
-            <div className='value'></div>
+            <div className='value'>{candidate?.applyTime || '-'}</div>
           </BorderedRow>
-          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+          <BorderedRow widthoutBottom={true} borderColor={Style.border.lighter} padding='16px'>
             <div className='key'>Join Date(Candidate to Ally)</div>
             <div className='value'>{member?.joinTime || '-'}</div>
           </BorderedRow>
-          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+          <BorderedRow borderColor={Style.border.lighter} padding='0px'>
+            <MotionHistory motionIndex={member?.joinMotionIndex || undefined} />
+          </BorderedRow>
+          <BorderedRow widthoutBottom={true} borderColor={Style.border.lighter} padding='16px'>
             <div className='key'>Elevated Date(Ally to Fellow)</div>
             <div className='value'>{member?.elevatedTime || '-'}</div>
+          </BorderedRow>
+          <BorderedRow borderColor={Style.border.lighter} padding='0px'>
+            <MotionHistory motionIndex={member?.elevatedMotionIndex || undefined} />
           </BorderedRow>
           <BorderedRow borderColor={Style.border.lighter} padding='16px'>
             <div className='key'>Status</div>
@@ -88,12 +95,12 @@ export default styled(Detail)`
     > div {
       > .key {
         width: 30%;
-        margin-right: 16px;
         font-weight: 600;
         color: ${Style.label.default};
         line-height: 18px;
       }
       > .value {
+        padding-left: 26px;
         overflow: hidden;
         text-overflow: ellipsis;
         color: ${Style.label.primary};

@@ -4,16 +4,33 @@ import { Member } from './useMember';
 const GET_MEMBERS = gql`
   {
     query {
-      members {
+      motions {
         nodes {
           id
+          hash
+          proposerId
+          index
+          createTime
+          createBlock
+          closeTime
+          closeBlock
         }
       }
     }
   }
 `;
 
-interface QueryList<T> {
+export interface Motion {
+  id: string;
+  hash: string;
+  proposerId: string;
+  index: number;
+  createTime: string;
+  createBlock: number;
+  closeTime: string;
+  closeBlock: number;
+}
+interface QueryResult<T> {
   query: {
     members: {
       nodes: T[];
@@ -22,7 +39,7 @@ interface QueryList<T> {
 }
 
 export function useMotions() {
-  const { data, loading, error } = useQuery<QueryList<Member>>(GET_MEMBERS);
+  const { data, loading, error } = useQuery<QueryResult<Motion>>(GET_MEMBERS);
 
   console.log('data', data, data?.query.members.nodes || []);
   return { data: data?.query.members.nodes || [], loading, error };

@@ -33,7 +33,7 @@ const GET_MEMBERS = gql`
   }
 `;
 
-interface QueryList<T> {
+interface QueryResult<T> {
   query: {
     members: {
       nodes: T[];
@@ -42,7 +42,7 @@ interface QueryList<T> {
 }
 
 export function useMembers() {
-  const { data, loading, error } = useQuery<QueryList<Member>>(GET_MEMBERS);
+  const { data, loading, error } = useQuery<QueryResult<Member>>(GET_MEMBERS);
 
   console.log('data', data, data?.query.members.nodes || []);
   return { data: data?.query.members.nodes || [], loading, error };

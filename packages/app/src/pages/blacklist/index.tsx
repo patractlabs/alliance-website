@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { BorderedRow, BorderedTitle, Filter, PageSkeleton, Search } from '../../components';
+import { AccountFormatted, BorderedRow, BorderedTitle, Filter, PageSkeleton, Search } from '../../components';
 import MorePrimarySvg from '../../assets/imgs/more-primary.svg';
 import { Col, Row } from 'antd';
 import { Style } from '../../shared/style/const';
@@ -9,94 +9,6 @@ import { useBlacklists } from '../../hooks';
 
 const Blacklist: FC<{ className?: string }> = ({ className }) => {
   const { data } = useBlacklists();
-
-  // const websites: {
-  //   website: string;
-  //   addedDate: string;
-  //   removedDate: string;
-  // }[] = [
-  //   {
-  //     website: 'https://www.abcd1.com',
-  //     addedDate: 'Jun-6-2021',
-  //     removedDate: 'Jun-24-2021'
-  //   },
-  //   {
-  //     website: 'https://www.abcasd2.com',
-  //     addedDate: 'Jun-24-2021',
-  //     removedDate: ''
-  //   },
-  //   {
-  //     website: 'https://www.abcad.com',
-  //     addedDate: 'Jun-24-2021',
-  //     removedDate: 'Jun-2-2021'
-  //   },
-  //   {
-  //     website: 'https://www.abcdss.com',
-  //     addedDate: 'Jun-24-2021',
-  //     removedDate: ''
-  //   },
-  //   {
-  //     website: 'https://www.affbc3d.com',
-  //     addedDate: 'Jun-6-2021',
-  //     removedDate: 'Jun-2-2021'
-  //   },
-  //   {
-  //     website: 'https://www.abddcd.com',
-  //     addedDate: 'Jun-24-2021',
-  //     removedDate: ''
-  //   },
-  //   {
-  //     website: 'https://www.abc4ccd.com',
-  //     addedDate: 'Jun-6-2021',
-  //     removedDate: ''
-  //   },
-  //   {
-  //     website: 'https://www.abacd.com',
-  //     addedDate: 'Jun-24-2021',
-  //     removedDate: ''
-  //   },
-  //   {
-  //     website: 'https://www.abch1d.com',
-  //     addedDate: 'Jun-6-2021',
-  //     removedDate: ''
-  //   }
-  // ];
-
-  // const accounts: Blocked[] = [
-  //   {
-  //     address: '1629Shw6asw88GnyXyyUbRtX7YFipQnjScGKcWr1BaRiMhvmAg',
-  //     identity: 'Davaid',
-  //     website: 'www.12345.com',
-  //     locked: '1000 DOT',
-  //     addedDate: 'Jun-6-2021',
-  //     removedDate: 'Jun-24-2021'
-  //   },
-  //   {
-  //     address: '1629Shw6w88GnyXyyUbsdfRtX7YFipQnjScGKcWr1BaRiMhvmAg',
-  //     identity: 'Davaid',
-  //     website: 'www.12345.com',
-  //     locked: '1000 DOT',
-  //     addedDate: 'Jun-24-2021',
-  //     removedDate: ''
-  //   },
-  //   {
-  //     address: '1629Shw6w88GnyXyyUbRtX7YzdFipQnjScGKcWr1BaRiMhvmAg',
-  //     identity: 'Davaid',
-  //     website: 'www.12345.com',
-  //     locked: '1000 DOT',
-  //     addedDate: 'Jun-2-2021',
-  //     removedDate: 'Jun-24-2021'
-  //   },
-  //   {
-  //     address: '1629Shw6w88GnyXyyUbRvtX7YFipQnjScGKcWr1BaRiMhvmAg',
-  //     identity: 'Davaid',
-  //     website: 'www.12345.com',
-  //     locked: '1000 DOT',
-  //     addedDate: 'Jun-24-2021',
-  //     removedDate: ''
-  //   }
-  // ];
-
   const [accountType, setAccountType] = useState('All');
   const [websiteType, setWebsiteType] = useState('All');
   const history = useHistory();
@@ -149,10 +61,10 @@ const Blacklist: FC<{ className?: string }> = ({ className }) => {
                   onClick={() => history.push(`/blacklist/${account.account?.id}`)}
                 >
                   <div style={{ width: '20%' }} className='cell'>
-                    <span className='alliance-span-link'>{account.account?.display}</span>
+                    <span className='alliance-span-link'>{account.account?.id}</span>
                   </div>
                   <div style={{ width: '30%' }} className='cell'>
-                    {/* {account} */}
+                    <AccountFormatted account={account.account} />
                   </div>
                   <div style={{ width: '18%' }} className='cell'>
                     {account.addTime}
@@ -201,7 +113,7 @@ const Blacklist: FC<{ className?: string }> = ({ className }) => {
                   borderColor={Style.border.negative}
                   style={{ height: '60px', padding: '0px 11px 0px 21px' }}
                   key={index}
-                  onClick={() => history.push(`/blacklist/${website.website}`)}
+                  onClick={() => history.push(`/blacklist/${encodeURIComponent(website.website || '')}`)}
                 >
                   <div style={{ width: '40%' }} className='cell'>
                     <span className='alliance-span-link'>{website.website}</span>

@@ -13,8 +13,8 @@ const GET_BLACKLIST = gql`
       isAccount
       addTime
       removeTime
-      addMotionHash
-      removeMotionHash
+      addMotionIndex
+      removeMotionIndex
     }
   }
 `;
@@ -26,17 +26,17 @@ export interface Blacklist {
   isAccount: boolean | null;
   addTime: string | null;
   removeTime: string | null;
-  addMotionHash: string | null;
-  removeMotionHash: string | null;
+  addMotionIndex: number | null;
+  removeMotionIndex: number | null;
 }
 
-interface QueryList<T> {
+interface QueryResult<T> {
   blacklist: T;
 }
 
 export function useBlacklist(id: string) {
-  const { data, loading, error } = useQuery<QueryList<Blacklist>>(GET_BLACKLIST, { variables: { id } });
+  const { data, loading, error } = useQuery<QueryResult<Blacklist>>(GET_BLACKLIST, { variables: { id } });
 
-  console.log('data', data);
+  console.log('useBlacklist', data, id);
   return { data: data?.blacklist, loading, error };
 }

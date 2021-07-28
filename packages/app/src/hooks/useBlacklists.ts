@@ -2,38 +2,34 @@ import { gql, useQuery } from '@apollo/client';
 import { Blacklist } from './useBlacklist';
 
 const query = gql`
-  {
-    query {
-      blacklists {
-        nodes {
+  query {
+    blacklists {
+      nodes {
+        id
+        account {
           id
-          account {
-            id
-            display
-          }
-          website
-          isAccount
-          addTime
-          removeTime
-          addMotionHash
-          removeMotionHash
+          display
         }
+        website
+        isAccount
+        addTime
+        removeTime
+        addMotionIndex
+        removeMotionIndex
       }
     }
   }
 `;
 
-interface QueryList<T> {
-  query: {
-    blacklists: {
-      nodes: T[];
-    };
+interface QueryResult<T> {
+  blacklists: {
+    nodes: T[];
   };
 }
 
 export function useBlacklists() {
-  const { data, loading, error } = useQuery<QueryList<Blacklist>>(query);
+  const { data, loading, error } = useQuery<QueryResult<Blacklist>>(query);
 
-  console.log('data', data);
-  return { data: data?.query.blacklists.nodes || [], loading, error };
+  console.log('useBlacklists', data);
+  return { data: data?.blacklists.nodes || [], loading, error };
 }
