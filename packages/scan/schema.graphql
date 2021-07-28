@@ -19,7 +19,9 @@ type Member @entity {
   locked: BigInt
   type: String! # FOUNDER | FELLOW | ALLY
   status: String! # EXIST | RETIRED | KICKED
+  joinBlock: BigInt
   joinTime: Date
+  elevatedBlock: BigInt
   elevatedTime: Date
   joinMotionHash: String
   elevatedMotionHash: String
@@ -30,6 +32,7 @@ type Rule @entity {
 
   cid: String!
   createTime: Date!
+  createBlock: BigInt!
   motionHash: String!
 }
 
@@ -38,6 +41,7 @@ type Announcement @entity {
 
   cid: String!
   createTime: Date!
+  createBlock: BigInt!
   motionHash: String!
 }
 
@@ -48,6 +52,7 @@ type Candidate @entity {
   locked: BigInt
   nominator: Account
   applyTime: Date
+  applyBlock: BigInt
 }
 
 type Blacklist @entity {
@@ -57,7 +62,9 @@ type Blacklist @entity {
   website: String
   isAccount: Boolean
   addTime: Date
+  addBlock: BigInt
   removeTime: Date
+  removeBlock: BigInt
   addMotionHash: String
   removeMotionHash: String
 }
@@ -69,7 +76,9 @@ type Motion @entity {
   proposer: Account
   index: BigInt
   createTime: Date
+  createBlock: BigInt
   closeTime: Date
+  closeBlock: BigInt
 }
 
 type MotionAction @entity {
@@ -78,6 +87,5 @@ type MotionAction @entity {
   motionHash: String!
   account: Account!
   approve: Boolean
+  block: BigInt
 }
-
-

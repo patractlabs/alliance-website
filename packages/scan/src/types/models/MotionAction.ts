@@ -18,6 +18,8 @@ export class MotionAction implements Entity {
 
     public approve?: boolean;
 
+    public block?: bigint;
+
 
     async save(): Promise<void>{
         let id = this.id;

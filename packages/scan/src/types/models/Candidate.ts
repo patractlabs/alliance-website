@@ -20,6 +20,8 @@ export class Candidate implements Entity {
 
     public applyTime?: Date;
 
+    public applyBlock?: bigint;
+
 
     async save(): Promise<void>{
         let id = this.id;

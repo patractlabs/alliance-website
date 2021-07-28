@@ -16,6 +16,8 @@ export class Rule implements Entity {
 
     public createTime: Date;
 
+    public createBlock: bigint;
+
     public motionHash: string;
 
 

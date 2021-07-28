@@ -20,6 +20,7 @@ export async function handleAllianceMotion(
   } else if (method === 'Closed') {
     const motion = await Motion.get(data[0].toHex());
     motion.closeTime = block.timestamp;
+    motion.closeBlock = block.block.header.number.toBigInt();
 
     await motion.save();
   } else if (method === 'Disapproved') {
@@ -33,7 +34,8 @@ export async function handleAllianceMotion(
       hash: data[2].toHex(),
       proposerId: data[0].toString(),
       index: (data[1] as ProposalIndex).toBigInt(),
-      createTime: block.timestamp
+      createTime: block.timestamp,
+      createBlock: block.block.header.number.toBigInt()
     });
 
     await motion.save();
@@ -45,7 +47,8 @@ export async function handleAllianceMotion(
       id: event.hash.toHex(),
       motionHash: hash.toHex(),
       accountId: accountId.toString(),
-      approve: (approve as bool).valueOf()
+      approve: (approve as bool).valueOf(),
+      block: block.block.header.number.toBigInt()
     });
     await motionAction.save();
   }

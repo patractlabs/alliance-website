@@ -20,7 +20,11 @@ export class Motion implements Entity {
 
     public createTime?: Date;
 
+    public createBlock?: bigint;
+
     public closeTime?: Date;
+
+    public closeBlock?: bigint;
 
 
     async save(): Promise<void>{

@@ -20,7 +20,11 @@ export class Member implements Entity {
 
     public status: string;
 
+    public joinBlock?: bigint;
+
     public joinTime?: Date;
+
+    public elevatedBlock?: bigint;
 
     public elevatedTime?: Date;
 

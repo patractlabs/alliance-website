@@ -20,7 +20,11 @@ export class Blacklist implements Entity {
 
     public addTime?: Date;
 
+    public addBlock?: bigint;
+
     public removeTime?: Date;
+
+    public removeBlock?: bigint;
 
     public addMotionHash?: string;
 

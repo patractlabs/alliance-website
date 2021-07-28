@@ -44,6 +44,7 @@ export async function handleAlliance(
     const member = await Member.get(address);
     member.elevatedMotionHash = motionHash.toHex();
     member.elevatedTime = block.timestamp;
+    member.elevatedBlock = block.block.header.number.toBigInt();
     member.type = 'FELLOW';
     await member.save();
   } else if (method === 'BlacklistAdded') {
@@ -67,6 +68,7 @@ export async function handleAlliance(
           website: item.isAccountId ? null : item.asWebsite.toString(),
           isAccount: item.isAccountId,
           addTime: block.timestamp,
+          addBlock: block.block.header.number.toBigInt(),
           addMotionHash: motionHash.toHex()
         });
         if (item.isAccountId) {
@@ -94,6 +96,7 @@ export async function handleAlliance(
             : item.asWebsite.toString()
         );
         blacklist.removeTime = block.timestamp;
+        blacklist.removeBlock = block.block.header.number.toBigInt();
         blacklist.removeMotionHash = motionHash.toHex();
         return blacklist.save();
       })
@@ -114,7 +117,8 @@ export async function handleAlliance(
       accountId: address,
       nominatorId: nominator,
       locked,
-      applyTime: block.timestamp
+      applyTime: block.timestamp,
+      applyBlock: block.block.header.number.toBigInt()
     });
     await candidate.save();
   } else if (method === 'CandidateApproved') {
@@ -136,6 +140,7 @@ export async function handleAlliance(
       type: 'ALLY',
       status: 'EXIST',
       joinTime: block.timestamp,
+      joinBlock: block.block.header.number.toBigInt(),
       joinMotionHash: motionHash.toHex()
     });
     await member.save();
@@ -153,7 +158,8 @@ export async function handleAlliance(
           accountId: address,
           type: 'FOUNDER',
           status: 'EXIST',
-          joinTime
+          joinTime,
+          joinBlock: block.block.header.number.toBigInt()
         });
         return member.save();
       })
@@ -206,6 +212,7 @@ export async function handleAlliance(
       id: cid,
       cid,
       createTime: block.timestamp,
+      createBlock: block.block.header.number.toBigInt(),
       motionHash: motionHash.toHex()
     });
     await announcement.save();
@@ -225,6 +232,7 @@ export async function handleAlliance(
       id: cid,
       cid,
       createTime: block.timestamp,
+      createBlock: block.block.header.number.toBigInt(),
       motionHash: motionHash.toHex()
     });
     await rule.save();
