@@ -3,6 +3,7 @@ type Account @entity {
   address: String! @index(unique: true)
   additional: String
   display: String
+  displayParent: String
   legal: String
   web: String
   riot: String
@@ -38,7 +39,7 @@ type Rule @entity {
 
   cid: String!
   createTime: Date!
-  motionHash: String!
+  motionIndex: Int!
 }
 
 type Announcement @entity {
@@ -46,7 +47,7 @@ type Announcement @entity {
 
   cid: String!
   createTime: Date!
-  motionHash: String!
+  motionIndex: Int!
 }
 
 type Candidate @entity {

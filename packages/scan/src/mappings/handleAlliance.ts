@@ -51,9 +51,9 @@ export async function handleAlliance(
         const blacklist = Blacklist.create({
           id: item.isAccountId
             ? item.asAccountId.toString()
-            : item.asWebsite.toString(),
+            : item.asWebsite.toHuman(),
           accountId: item.isAccountId ? item.asAccountId.toString() : null,
-          website: item.isAccountId ? null : item.asWebsite.toString(),
+          website: item.isAccountId ? null : item.asWebsite.toHuman(),
           isAccount: item.isAccountId,
           addTime: block.timestamp,
           addBlock: block.block.header.number.toBigInt(),
@@ -77,7 +77,7 @@ export async function handleAlliance(
         const blacklist = await Blacklist.get(
           item.isAccountId
             ? item.asAccountId.toString()
-            : item.asWebsite.toString()
+            : (item.asWebsite.toHuman() as string)
         );
         blacklist.removeTime = block.timestamp;
         blacklist.removeBlock = block.block.header.number.toBigInt();

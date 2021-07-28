@@ -18,6 +18,8 @@ export class Account implements Entity {
 
     public display?: string;
 
+    public displayParent?: string;
+
     public legal?: string;
 
     public web?: string;
