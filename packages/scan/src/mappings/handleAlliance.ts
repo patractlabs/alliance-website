@@ -114,6 +114,7 @@ export async function handleAlliance(
     const address = data[0].toString();
     await createAccount(address);
 
+    const candidate = await Candidate.get(address);
     const member = Member.create({
       id: address,
       accountId: address,
@@ -121,7 +122,8 @@ export async function handleAlliance(
       status: 'EXIST',
       joinTime: block.timestamp,
       joinBlock: block.block.header.number.toBigInt(),
-      joinMotionIndex: motion.index
+      joinMotionIndex: motion.index,
+      locked: candidate ? candidate.locked : null
     });
     await member.save();
   } else if (method === 'CandidateRejected') {
