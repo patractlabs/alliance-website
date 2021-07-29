@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import { Style } from '../../shared/style/const';
 import { formatBalance } from '@polkadot/util';
 import { formatDate } from '../../core/util/format-date';
+import { config } from '../../core/global';
 
 export const badgeImgMap = {
   [MemberRole.FOUNDER]: FounderSvg,
@@ -72,7 +73,7 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
               },
               blocked?.isAccount && {
                 name: 'Locked',
-                render: <>{formatBalance(candidate?.locked || member?.locked || undefined, {}, 10)}</>
+                render: <>{formatBalance(candidate?.locked || member?.locked || undefined, {}, config.decimal)}</>
               }
             ].filter(Boolean) as any
           }

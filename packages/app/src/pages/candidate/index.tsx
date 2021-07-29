@@ -7,6 +7,7 @@ import MorePrimarySvg from '../../assets/imgs/more-primary.svg';
 import { useCandidates } from '../../hooks';
 import { formatBalance } from '@polkadot/util';
 import { formatDate } from '../../core/util/format-date';
+import { config } from '../../core/global';
 
 export interface CandidateType {
   nominator: string;
@@ -64,7 +65,7 @@ const Candidate: FC<{ className?: string }> = ({ className }) => {
                 </a>
               </div>
               <div style={{ width: '12.7%' }} className='cell'>
-                {formatBalance(candidate?.locked || undefined, {}, 10) || '-'}
+                {formatBalance(candidate?.locked || undefined, {}, config.decimal) || '-'}
               </div>
               <div style={{ width: '18.6%' }} className='cell'>
                 <AccountDisplay id={candidate.nominator?.id || ''} />

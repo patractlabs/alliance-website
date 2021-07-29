@@ -9,6 +9,7 @@ import { MemberRole, useCandidate } from '../../hooks';
 import { useParams } from 'react-router-dom';
 import { formatBalance } from '@polkadot/util';
 import { formatDate } from '../../core/util/format-date';
+import { config } from '../../core/global';
 
 export const badgeImgMap = {
   [MemberRole.FOUNDER]: FounderSvg,
@@ -52,7 +53,7 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
                 </a>
               )
             },
-            { name: 'Locked', render: <>{formatBalance(candidate?.locked || undefined, {}, 10)}</> },
+            { name: 'Locked', render: <>{formatBalance(candidate?.locked || undefined, {}, config.decimal)}</> },
             {
               name: 'Nominator',
               render: (

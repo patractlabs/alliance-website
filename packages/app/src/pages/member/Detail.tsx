@@ -13,6 +13,7 @@ import { formatBalance } from '@polkadot/util';
 import MemberLogo from '../../components/MemberLogo';
 import { formatDate } from '../../core/util/format-date';
 import { statusMap } from './';
+import { config } from '../../core/global';
 
 export const badgeImgMap = {
   [MemberRole.FOUNDER]: FounderSvg,
@@ -66,7 +67,7 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
           </BorderedRow>
           <BorderedRow borderColor={Style.border.lighter} padding='16px 0px'>
             <div className='key'>Locked</div>
-            <div className='value'>{formatBalance(member?.locked || undefined, {}, 10) || '-'}</div>
+            <div className='value'>{formatBalance(member?.locked || undefined, {}, config.decimal) || '-'}</div>
           </BorderedRow>
           {member?.type === MemberRole.FOUNDER && (
             <BorderedRow borderColor={Style.border.lighter} padding='16px 0px'>

@@ -13,6 +13,7 @@ import { MemberRole, MemberStatus } from '../../hooks';
 import MemberLogo from '../../components/MemberLogo';
 import { formatBalance } from '@polkadot/util';
 import { formatDate } from '../../core/util/format-date';
+import { config } from '../../core/global';
 
 const badgeImgMap = {
   [MemberRole.FOUNDER]: FounderSvg,
@@ -106,7 +107,9 @@ const Member: FC<{ className?: string }> = ({ className }) => {
                     {member.account.web}
                   </a>
                 </div>
-                <div className='cell locked'>{formatBalance(member.locked || undefined, {}, 10) || '-'}</div>
+                <div className='cell locked'>
+                  {formatBalance(member.locked || undefined, {}, config.decimal) || '-'}
+                </div>
                 <div className='cell joined-date'>{formatDate(member.joinTime)}</div>
                 <div className='cell elevated-date'>{formatDate(member.elevatedTime)}</div>
                 <div className='cell status'>{statusMap[member.status]}</div>
