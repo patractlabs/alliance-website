@@ -34,6 +34,8 @@ export class Account implements Entity {
 
     public twitter?: string;
 
+    public isGood?: boolean;
+
 
     async save(): Promise<void>{
         let id = this.id;

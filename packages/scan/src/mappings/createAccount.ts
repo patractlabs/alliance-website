@@ -5,7 +5,7 @@ export async function createAccount(accountId: string): Promise<Account> {
   let account = await Account.getByAddress(accountId);
   if (account) return account;
 
-  const identity = await getIdentity(accountId)
+  const identity = await getIdentity(accountId);
   account = Account.create({
     id: accountId,
     address: accountId,
@@ -19,6 +19,7 @@ export async function createAccount(accountId: string): Promise<Account> {
     pgpFingerprint: identity.pgpFingerprint,
     image: identity.image,
     twitter: identity.twitter,
+    isGood: identity.isGood
   });
 
   await account.save();

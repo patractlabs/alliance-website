@@ -23,6 +23,7 @@ export async function handleIdentity(method: string, event: SubstrateEvent) {
     account.pgpFingerprint = identity.pgpFingerprint;
     account.image = identity.image;
     account.twitter = identity.twitter;
+    account.isGood = identity.isGood;
 
     await account.save();
   }
