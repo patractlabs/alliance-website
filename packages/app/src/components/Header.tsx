@@ -53,7 +53,9 @@ const Header: FC<{ className?: string }> = ({ className }) => {
   return (
     <div className={className}>
       <div>
-        <Logo src={pathname === '/' ? LogoSvg : Logo2Svg} alt='' />
+        <Link to='/'>
+          <Logo src={pathname === '/' ? LogoSvg : Logo2Svg} alt='' />
+        </Link>
         <Links type={pathname === '/' ? 'home' : ''} />
       </div>
     </div>

@@ -52,7 +52,13 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
           <BorderedRow borderColor={Style.border.lighter} padding='16px'>
             <div className='key'>Website</div>
             <div className='value'>
-              {!member?.account.web ? '-' : <a href={member.account.web}>{member.account.web}</a>}
+              {!member?.account.web ? (
+                '-'
+              ) : (
+                <a target='_blank' rel='noreferrer' href={member.account.web}>
+                  {member.account.web}
+                </a>
+              )}
             </div>
           </BorderedRow>
           <BorderedRow borderColor={Style.border.lighter} padding='16px'>

@@ -58,7 +58,9 @@ const Candidate: FC<{ className?: string }> = ({ className }) => {
                 {candidate.account.display}
               </div>
               <div style={{ width: '19.1%' }} className='cell'>
-                <a href={candidate.account.web || ''}>{candidate.account.web}</a>
+                <a target='_blank' rel='noreferrer' href={candidate.account.web || ''}>
+                  {candidate.account.web}
+                </a>
               </div>
               <div style={{ width: '12.7%' }} className='cell'>
                 {formatBalance(candidate?.locked || undefined, {}, 10) || '-'}

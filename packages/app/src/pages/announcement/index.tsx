@@ -50,7 +50,7 @@ const AnnouncementRow: FC<{ className?: string; announcement: Announcement; defa
             setExpanded((old) => !old);
           }}
         >
-          <span>{content?.split('\n')[0]}</span>
+          <span>{content?.split('\n')[0] || '-'}</span>
         </div>
         <div className='cell more'>
           <img

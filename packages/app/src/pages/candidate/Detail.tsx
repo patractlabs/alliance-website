@@ -40,7 +40,9 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
               render: !candidate?.account.web ? (
                 <></>
               ) : (
-                <a href={candidate.account.web || ''}>{candidate.account.web}</a>
+                <a target='_blank' rel='noreferrer' href={candidate.account.web || ''}>
+                  {candidate.account.web}
+                </a>
               )
             },
             { name: 'Locked', render: <>{formatBalance(candidate?.locked || undefined, {}, 10)}</> },

@@ -55,7 +55,13 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
               },
               blocked?.isAccount && {
                 name: 'Website',
-                render: !blocked?.account?.web ? <>-</> : <a href={blocked.account.web}>{blocked.account.web}</a>
+                render: !blocked?.account?.web ? (
+                  <>-</>
+                ) : (
+                  <a target='_blank' rel='noreferrer' href={blocked.account.web}>
+                    {blocked.account.web}
+                  </a>
+                )
               },
               blocked?.isAccount && {
                 name: 'Locked',
