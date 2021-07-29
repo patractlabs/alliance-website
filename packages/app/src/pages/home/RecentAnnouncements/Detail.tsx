@@ -68,7 +68,9 @@ const AnnouncementDetail: FC<{
           <Status expanded={expanded} />
           {formatDate(announcement.createTime)}
         </Col>
-        <Col span={17}>{content?.split('\n')[0].slice(0, 40)}</Col>
+        <Col span={17} style={{ display: 'flex', overflow: 'hidden' }}>
+          <span style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{content || '-'}</span>
+        </Col>
         <Col span={1} style={{ textAlign: 'right', paddingRight: '11px' }}>
           <img src={expanded ? DeexpandSvg : ExpandSvg} alt='' />
         </Col>

@@ -50,7 +50,7 @@ const AnnouncementRow: FC<{ className?: string; announcement: Announcement; defa
             setExpanded((old) => !old);
           }}
         >
-          <span>{content?.split('\n')[0] || '-'}</span>
+          <span>{content || '-'}</span>
         </div>
         <div className='cell more'>
           <img
@@ -79,9 +79,9 @@ const Announcements: FC<{ className?: string }> = ({ className }) => {
     <PageSkeleton>
       <div className={className}>
         <BorderedTitle>
-          <div style={{ width: '19.5%' }}>Motion ID</div>
-          <div style={{ width: '18.7%' }}>Date</div>
-          <div style={{ width: '30.1%' }}>Hash</div>
+          <div style={{ width: '9%' }}>Motion ID</div>
+          <div style={{ width: '14%' }}>Date</div>
+          <div style={{ width: '20%' }}>Hash</div>
           <div>First Line</div>
         </BorderedTitle>
         {[...data].reverse().map((annoncement, index) => (
@@ -98,13 +98,13 @@ export default styled(Announcements)`
     cursor: pointer;
   }
   .motion-id {
-    width: 19.5%;
+    width: 9%;
   }
   .announcement-date {
-    width: 18.7%;
+    width: 14%;
   }
   .announcement-hash {
-    width: 30.1%;
+    width: 20%;
   }
   .first-line {
     user-select: none;
