@@ -11,7 +11,7 @@ type Account @entity {
   pgpFingerprint: String
   image: String
   twitter: String
-  isGood: Boolean
+  judgements: String
 }
 
 type Member @entity {

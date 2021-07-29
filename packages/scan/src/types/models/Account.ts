@@ -34,7 +34,7 @@ export class Account implements Entity {
 
     public twitter?: string;
 
-    public isGood?: boolean;
+    public judgements?: string;
 
 
     async save(): Promise<void>{

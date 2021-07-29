@@ -27,17 +27,21 @@ export interface IdentityInfoJson {
   pgpFingerprint: string | null;
   image: string | null;
   twitter: string | null;
-  isGood: boolean | null;
+  judgements: string | null;
 }
 
 export async function getIdentity(address: string): Promise<IdentityInfoJson> {
   const identity = await api.query.identity.identityOf(address);
   const identityInfo = identity.unwrapOrDefault().info;
-  const isGood = identity
-    .unwrapOrDefault()
-    .judgements.some(
-      ([, judgement]) => judgement.isKnownGood || judgement.isReasonable
-    );
+  const identityJudgements = identity.unwrapOrDefault().judgements;
+  let judgements = null;
+
+  if (
+    !identityJudgements.isEmpty &&
+    !identityJudgements[0].isEmpty
+  ) {
+    judgements = JSON.stringify(identityJudgements[0][1].toHuman());
+  }
 
   const info: IdentityInfoJson = {
     additional: identityInfo.additional.isEmpty
@@ -68,7 +72,7 @@ export async function getIdentity(address: string): Promise<IdentityInfoJson> {
     twitter: identityInfo.twitter.isEmpty
       ? null
       : (identityInfo.twitter.asRaw.toHuman() as string),
-    isGood
+    judgements
   };
 
   const addressParent = await api.query.identity.superOf(address);

@@ -19,7 +19,7 @@ export async function createAccount(accountId: string): Promise<Account> {
     pgpFingerprint: identity.pgpFingerprint,
     image: identity.image,
     twitter: identity.twitter,
-    isGood: identity.isGood
+    judgements: identity.judgements
   });
 
   await account.save();
