@@ -64,5 +64,20 @@ export default styled(AllianceRule)`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    ul {
+      margin: 14px 0px;
+      padding-left: 40px;
+      li {
+        list-style: disc;
+      }
+    }
+    ol {
+      margin: 14px 0px;
+      padding-left: 40px;
+      li {
+        list-style: decimal;
+      }
+    }
   }
 `;

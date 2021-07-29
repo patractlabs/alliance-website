@@ -85,5 +85,20 @@ export default styled(Detail)`
         margin-right: 24px;
       }
     }
+    .announcement-content {
+      ul {
+        margin: 14px 0px;
+        padding-left: 40px;
+        li {
+          list-style: disc;
+        }
+      }
+      ol {
+        margin: 14px 0px;
+        padding-left: 40px;
+        li {
+          list-style: decimal;
+        }
+      }
   }
 `;

@@ -19,6 +19,21 @@ const Wrapper = styled.div`
     > .content-main {
       padding: 0px 16px;
       flex: 1;
+
+      ul {
+        margin: 14px 0px;
+        padding-left: 40px;
+        li {
+          list-style: disc;
+        }
+      }
+      ol {
+        margin: 14px 0px;
+        padding-left: 40px;
+        li {
+          list-style: decimal;
+        }
+      }
     }
     > .scrollbar {
       height: 100%;
