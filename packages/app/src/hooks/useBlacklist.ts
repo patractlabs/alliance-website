@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { ApolloError, gql, useQuery } from '@apollo/client';
 import { Account } from './useMember';
 
 const GET_BLACKLIST = gql`
@@ -8,7 +8,9 @@ const GET_BLACKLIST = gql`
       account {
         id
         display
+        displayParent
         address
+        judgements
       }
       website
       isAccount
@@ -35,7 +37,11 @@ interface QueryResult<T> {
   blacklist: T;
 }
 
-export function useBlacklist(id: string) {
+export function useBlacklist(id: string): {
+  data: Blacklist | undefined;
+  loading: boolean;
+  error: ApolloError | undefined;
+} {
   const { data, loading, error } = useQuery<QueryResult<Blacklist>>(GET_BLACKLIST, { variables: { id } });
 
   console.log('useBlacklist', data, id);

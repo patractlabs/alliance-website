@@ -1,30 +1,30 @@
-import { gql, useQuery } from '@apollo/client';
+import { ApolloError, gql, useQuery } from '@apollo/client';
 import { Candidate } from './useCandidate';
 
 const GET_CANDIDATES = gql`
-  {
-    query {
-      candidates {
-        nodes {
+  query {
+    candidates {
+      nodes {
+        id
+        account {
           id
-          account {
-            id
-            address
-            additional
-            display
-            legal
-            web
-            riot
-            email
-            pgpFingerprint
-            image
-            twitter
-          }
-          locked
-          applyTime
-          nominator {
-            display
-          }
+          address
+          additional
+          display
+          displayParent
+          judgements
+          legal
+          web
+          riot
+          email
+          pgpFingerprint
+          image
+          twitter
+        }
+        locked
+        applyTime
+        nominator {
+          id
         }
       }
     }
@@ -32,16 +32,18 @@ const GET_CANDIDATES = gql`
 `;
 
 interface QueryResult<T> {
-  query: {
-    candidates: {
-      nodes: T[];
-    };
+  candidates: {
+    nodes: T[];
   };
 }
 
-export function useCandidates() {
+export function useCandidates(): {
+  data: Candidate[];
+  loading: boolean;
+  error: ApolloError | undefined;
+} {
   const { data, loading, error } = useQuery<QueryResult<Candidate>>(GET_CANDIDATES);
 
   console.log('data', data);
-  return { data: data?.query.candidates.nodes || [], loading, error };
+  return { data: data?.candidates.nodes || [], loading, error };
 }

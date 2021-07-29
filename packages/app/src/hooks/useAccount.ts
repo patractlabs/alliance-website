@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { ApolloError, gql, useQuery } from '@apollo/client';
 import { Account } from './useMember';
 
 const Query = gql`
@@ -8,6 +8,7 @@ const Query = gql`
       address
       additional
       display
+      displayParent
       legal
       web
       riot
@@ -15,6 +16,7 @@ const Query = gql`
       pgpFingerprint
       image
       twitter
+      judgements
     }
   }
 `;
@@ -23,7 +25,11 @@ interface QueryResult<T> {
   account: T;
 }
 
-export function useAccount(id?: string) {
+export function useAccount(id?: string): {
+  data: Account | undefined;
+  loading: boolean;
+  error: ApolloError | undefined;
+} {
   const { data, loading, error } = useQuery<QueryResult<Account>>(Query, { variables: { id } });
 
   console.log('data', data);

@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { ApolloError, gql, useQuery } from '@apollo/client';
 
 const query = gql`
   query {
@@ -26,7 +26,11 @@ interface QueryResult<T> {
   };
 }
 
-export function useRule() {
+export function useRule(): {
+  data: Rule | undefined;
+  loading: boolean;
+  error: ApolloError | undefined;
+} {
   const { data, loading, error } = useQuery<QueryResult<Rule>>(query);
 
   console.log('data', data);

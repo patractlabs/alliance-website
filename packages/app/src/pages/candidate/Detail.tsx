@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { KeyValuePage, PageSkeleton } from '../../components';
+import { AccountDisplay, AccountFormatted, KeyValuePage, PageSkeleton } from '../../components';
 import { Breadcrumb } from 'antd';
 import FounderSvg from '../../assets/imgs/founder-big.svg';
 import AllySvg from '../../assets/imgs/ally-big.svg';
@@ -34,7 +34,14 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
           className='key-values'
           pairs={[
             { name: 'AccountID', render: <>{candidate?.id || '-'}</> },
-            { name: 'Identity', render: <>{candidate?.account.display || '-'}</> },
+            {
+              name: 'Identity',
+              render: (
+                <>
+                  <AccountFormatted account={candidate?.account} />
+                </>
+              )
+            },
             {
               name: 'Website',
               render: !candidate?.account.web ? (
@@ -46,7 +53,14 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
               )
             },
             { name: 'Locked', render: <>{formatBalance(candidate?.locked || undefined, {}, 10)}</> },
-            { name: 'Nominator', render: <>{candidate?.nominator?.display || '-'}</> },
+            {
+              name: 'Nominator',
+              render: (
+                <>
+                  <AccountDisplay id={candidate?.nominator?.id || ''} />
+                </>
+              )
+            },
             { name: 'Applied Date (Ordinary to Candidate)', render: <>{formatDate(candidate?.applyTime)}</> }
           ]}
         ></KeyValuePage>

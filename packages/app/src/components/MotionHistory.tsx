@@ -31,7 +31,7 @@ const MotionHistory: FC<{
         </div>
         <div className='line-value'>
           <div className='accounts'>
-            {!actions?.filter((action) => action.approve).length
+            {!actions.filter((action) => action.approve).length
               ? '-'
               : actions
                   ?.filter((action) => action.approve)
@@ -46,7 +46,7 @@ const MotionHistory: FC<{
         </div>
         <div className='line-value'>
           <div className='accounts'>
-            {!actions?.filter((action) => !action.approve).length
+            {!actions.filter((action) => !action.approve).length
               ? '-'
               : actions
                   ?.filter((action) => !action.approve)

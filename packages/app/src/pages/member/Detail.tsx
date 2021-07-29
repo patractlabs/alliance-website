@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { BorderedRow, MotionHistory, PageSkeleton } from '../../components';
+import { AccountFormatted, BorderedRow, MotionHistory, PageSkeleton } from '../../components';
 import { Style } from '../../shared/style/const';
 import { Breadcrumb } from 'antd';
 import { MemberRole, useCandidate } from '../../hooks';
@@ -47,7 +47,9 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
           </BorderedRow>
           <BorderedRow borderColor={Style.border.lighter} padding='16px'>
             <div className='key'>Identity</div>
-            <div className='value'>{member?.account.display || '-'}</div>
+            <div className='value'>
+              <AccountFormatted account={member?.account} />
+            </div>
           </BorderedRow>
           <BorderedRow borderColor={Style.border.lighter} padding='16px'>
             <div className='key'>Website</div>

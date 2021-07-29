@@ -8,6 +8,7 @@ const AccountDispaly: FC<{
   id: string;
 }> = ({ className, id }) => {
   const { data: account } = useAccount(id);
+
   return (
     <div className={className}>
       <AccountFormatted account={account} />
@@ -18,5 +19,4 @@ const AccountDispaly: FC<{
 export default styled(AccountDispaly)`
   display: flex;
   align-items: center;
-  justify-content: space-between;
 `;

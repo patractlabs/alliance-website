@@ -49,7 +49,7 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
               name: 'Motion Approvers',
               render: (
                 <div className='accounts'>
-                  {actions?.filter((action) => action.approve).length
+                  {actions.filter((action) => action.approve).length
                     ? actions
                         ?.filter((action) => action.approve)
                         .map((action) => <AccountDisplay id={action.accountId} key={action.accountId} />)
@@ -61,7 +61,7 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
               name: 'Motion Disapprovers',
               render: (
                 <div className='accounts'>
-                  {actions?.filter((action) => !action.approve).length
+                  {actions.filter((action) => !action.approve).length
                     ? actions
                         ?.filter((action) => !action.approve)
                         .map((action) => <AccountDisplay id={action.accountId} key={action.accountId} />)

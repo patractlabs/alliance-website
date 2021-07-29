@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { BorderedRow, MotionHistory, KeyValuePage, PageSkeleton } from '../../components';
+import { BorderedRow, MotionHistory, KeyValuePage, PageSkeleton, AccountFormatted } from '../../components';
 import { Breadcrumb } from 'antd';
 import FounderSvg from '../../assets/imgs/founder-big.svg';
 import AllySvg from '../../assets/imgs/ally-big.svg';
@@ -48,7 +48,14 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
           pairs={
             [
               blocked?.isAccount && { name: 'Address', render: <>{blocked?.account?.address}</> },
-              blocked?.isAccount && { name: 'Identity', render: <>{blocked?.account?.display}</> },
+              blocked?.isAccount && {
+                name: 'Identity',
+                render: (
+                  <>
+                    <AccountFormatted account={blocked.account} />
+                  </>
+                )
+              },
               !blocked?.isAccount && {
                 name: 'Website',
                 render: !blocked?.website ? <>-</> : <a href={blocked.website}>{blocked.id}</a>

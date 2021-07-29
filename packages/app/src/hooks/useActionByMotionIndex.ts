@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { ApolloError, gql, useQuery } from '@apollo/client';
 
 const Query = gql`
   query Query($motionActionsFilter: MotionActionFilter) {
@@ -27,7 +27,11 @@ interface QueryResult<T> {
   };
 }
 
-export function useActionByMotionIndex(index?: number | null) {
+export function useActionByMotionIndex(index?: number | null): {
+  data: Action[];
+  loading: boolean;
+  error: ApolloError | undefined;
+} {
   const { data, loading, error } = useQuery<QueryResult<Action>>(Query, {
     variables: {
       motionActionsFilter: { motionIndex: { equalTo: index } }
@@ -35,5 +39,5 @@ export function useActionByMotionIndex(index?: number | null) {
   });
 
   console.log('useActionByMotionIndex', data);
-  return { data: data?.motionActions.nodes, loading, error };
+  return { data: data?.motionActions.nodes || [], loading, error };
 }

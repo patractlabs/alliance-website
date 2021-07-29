@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import { BorderedRow, Filter, PageSkeleton, Search } from '../../components';
+import { AccountFormatted, BorderedRow, Filter, PageSkeleton, Search } from '../../components';
 import BorderedTitle from '../../components/BorderedTitle';
 import MorePrimarySvg from '../../assets/imgs/more-primary.svg';
 import FounderSvg from '../../assets/imgs/founder.svg';
@@ -86,7 +86,9 @@ const Member: FC<{ className?: string }> = ({ className }) => {
                 <div className='cell account-id'>
                   <span className='alliance-span-link'>#{member.id}</span>
                 </div>
-                <div className='cell identity'>{member.account.display}</div>
+                <div className='cell identity'>
+                  <AccountFormatted account={member.account} />
+                </div>
                 <div className='cell website'>
                   <a
                     target='_blank'

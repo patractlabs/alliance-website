@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Verified Identity</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Ui-Library" transform="translate(-62.000000, -2462.000000)" fill="#8b0000" fill-rule="nonzero">
+            <g id="形状-2" transform="translate(62.000000, 2462.000000)">
+                <path d="M8,0 C12.416,0 16,3.584 16,8 C16,12.416 12.416,16 8,16 C3.584,16 0,12.416 0,8 C0,3.584 3.584,0 8,0 Z M11.1079929,5.02801411 L6.4,9.736 L4.89308985,8.23490804 C4.58082269,7.92384654 4.07566491,7.92433509 3.764,8.236 C3.4525114,8.5474886 3.4525114,9.0525114 3.764,9.364 L6.4,12 L12.2339965,6.16600353 C12.5469146,5.85308541 12.5478105,5.34602188 12.236,5.032 C11.9256101,4.71940878 11.4205842,4.71762423 11.1079929,5.02801411 Z" id="形状"></path>
+            </g>
+        </g>
+    </g>
+</svg>

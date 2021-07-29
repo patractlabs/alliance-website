@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { ApolloError, gql, useQuery } from '@apollo/client';
 import { Motion } from './useMotions';
 
 const Query = gql`
@@ -32,7 +32,11 @@ interface QueryResult<T> {
   };
 }
 
-export function useMotionByIndex(index?: number | null) {
+export function useMotionByIndex(index?: number | null): {
+  data: Motion | undefined;
+  loading: boolean;
+  error: ApolloError | undefined;
+} {
   const { data, loading, error } = useQuery<QueryResult<Motion>>(Query, {
     variables: {
       motionsFilter: {

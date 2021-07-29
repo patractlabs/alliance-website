@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { ApolloError, gql, useQuery } from '@apollo/client';
 
 const GET_MEMBER = gql`
   query Query($id: String!) {
@@ -9,6 +9,7 @@ const GET_MEMBER = gql`
         address
         additional
         display
+        displayParent
         legal
         web
         riot
@@ -16,6 +17,7 @@ const GET_MEMBER = gql`
         pgpFingerprint
         image
         twitter
+        judgements
       }
       locked
       type
@@ -45,6 +47,7 @@ export interface Account {
   address: string;
   additional: string | null;
   display: string | null;
+  displayParent: string | null;
   legal: string | null;
   web: string | null;
   riot: string | null;
@@ -52,6 +55,7 @@ export interface Account {
   pgpFingerprint: string | null;
   image: string | null;
   twitter: string | null;
+  judgements: string | null;
 }
 
 export interface Member {
@@ -71,7 +75,11 @@ interface QueryResult<T> {
 }
 
 // fix: addres not id
-export function useMember(id: string) {
+export function useMember(id: string): {
+  data: Member | undefined;
+  loading: boolean;
+  error: ApolloError | undefined;
+} {
   const { data, loading, error } = useQuery<QueryResult<Member>>(GET_MEMBER, { variables: { id } });
 
   console.log('data', data);

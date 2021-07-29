@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { ApolloError, gql, useQuery } from '@apollo/client';
 import { Account } from './useMember';
 
 const QUERY = gql`
@@ -10,6 +10,7 @@ const QUERY = gql`
         address
         additional
         display
+        displayParent
         legal
         web
         riot
@@ -17,10 +18,11 @@ const QUERY = gql`
         pgpFingerprint
         image
         twitter
+        judgements
       }
       locked
       nominator {
-        display
+        id
       }
       applyTime
     }
@@ -32,7 +34,7 @@ export interface Candidate {
   account: Account;
   locked: string | null;
   nominator: {
-    display: string;
+    id: string;
   } | null;
   applyTime: string | null;
 }
@@ -41,8 +43,12 @@ interface QueryList<T> {
   candidate: T;
 }
 
-// addres not id
-export function useCandidate(id: string) {
+// fix: addres not id
+export function useCandidate(id: string): {
+  data: Candidate | undefined;
+  loading: boolean;
+  error: ApolloError | undefined;
+} {
   const { data, loading, error } = useQuery<QueryList<Candidate>>(QUERY, { variables: { id } });
 
   console.log('data', data);

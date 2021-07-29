@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { ApolloError, gql, useQuery } from '@apollo/client';
 
 const GET_ANNOUNCEMENTS = gql`
   query {
@@ -26,7 +26,11 @@ interface QueryResult<T> {
   };
 }
 
-export function useAnnouncements() {
+export function useAnnouncements(): {
+  data: Announcement[];
+  loading: boolean;
+  error: ApolloError | undefined;
+} {
   const { data, loading, error } = useQuery<QueryResult<Announcement>>(GET_ANNOUNCEMENTS);
 
   console.log('useAnnouncements', data);

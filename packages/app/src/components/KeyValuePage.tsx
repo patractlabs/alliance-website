@@ -1,4 +1,4 @@
-import { CSSProperties, FC, ReactElement } from 'react';
+import { FC, ReactElement } from 'react';
 import styled from 'styled-components';
 import { Style } from '../shared/style/const';
 import BorderedRow from './BorderedRow';

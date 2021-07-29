@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { PageSkeleton, BorderedTitle, Search, BorderedRow } from '../../components';
+import { PageSkeleton, BorderedTitle, Search, BorderedRow, AccountFormatted, AccountDisplay } from '../../components';
 import { Style } from '../../shared/style/const';
 import MorePrimarySvg from '../../assets/imgs/more-primary.svg';
 import { useCandidates } from '../../hooks';
@@ -55,7 +55,7 @@ const Candidate: FC<{ className?: string }> = ({ className }) => {
                 <span className='alliance-span-link'>{candidate.account.address}</span>
               </div>
               <div style={{ width: '18.3%' }} className='cell'>
-                {candidate.account.display}
+                <AccountFormatted account={candidate.account} />
               </div>
               <div style={{ width: '19.1%' }} className='cell'>
                 <a target='_blank' rel='noreferrer' href={candidate.account.web || ''}>
@@ -66,7 +66,7 @@ const Candidate: FC<{ className?: string }> = ({ className }) => {
                 {formatBalance(candidate?.locked || undefined, {}, 10) || '-'}
               </div>
               <div style={{ width: '18.6%' }} className='cell'>
-                {candidate.nominator?.display || '-'}
+                <AccountDisplay id={candidate.nominator?.id || ''} />
               </div>
               <div className='cell'>{formatDate(candidate.applyTime)}</div>
               <div className='cell' style={{ justifyContent: 'flex-end', flex: 1 }}>

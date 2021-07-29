@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Unverified Identity</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Ui-Library" transform="translate(-182.000000, -2462.000000)" fill="#BAB8C0">
+            <g id="形状结合" transform="translate(182.000000, 2462.000000)">
+                <path d="M8,0 C12.418278,0 16,3.581722 16,8 C16,12.418278 12.418278,16 8,16 C3.581722,16 0,12.418278 0,8 C0,3.581722 3.581722,0 8,0 Z M11,7 L5,7 C4.44771525,7 4,7.44771525 4,8 C4,8.55228475 4.44771525,9 5,9 L5,9 L11,9 C11.5522847,9 12,8.55228475 12,8 C12,7.44771525 11.5522847,7 11,7 L11,7 Z"></path>
+            </g>
+        </g>
+    </g>
+</svg>
