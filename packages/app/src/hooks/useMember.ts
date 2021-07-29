@@ -57,7 +57,7 @@ export interface Account {
 export interface Member {
   id: string;
   account: Account;
-  locked: number | null;
+  locked: string | null;
   type: MemberRole;
   status: MemberStatus;
   joinTime: string | null;

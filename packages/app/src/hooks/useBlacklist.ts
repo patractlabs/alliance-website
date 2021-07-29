@@ -8,6 +8,7 @@ const GET_BLACKLIST = gql`
       account {
         id
         display
+        address
       }
       website
       isAccount

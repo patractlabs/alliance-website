@@ -9,7 +9,9 @@ import AllySvg from '../../assets/imgs/ally-big.svg';
 import FellowSvg from '../../assets/imgs/fellow-big.svg';
 import { useMember } from '../../hooks';
 import { useParams } from 'react-router-dom';
-import { DEFAULT_ICON } from '../home/CurrentMembers/MembersByRole';
+import { formatBalance } from '@polkadot/util';
+import MemberLogo from '../../components/MemberLogo';
+import { formatDate } from '../../core/util/format-date';
 
 export const badgeImgMap = {
   [MemberRole.FOUNDER]: FounderSvg,
@@ -35,7 +37,7 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
         <div className='info'>
           <BorderedRow borderColor={Style.border.lighter} padding='16px'>
             <div className='key member-icon'>
-              {member && <img src={member?.account.image || DEFAULT_ICON} alt='' />}
+              <MemberLogo address={member?.account.address} />
             </div>
             <div className='value member-role'>{member && <img src={badgeImgMap[member.type]} alt='' />}</div>
           </BorderedRow>
@@ -55,30 +57,36 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
           </BorderedRow>
           <BorderedRow borderColor={Style.border.lighter} padding='16px'>
             <div className='key'>Locked</div>
-            <div className='value'>{member?.locked || '-'}</div>
+            <div className='value'>{formatBalance(member?.locked || undefined, {}, 10) || '-'}</div>
           </BorderedRow>
-          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
-            <div className='key'>Initiated Date(Ordinary to Founder)</div>
-            <div className='value'>{(member?.type === MemberRole.FOUNDER && member.joinTime) || '-'}</div>
-          </BorderedRow>
-          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
-            <div className='key'>Applied Date(Ordinary to Candidate)</div>
-            <div className='value'>{candidate?.applyTime || '-'}</div>
-          </BorderedRow>
-          <BorderedRow widthoutBottom={true} borderColor={Style.border.lighter} padding='16px'>
-            <div className='key'>Join Date(Candidate to Ally)</div>
-            <div className='value'>{member?.joinTime || '-'}</div>
-          </BorderedRow>
-          <BorderedRow borderColor={Style.border.lighter} padding='0px'>
-            <MotionHistory motionIndex={member?.joinMotionIndex || undefined} />
-          </BorderedRow>
-          <BorderedRow widthoutBottom={true} borderColor={Style.border.lighter} padding='16px'>
-            <div className='key'>Elevated Date(Ally to Fellow)</div>
-            <div className='value'>{member?.elevatedTime || '-'}</div>
-          </BorderedRow>
-          <BorderedRow borderColor={Style.border.lighter} padding='0px'>
-            <MotionHistory motionIndex={member?.elevatedMotionIndex || undefined} />
-          </BorderedRow>
+          {member?.type === MemberRole.FOUNDER && (
+            <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+              <div className='key'>Initiated Date(Ordinary to Founder)</div>
+              <div className='value'>{formatDate(member.joinTime)}</div>
+            </BorderedRow>
+          )}
+          {member?.type !== MemberRole.FOUNDER && (
+            <React.Fragment>
+              <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+                <div className='key'>Applied Date(Ordinary to Candidate)</div>
+                <div className='value'>{formatDate(candidate?.applyTime)}</div>
+              </BorderedRow>
+              <BorderedRow widthoutBottom={true} borderColor={Style.border.lighter} padding='16px'>
+                <div className='key'>Join Date(Candidate to Ally)</div>
+                <div className='value'>{formatDate(member?.joinTime)}</div>
+              </BorderedRow>
+              <BorderedRow borderColor={Style.border.lighter} padding='0px'>
+                <MotionHistory motionIndex={member?.joinMotionIndex || undefined} />
+              </BorderedRow>
+              <BorderedRow widthoutBottom={true} borderColor={Style.border.lighter} padding='16px'>
+                <div className='key'>Elevated Date(Ally to Fellow)</div>
+                <div className='value'>{formatDate(member?.elevatedTime)}</div>
+              </BorderedRow>
+              <BorderedRow borderColor={Style.border.lighter} padding='0px'>
+                <MotionHistory motionIndex={member?.elevatedMotionIndex || undefined} />
+              </BorderedRow>
+            </React.Fragment>
+          )}
           <BorderedRow borderColor={Style.border.lighter} padding='16px'>
             <div className='key'>Status</div>
             <div className='value'>{member?.status || '-'}</div>
@@ -105,7 +113,7 @@ export default styled(Detail)`
         text-overflow: ellipsis;
         color: ${Style.label.primary};
       }
-      > .member-icon > img {
+      > .member-icon > div {
         height: 60px;
         width: 60px;
       }

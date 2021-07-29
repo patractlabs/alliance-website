@@ -16,6 +16,7 @@ const Scroll: FC<{
   useEffect(() => {
     const container = target.current;
     const trackDom: HTMLElement | null = track.current;
+    console.log('container', container, 'trackdom', trackDom);
 
     if (!container || !trackDom) {
       return;
@@ -74,6 +75,7 @@ const Scroll: FC<{
       container.scrollTop = contentTop;
     };
     // const resize = (e: Event) => console.log('resize', e);
+    // trackStyle &&
     console.log(
       'container hegiht',
       containerHeight,
@@ -81,12 +83,19 @@ const Scroll: FC<{
       contentHeight,
       'contentMaxMovable',
       contentMaxMovable,
+      'trackHeight',
+      trackHeight,
+      'thumbHeight',
+      thumbHeight,
       'thumbMaxMovable',
       thumbMaxMovable,
       'containerBorderTop',
       containerBorderTop,
       'containerPaddingTop',
-      containerPaddingTop
+      containerPaddingTop,
+      { height: thumbHeight },
+      trackDom.getBoundingClientRect(),
+      trackDom
     );
 
     setThumb((old) => ({ ...old, height: thumbHeight }));
@@ -104,7 +113,9 @@ const Scroll: FC<{
       document.removeEventListener('mousemove', mousemoveCb, false);
       (trackDom.children[0] as HTMLDivElement).removeEventListener('mousedown', mousedownCb, false);
     };
-  }, [target, track]);
+  }, [target, track, trackStyle]);
+
+  useEffect(() => trackStyle && console.log(thumb.height, trackStyle), [thumb, trackStyle]);
 
   return (
     <div style={{ ...thumbStyle, width: thumb.height <= 0 ? '0px' : '12px' }} ref={track as any} className={className}>
@@ -116,10 +127,10 @@ const Scroll: FC<{
 export default styled(Scroll)`
   background: #fbf4f7;
   border-radius: 7px;
+  margin-right: 1px;
   > div {
     width: 8px;
     margin: 0 auto;
-    height: 72px;
     opacity: 0.5;
     background: #172026;
     border-radius: 5px;

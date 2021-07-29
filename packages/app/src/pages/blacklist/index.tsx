@@ -6,17 +6,19 @@ import MorePrimarySvg from '../../assets/imgs/more-primary.svg';
 import { Col, Row } from 'antd';
 import { Style } from '../../shared/style/const';
 import { useBlacklists } from '../../hooks';
+import { formatDate } from '../../core/util/format-date';
 
 const Blacklist: FC<{ className?: string }> = ({ className }) => {
   const { data } = useBlacklists();
   const [accountType, setAccountType] = useState('All');
   const [websiteType, setWebsiteType] = useState('All');
   const history = useHistory();
+  const [filter, setFilter] = useState('');
 
   return (
     <PageSkeleton>
       <div className={className}>
-        <Search />
+        <Search onSearch={setFilter} />
 
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} style={{ marginTop: '46px' }}>
           <Col span={12}>
@@ -34,13 +36,17 @@ const Blacklist: FC<{ className?: string }> = ({ className }) => {
               />
             </div>
             <BorderedTitle className='table-title'>
-              <div style={{ width: '20%' }}>Address</div>
-              <div style={{ width: '30%' }}>Identity</div>
-              <div style={{ width: '18%' }}>Added Date</div>
-              <div>Removed Date</div>
+              <div style={{ width: '25%' }}>Address</div>
+              <div style={{ width: '28%' }}>Identity</div>
+              <div style={{ width: '22%' }}>Added Date</div>
+              <div style={{ flex: 1 }}>Removed Date</div>
             </BorderedTitle>
             {data
-              .filter((website) => website.isAccount)
+              .filter((account) => account.isAccount)
+              .filter(
+                (account) =>
+                  !filter || account.account?.address.includes(filter) || account.account?.display?.includes(filter)
+              )
               .filter((account) => {
                 if (accountType === 'Added') {
                   return !account.removeTime;
@@ -60,16 +66,16 @@ const Blacklist: FC<{ className?: string }> = ({ className }) => {
                   key={index}
                   onClick={() => history.push(`/blacklist/${account.account?.id}`)}
                 >
-                  <div style={{ width: '20%' }} className='cell'>
-                    <span className='alliance-span-link'>{account.account?.id}</span>
+                  <div style={{ width: '25%' }} className='cell'>
+                    <span className='alliance-span-link'>{account.account?.address}</span>
                   </div>
-                  <div style={{ width: '30%' }} className='cell'>
+                  <div style={{ width: '28%' }} className='cell'>
                     <AccountFormatted account={account.account} />
                   </div>
-                  <div style={{ width: '18%' }} className='cell'>
-                    {account.addTime}
+                  <div style={{ width: '22%' }} className='cell'>
+                    {formatDate(account.addTime)}
                   </div>
-                  <div className='cell'>{account.removeTime || '-'}</div>
+                  <div className='cell'>{formatDate(account.removeTime)}</div>
                   <div className='cell' style={{ justifyContent: 'flex-end', flex: 1 }}>
                     <img src={MorePrimarySvg} alt='' />
                   </div>
@@ -97,6 +103,7 @@ const Blacklist: FC<{ className?: string }> = ({ className }) => {
             </BorderedTitle>
             {data
               .filter((website) => !website.isAccount)
+              .filter((website) => !filter || website.website?.includes(filter))
               .filter((website) => {
                 if (websiteType === 'Added') {
                   return !website.removeTime;
@@ -119,9 +126,9 @@ const Blacklist: FC<{ className?: string }> = ({ className }) => {
                     <span className='alliance-span-link'>{website.website}</span>
                   </div>
                   <div style={{ width: '30%' }} className='cell'>
-                    {website.addTime}
+                    {formatDate(website.addTime)}
                   </div>
-                  <div className='cell'>{website.removeTime || '-'}</div>
+                  <div className='cell'>{formatDate(website.removeTime)}</div>
                   <div className='cell' style={{ justifyContent: 'flex-end', flex: 1 }}>
                     <img src={MorePrimarySvg} alt='' />
                   </div>
@@ -147,7 +154,7 @@ export default styled(Blacklist)`
     }
   }
 
-  > .table-row {
+  .table-row {
     cursor: pointer;
   }
 `;

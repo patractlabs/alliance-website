@@ -8,6 +8,7 @@ import { decodeCid } from '../../core/util/decode-cid-hex';
 import Markdown from 'react-markdown';
 import { useMotionByIndex } from '../../hooks/useMotionByIndex';
 import { useActionByMotionIndex } from '../../hooks/useActionByMotionIndex';
+import { formatDate } from '../../core/util/format-date';
 
 const Detail: FC<{ className?: string }> = ({ className }) => {
   const { announcementId } = useParams<{ announcementId: string }>();
@@ -30,7 +31,7 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
           className='key-values'
           pairs={[
             { name: 'Motion Index', render: <>#{announcement?.motionIndex}</> },
-            { name: 'Date', render: <>{announcement?.createTime}</> },
+            { name: 'Date', render: <>{formatDate(announcement?.createTime)}</> },
             { name: 'Hash', render: <>{motion?.hash}</> },
             {
               name: 'Content',

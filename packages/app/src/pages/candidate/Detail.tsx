@@ -2,12 +2,13 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { KeyValuePage, PageSkeleton } from '../../components';
 import { Breadcrumb } from 'antd';
-// import { useParams } from 'react-router-dom';
 import FounderSvg from '../../assets/imgs/founder-big.svg';
 import AllySvg from '../../assets/imgs/ally-big.svg';
 import FellowSvg from '../../assets/imgs/fellow-big.svg';
 import { MemberRole, useCandidate } from '../../hooks';
 import { useParams } from 'react-router-dom';
+import { formatBalance } from '@polkadot/util';
+import { formatDate } from '../../core/util/format-date';
 
 export const badgeImgMap = {
   [MemberRole.FOUNDER]: FounderSvg,
@@ -42,9 +43,9 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
                 <a href={candidate.account.web || ''}>{candidate.account.web}</a>
               )
             },
-            { name: 'Locked', render: <>{candidate?.locked || '-'}</> },
+            { name: 'Locked', render: <>{formatBalance(candidate?.locked || undefined, {}, 10)}</> },
             { name: 'Nominator', render: <>{candidate?.nominator?.display || '-'}</> },
-            { name: 'Applied Date (Ordinary to Candidate)', render: <>{candidate?.applyTime || '-'}</> }
+            { name: 'Applied Date (Ordinary to Candidate)', render: <>{formatDate(candidate?.applyTime)}</> }
           ]}
         ></KeyValuePage>
       </div>

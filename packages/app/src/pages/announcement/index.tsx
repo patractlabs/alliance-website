@@ -10,6 +10,7 @@ import { decodeCid } from '../../core/util/decode-cid-hex';
 import Markdown from 'react-markdown';
 import { useMotionByIndex } from '../../hooks/useMotionByIndex';
 import Content from './Content';
+import { formatDate } from '../../core/util/format-date';
 
 const Row = styled(BorderedRow)`
   display: block;
@@ -38,7 +39,7 @@ const AnnouncementRow: FC<{ className?: string; announcement: Announcement; defa
         <div className='cell motion-id'>
           <span className='alliance-span-link'>#{announcement.motionIndex}</span>
         </div>
-        <div className='cell announcement-date'>{announcement.createTime}</div>
+        <div className='cell announcement-date'>{formatDate(announcement.createTime)}</div>
         <div className='cell announcement-hash'>
           <span>{motion?.hash}</span>
         </div>

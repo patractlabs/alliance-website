@@ -1,17 +1,26 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import styled from 'styled-components';
 import { Style } from '../shared/style/const';
 import SearchSvg from '../assets/imgs/search.svg';
 
-const Search: FC<{ className?: string }> = ({ className }) => {
+const Search: FC<{ className?: string; onSearch: (value: string) => void }> = ({ className, onSearch }) => {
+  const [filter, setFilter] = useState('');
+
   return (
     <div className={className}>
       <div className='search'>
         <div className='input'>
           <img src={SearchSvg} alt='' />
-          <input placeholder='AccountID, Identity, Website' />
+          <input
+            value={filter}
+            onChange={(e) => {
+              setFilter(e.target.value);
+              !e.target.value && onSearch('');
+            }}
+            placeholder='AccountID, Identity, Website'
+          />
         </div>
-        <button>Search</button>
+        <button onClick={() => onSearch(filter)}>Search</button>
       </div>
     </div>
   );

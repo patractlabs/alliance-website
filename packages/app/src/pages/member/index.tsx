@@ -10,7 +10,9 @@ import { Style } from '../../shared/style/const';
 import { useHistory } from 'react-router-dom';
 import { useMembers } from '../../hooks/useMembers';
 import { MemberRole, MemberStatus } from '../../hooks';
-import { DEFAULT_ICON } from '../home/CurrentMembers/MembersByRole';
+import MemberLogo from '../../components/MemberLogo';
+import { formatBalance } from '@polkadot/util';
+import { formatDate } from '../../core/util/format-date';
 
 const badgeImgMap = {
   [MemberRole.FOUNDER]: FounderSvg,
@@ -20,80 +22,6 @@ const badgeImgMap = {
 const ALL = 'ALL';
 const Member: FC<{ className?: string }> = ({ className }) => {
   const { data } = useMembers();
-
-  // const members: MemberType[] = [
-  //   {
-  //     joinedDate: 'Jun-1-2021',
-  //     elevatedDate: 'Jun-24-2021',
-  //     stauts: MemberStatus.Existing,
-  //     locked: '1000 DOT',
-  //     name: 'SubDao',
-  //     accountID: '5H1CKbZYQc4Uk7DAvEwJyXsteGy1jXsYrAEGK16gDLPm4NCt',
-  //     icon: PolkadotSvg,
-  //     role: MemberRole.Founder,
-  //     identity: 'xxx',
-  //     initiatedDate: 'Jun-1-2021',
-  //     appliedDate: 'Jun-10-2021',
-  //     website: 'https://subdao.io'
-  //   },
-  //   {
-  //     joinedDate: 'Jun-1-2021',
-  //     elevatedDate: 'Jun-24-2021',
-  //     stauts: MemberStatus.Existing,
-  //     locked: '1000 DOT',
-  //     name: 'Phala',
-  //     accountID: '5H768Ct9LYgqpn222eYEftRCuZZz9rvW7zwfjrWAEzwGLp4H',
-  //     icon: ApronSvg,
-  //     role: MemberRole.Ally,
-  //     initiatedDate: 'Jun-1-2021',
-  //     appliedDate: 'Jun-10-2021',
-  //     identity: 'xxx',
-  //     website: 'https://phala.io'
-  //   },
-  //   {
-  //     joinedDate: 'Jun-1-2021',
-  //     elevatedDate: 'Jun-24-2021',
-  //     stauts: MemberStatus.Kicked,
-  //     locked: '1000 DOT',
-  //     name: 'Cycan',
-  //     accountID: 'sH768Ct9LYgqpn222eYEftRCuZZz9rvW7zwfjrWAEzwGLp4H',
-  //     icon: PolkadotSvg,
-  //     role: MemberRole.Fellow,
-  //     identity: 'xxx',
-  //     website: 'https://cycan.network',
-  //     initiatedDate: 'Jun-1-2021',
-  //     appliedDate: 'Jun-10-2021'
-  //   },
-  //   {
-  //     joinedDate: 'Jun-1-2021',
-  //     elevatedDate: 'Jun-24-2021',
-  //     stauts: MemberStatus.Existing,
-  //     locked: '1000 DOT',
-  //     name: 'Zenlink',
-  //     accountID: 'sdfss768Ct9LYgqpn222eYEftRCuZZz9rvW7zwfjrWAEzwGLp4H',
-  //     icon: ApronSvg,
-  //     role: MemberRole.Fellow,
-  //     identity: 'xxx',
-  //     initiatedDate: 'Jun-1-2021',
-  //     appliedDate: 'Jun-10-2021',
-  //     website: 'https://zenlink.org'
-  //   },
-  //   {
-  //     stauts: MemberStatus.Applied,
-  //     locked: '1000 DOT',
-  //     name: 'OpenSquare',
-  //     accountID: '5sH768Ct9LYgqpn222eYEftRCuZZz9rvW7zwfjrWAEzwGLp4H',
-  //     icon: PolkadotSvg,
-  //     role: MemberRole.Ally,
-  //     identity: 'xxx',
-  //     initiatedDate: 'Jun-1-2021',
-  //     appliedDate: 'Jun-10-2021',
-  //     joinedDate: 'Jun-1-2021',
-  //     elevatedDate: 'Jun-24-2021',
-  //     website: 'https://opensquare.network'
-  //   }
-  // ];
-
   const typesOptions = [
     { value: ALL, text: ALL },
     { value: MemberRole.FOUNDER, text: MemberRole.FOUNDER },
@@ -108,12 +36,14 @@ const Member: FC<{ className?: string }> = ({ className }) => {
   ];
   const [type, setType] = useState(typesOptions[0].value);
   const [status, setStatus] = useState(statusOptions[0].value);
+  const [filter, setFilter] = useState('');
   const history = useHistory();
 
   return (
     <PageSkeleton>
       <div className={className}>
-        <Search />
+        <Search onSearch={setFilter} />
+
         <div className='filters'>
           <Filter className='filter' span='Types' onChange={setType} options={typesOptions} defaultValue={ALL} />
           <Filter className='filter' span='Status' onChange={setStatus} options={statusOptions} defaultValue={ALL} />
@@ -131,6 +61,13 @@ const Member: FC<{ className?: string }> = ({ className }) => {
             <div style={{ flex: 1 }}>Status</div>
           </BorderedTitle>
           {data
+            .filter(
+              (member) =>
+                !filter ||
+                member.account.address.includes(filter) ||
+                member.account.display?.includes(filter) ||
+                member.account.web?.includes(filter)
+            )
             .filter((member) => (type === ALL || member.type === type) && (status === ALL || member.status === status))
             .map((member, index) => (
               <BorderedRow
@@ -141,7 +78,7 @@ const Member: FC<{ className?: string }> = ({ className }) => {
                 onClick={() => history.push(`/member/${member.id}`)}
               >
                 <div className='cell logo'>
-                  <img src={member.account.image || DEFAULT_ICON} alt='' />
+                  <MemberLogo address={member?.account.address} />
                 </div>
                 <div className='cell badge'>
                   <img src={badgeImgMap[member.type]} alt='' />
@@ -160,9 +97,9 @@ const Member: FC<{ className?: string }> = ({ className }) => {
                     {member.account.web}
                   </a>
                 </div>
-                <div className='cell locked'>{member.locked || '-'}</div>
-                <div className='cell joined-date'>{member.joinTime}</div>
-                <div className='cell elevated-date'>{member.elevatedTime || '-'}</div>
+                <div className='cell locked'>{formatBalance(member.locked || undefined, {}, 10) || '-'}</div>
+                <div className='cell joined-date'>{formatDate(member.joinTime)}</div>
+                <div className='cell elevated-date'>{formatDate(member.elevatedTime)}</div>
                 <div className='cell status'>{member.status}</div>
                 <div className='cell more'>
                   <img src={MorePrimarySvg} alt='' />
@@ -203,7 +140,7 @@ export default styled(Member)`
     }
     .logo {
       width: 8.4%;
-      > img {
+      > div {
         width: 32px;
         height: 32px;
       }

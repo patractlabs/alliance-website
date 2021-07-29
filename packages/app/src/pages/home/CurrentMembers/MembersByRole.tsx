@@ -2,10 +2,9 @@ import { FC } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import JumpSvg from '../../../assets/imgs/jump.svg';
+import MemberLogo from '../../../components/MemberLogo';
 import { Member } from '../../../hooks';
 import { Style } from '../../../shared/style/const';
-
-export const DEFAULT_ICON = '';
 
 const MembersByRole: FC<{ className?: string; members: Member[] }> = ({ className, members }) => {
   const history = useHistory();
@@ -15,8 +14,8 @@ const MembersByRole: FC<{ className?: string; members: Member[] }> = ({ classNam
       {members.map((member, index) => (
         <div className='role' key={index} onClick={() => history.push(`/member/${member.id}`)}>
           <div>
-            <img src={member.account.image || DEFAULT_ICON} alt='' />
-            <div>
+            <MemberLogo className='logo' address={member?.account.address} />
+            <div className='name'>
               <h6>{member.account.display}</h6>
               <span>{member.account.web}</span>
             </div>
@@ -43,12 +42,12 @@ export default styled(MembersByRole)`
     > div {
       display: flex;
       align-items: center;
-      > img {
+      > .logo {
         margin-right: 16px;
         width: 56px;
         height: 56px;
       }
-      > div {
+      > .name {
         overflow: hidden;
         height: 42px;
         word-break: break-all;

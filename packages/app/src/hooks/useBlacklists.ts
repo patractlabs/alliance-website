@@ -9,6 +9,7 @@ const query = gql`
         account {
           id
           display
+          address
         }
         website
         isAccount

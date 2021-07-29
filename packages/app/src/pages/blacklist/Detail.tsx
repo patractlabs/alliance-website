@@ -8,6 +8,8 @@ import FellowSvg from '../../assets/imgs/fellow-big.svg';
 import { MemberRole, useBlacklist, useCandidate, useMember } from '../../hooks';
 import { useParams } from 'react-router-dom';
 import { Style } from '../../shared/style/const';
+import { formatBalance } from '@polkadot/util';
+import { formatDate } from '../../core/util/format-date';
 
 export const badgeImgMap = {
   [MemberRole.FOUNDER]: FounderSvg,
@@ -45,7 +47,7 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
           className='key-values'
           pairs={
             [
-              blocked?.isAccount && { name: 'Address', render: <>{blocked?.account?.id}</> },
+              blocked?.isAccount && { name: 'Address', render: <>{blocked?.account?.address}</> },
               blocked?.isAccount && { name: 'Identity', render: <>{blocked?.account?.display}</> },
               !blocked?.isAccount && {
                 name: 'Website',
@@ -55,14 +57,17 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
                 name: 'Website',
                 render: !blocked?.account?.web ? <>-</> : <a href={blocked.account.web}>{blocked.account.web}</a>
               },
-              blocked?.isAccount && { name: 'Locked', render: <>{candidate?.locked || member?.locked || '-'}</> }
+              blocked?.isAccount && {
+                name: 'Locked',
+                render: <>{formatBalance(candidate?.locked || member?.locked || undefined, {}, 10)}</>
+              }
             ].filter(Boolean) as any
           }
         ></KeyValuePage>
         <KeyValuePage
           className='key-values key-values-no-margin-top'
           pairs={[
-            { name: 'Added Date', render: <>{blocked?.addTime || '-'}</>, withoutTop: true, withoutBottom: true }
+            { name: 'Added Date', render: <>{formatDate(blocked?.addTime)}</>, withoutTop: true, withoutBottom: true }
           ]}
         ></KeyValuePage>
         <BorderedRow borderColor={Style.border.lighter} padding='0px'>
@@ -71,7 +76,12 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
         <KeyValuePage
           className='key-values key-values-no-margin-top'
           pairs={[
-            { name: 'Removed Date', render: <>{blocked?.removeTime || '-'}</>, withoutTop: true, withoutBottom: true }
+            {
+              name: 'Removed Date',
+              render: <>{formatDate(blocked?.removeTime)}</>,
+              withoutTop: true,
+              withoutBottom: true
+            }
           ]}
         ></KeyValuePage>
         <BorderedRow borderColor={Style.border.lighter} padding='0px'>

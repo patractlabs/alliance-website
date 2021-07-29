@@ -8,7 +8,7 @@ const AccountFormatted: FC<{
 }> = ({ className, account }) => {
   return (
     <div className={className}>
-      <span>{account?.display}</span>
+      <span>{account?.display || '-'}</span>
     </div>
   );
 };

@@ -27,7 +27,7 @@ const RecentAnnouncements: FC<{ className?: string }> = ({ className }) => {
 };
 
 export default styled(RecentAnnouncements)`
-  padding: 80px 0px 122px 0px;
+  padding: 80px 55px 122px 55px;
   opacity: 1;
   background: linear-gradient(225deg, #2d333d, #172026 100%);
 

@@ -8,6 +8,7 @@ import Content from './Content';
 import { Announcement, useContent } from '../../../hooks';
 import { decodeCid } from '../../../core/util/decode-cid-hex';
 import Markdown from 'react-markdown';
+import { formatDate } from '../../../core/util/format-date';
 
 const Status = styled.span<{ expanded: boolean }>`
   display: inline-block;
@@ -65,7 +66,7 @@ const AnnouncementDetail: FC<{
       <Row className='info' onClick={() => setExpanded((old) => !old)}>
         <Col span={6} style={{ paddingLeft: '16px' }}>
           <Status expanded={expanded} />
-          {announcement.createTime}
+          {formatDate(announcement.createTime)}
         </Col>
         <Col span={17}>{content?.split('\n')[0].slice(0, 40)}</Col>
         <Col span={1} style={{ textAlign: 'right', paddingRight: '11px' }}>

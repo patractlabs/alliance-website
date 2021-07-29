@@ -30,7 +30,7 @@ const QUERY = gql`
 export interface Candidate {
   id: string;
   account: Account;
-  locked: number | null;
+  locked: string | null;
   nominator: {
     display: string;
   } | null;
