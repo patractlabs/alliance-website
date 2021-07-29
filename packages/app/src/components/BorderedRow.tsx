@@ -19,13 +19,14 @@ const BorderedRow = styled.div<{ withTop?: boolean; widthoutBottom?: boolean; bo
     }
     padding: 0px 6px;
     display: flex;
+    align-items: center;
     > a,
+    > label,
     > span {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    align-items: center;
   }
 `;
 export default BorderedRow;

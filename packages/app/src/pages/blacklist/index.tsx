@@ -35,7 +35,7 @@ const Blacklist: FC<{ className?: string }> = ({ className }) => {
                 ]}
               />
             </div>
-            <BorderedTitle className='table-title'>
+            <BorderedTitle>
               <div style={{ width: '25%' }}>Address</div>
               <div style={{ width: '28%' }}>Identity</div>
               <div style={{ width: '22%' }}>Added Date</div>
@@ -96,7 +96,7 @@ const Blacklist: FC<{ className?: string }> = ({ className }) => {
                 ]}
               />
             </div>
-            <BorderedTitle className='table-title'>
+            <BorderedTitle>
               <div style={{ width: '40%' }}>Website</div>
               <div style={{ width: '30%' }}>Added Date</div>
               <div>Removed Date</div>

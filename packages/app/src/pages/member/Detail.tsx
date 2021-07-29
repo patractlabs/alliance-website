@@ -35,23 +35,23 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
         </Breadcrumb>
 
         <div className='info'>
-          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+          <BorderedRow borderColor={Style.border.lighter} padding='16px 0px'>
             <div className='key member-icon'>
               <MemberLogo address={member?.account.address} />
             </div>
             <div className='value member-role'>{member && <img src={badgeImgMap[member.type]} alt='' />}</div>
           </BorderedRow>
-          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+          <BorderedRow borderColor={Style.border.lighter} padding='16px 0px'>
             <div className='key'>AccountID</div>
             <div className='value'>{member?.id || '-'}</div>
           </BorderedRow>
-          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+          <BorderedRow borderColor={Style.border.lighter} padding='16px 0px'>
             <div className='key'>Identity</div>
             <div className='value'>
               <AccountFormatted account={member?.account} />
             </div>
           </BorderedRow>
-          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+          <BorderedRow borderColor={Style.border.lighter} padding='16px 0px'>
             <div className='key'>Website</div>
             <div className='value'>
               {!member?.account.web ? (
@@ -63,30 +63,30 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
               )}
             </div>
           </BorderedRow>
-          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+          <BorderedRow borderColor={Style.border.lighter} padding='16px 0px'>
             <div className='key'>Locked</div>
             <div className='value'>{formatBalance(member?.locked || undefined, {}, 10) || '-'}</div>
           </BorderedRow>
           {member?.type === MemberRole.FOUNDER && (
-            <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+            <BorderedRow borderColor={Style.border.lighter} padding='16px 0px'>
               <div className='key'>Initiated Date(Ordinary to Founder)</div>
               <div className='value'>{formatDate(member.joinTime)}</div>
             </BorderedRow>
           )}
           {member?.type !== MemberRole.FOUNDER && (
             <React.Fragment>
-              <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+              <BorderedRow borderColor={Style.border.lighter} padding='16px 0px'>
                 <div className='key'>Applied Date(Ordinary to Candidate)</div>
                 <div className='value'>{formatDate(candidate?.applyTime)}</div>
               </BorderedRow>
-              <BorderedRow widthoutBottom={true} borderColor={Style.border.lighter} padding='16px'>
+              <BorderedRow widthoutBottom={true} borderColor={Style.border.lighter} padding='16px 0px'>
                 <div className='key'>Join Date(Candidate to Ally)</div>
                 <div className='value'>{formatDate(member?.joinTime)}</div>
               </BorderedRow>
               <BorderedRow borderColor={Style.border.lighter} padding='0px'>
                 <MotionHistory motionIndex={member?.joinMotionIndex || undefined} />
               </BorderedRow>
-              <BorderedRow widthoutBottom={true} borderColor={Style.border.lighter} padding='16px'>
+              <BorderedRow widthoutBottom={true} borderColor={Style.border.lighter} padding='16px 0px'>
                 <div className='key'>Elevated Date(Ally to Fellow)</div>
                 <div className='value'>{formatDate(member?.elevatedTime)}</div>
               </BorderedRow>
@@ -95,7 +95,7 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
               </BorderedRow>
             </React.Fragment>
           )}
-          <BorderedRow borderColor={Style.border.lighter} padding='16px'>
+          <BorderedRow borderColor={Style.border.lighter} padding='16px 0px'>
             <div className='key'>Status</div>
             <div className='value'>{member?.status || '-'}</div>
           </BorderedRow>
@@ -114,9 +114,12 @@ export default styled(Detail)`
         font-weight: 600;
         color: ${Style.label.default};
         line-height: 18px;
+        padding-left: 16px;
+        margin-right: 16px;
       }
       > .value {
-        padding-left: 26px;
+        padding-left: 10px;
+        padding-right: 10px;
         overflow: hidden;
         text-overflow: ellipsis;
         color: ${Style.label.primary};

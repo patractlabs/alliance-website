@@ -16,7 +16,6 @@ const Scroll: FC<{
   useEffect(() => {
     const container = target.current;
     const trackDom: HTMLElement | null = track.current;
-    console.log('container', container, 'trackdom', trackDom);
 
     if (!container || !trackDom) {
       return;
@@ -76,27 +75,27 @@ const Scroll: FC<{
     };
     // const resize = (e: Event) => console.log('resize', e);
     // trackStyle &&
-    console.log(
-      'container hegiht',
-      containerHeight,
-      'content height',
-      contentHeight,
-      'contentMaxMovable',
-      contentMaxMovable,
-      'trackHeight',
-      trackHeight,
-      'thumbHeight',
-      thumbHeight,
-      'thumbMaxMovable',
-      thumbMaxMovable,
-      'containerBorderTop',
-      containerBorderTop,
-      'containerPaddingTop',
-      containerPaddingTop,
-      { height: thumbHeight },
-      trackDom.getBoundingClientRect(),
-      trackDom
-    );
+    // console.log(
+    //   'container hegiht',
+    //   containerHeight,
+    //   'content height',
+    //   contentHeight,
+    //   'contentMaxMovable',
+    //   contentMaxMovable,
+    //   'trackHeight',
+    //   trackHeight,
+    //   'thumbHeight',
+    //   thumbHeight,
+    //   'thumbMaxMovable',
+    //   thumbMaxMovable,
+    //   'containerBorderTop',
+    //   containerBorderTop,
+    //   'containerPaddingTop',
+    //   containerPaddingTop,
+    //   { height: thumbHeight },
+    //   trackDom.getBoundingClientRect(),
+    //   trackDom
+    // );
 
     setThumb((old) => ({ ...old, height: thumbHeight }));
 
@@ -114,8 +113,6 @@ const Scroll: FC<{
       (trackDom.children[0] as HTMLDivElement).removeEventListener('mousedown', mousedownCb, false);
     };
   }, [target, track, trackStyle]);
-
-  useEffect(() => trackStyle && console.log(thumb.height, trackStyle), [thumb, trackStyle]);
 
   return (
     <div style={{ ...thumbStyle, width: thumb.height <= 0 ? '0px' : '12px' }} ref={track as any} className={className}>

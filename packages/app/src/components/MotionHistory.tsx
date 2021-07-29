@@ -60,11 +60,11 @@ const MotionHistory: FC<{
 
 export default styled(MotionHistory)`
   width: 100%;
-  padding: 0px 16px;
   > .line {
     display: flex;
     > .line-key {
       width: 30%;
+      padding-left: 16px;
       margin-right: 16px;
       display: flex;
       align-items: center;

@@ -49,7 +49,7 @@ const Member: FC<{ className?: string }> = ({ className }) => {
           <Filter className='filter' span='Status' onChange={setStatus} options={statusOptions} defaultValue={ALL} />
         </div>
         <div className='table'>
-          <BorderedTitle className='table-title'>
+          <BorderedTitle>
             <div style={{ width: '8.4%' }}>Logo</div>
             <div style={{ width: '6.4%' }}>Badge</div>
             <div style={{ width: '12.3%' }}>AccountID</div>

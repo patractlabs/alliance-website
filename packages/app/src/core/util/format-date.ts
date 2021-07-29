@@ -7,7 +7,7 @@ export const formatDate = (timeString: string | null | undefined): string => {
     const date = new Date(timeString);
     const dateString = date.toDateString();
 
-    return `${dateString.split(' ').slice(1).join(' ')}`;
+    return `${dateString.split(' ').slice(1).join('-')}`;
   } catch (e) {}
 
   return timeString;

@@ -17,8 +17,8 @@ const KeyValuePage: FC<{
           widthoutBottom={pair.withoutBottom}
           borderColor={Style.border.lighter}
         >
-          <div className='key member-icon'>{pair.name}</div>
-          <div className='value member-role'>{pair.render}</div>
+          <div className='key'>{pair.name}</div>
+          <div className='value'>{pair.render}</div>
         </BorderedRow>
       ))}
     </div>
@@ -27,15 +27,19 @@ const KeyValuePage: FC<{
 
 export default styled(KeyValuePage)`
   > .key-value-row {
-    padding: 16px;
+    padding: 16px 0px;
     > .key {
       width: 30%;
       font-weight: 600;
       color: ${Style.label.default};
       line-height: 18px;
+      margin-right: 16px;
+      padding-left: 16px;
     }
+
     > .value {
-      padding-left: 26px;
+      padding-left: 10px;
+      padding-right: 10px;
       flex: 1;
       overflow: hidden;
       text-overflow: ellipsis;

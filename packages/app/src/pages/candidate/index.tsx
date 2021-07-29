@@ -35,6 +35,7 @@ const Candidate: FC<{ className?: string }> = ({ className }) => {
           <div style={{ width: '18.6%' }}>Nominator</div>
           <div>Applied Date</div>
         </BorderedTitle>
+
         {data
           .filter(
             (member) =>

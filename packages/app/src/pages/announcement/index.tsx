@@ -78,7 +78,7 @@ const Announcements: FC<{ className?: string }> = ({ className }) => {
   return (
     <PageSkeleton>
       <div className={className}>
-        <BorderedTitle className='table-title'>
+        <BorderedTitle>
           <div style={{ width: '19.5%' }}>Motion ID</div>
           <div style={{ width: '18.7%' }}>Date</div>
           <div style={{ width: '30.1%' }}>Hash</div>
