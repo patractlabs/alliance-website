@@ -39,7 +39,7 @@ const DetailWrapper = styled.div<{ top: BorderType; bottom: BorderType }>`
   }
   > .content {
     margin-top: 20px;
-    max-height: 256px;
+    max-height: 384px;
     border: 1px solid #6b7076;
     border-radius: 8px;
     background: ${Style.bg.primary};

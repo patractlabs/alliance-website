@@ -33,7 +33,7 @@ export default styled(RecentAnnouncements)`
 
   > div {
     margin: 0px auto;
-    max-width: 960px;
+    max-width: 1160px;
 
     > .border {
       height: 1px;

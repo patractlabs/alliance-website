@@ -12,6 +12,7 @@ import { useParams } from 'react-router-dom';
 import { formatBalance } from '@polkadot/util';
 import MemberLogo from '../../components/MemberLogo';
 import { formatDate } from '../../core/util/format-date';
+import { statusMap } from './';
 
 export const badgeImgMap = {
   [MemberRole.FOUNDER]: FounderSvg,
@@ -97,7 +98,7 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
           )}
           <BorderedRow borderColor={Style.border.lighter} padding='16px 0px'>
             <div className='key'>Status</div>
-            <div className='value'>{member?.status || '-'}</div>
+            <div className='value'>{member ? statusMap[member.status] : '-'}</div>
           </BorderedRow>
         </div>
       </div>

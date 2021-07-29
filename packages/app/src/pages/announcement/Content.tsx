@@ -4,7 +4,7 @@ import { Style } from '../../shared/style/const';
 import Scroll from '../../components/Scroll';
 
 const Wrapper = styled.div`
-  height: 280px;
+  height: 420px;
   border: 1px solid ${Style.border.primary};
   background: #fffbfd;
   border-radius: 16px;

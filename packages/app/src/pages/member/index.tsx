@@ -19,21 +19,28 @@ const badgeImgMap = {
   [MemberRole.FELLOW]: FellowSvg,
   [MemberRole.ALLY]: AllySvg
 };
-const ALL = 'ALL';
+export const statusMap = {
+  [MemberStatus.EXIST]: 'Existing',
+  [MemberStatus.KICKED]: 'Kicked',
+  [MemberStatus.RETIRED]: 'Retired'
+};
+const ALL = 'All';
+
+const typesOptions = [
+  { value: ALL, text: ALL },
+  { value: MemberRole.FOUNDER, text: 'Founder' },
+  { value: MemberRole.FELLOW, text: 'Fellow' },
+  { value: MemberRole.ALLY, text: 'Ally' }
+];
+const statusOptions = [
+  { value: ALL, text: ALL },
+  { value: MemberStatus.EXIST, text: statusMap[MemberStatus.EXIST] },
+  { value: MemberStatus.KICKED, text: statusMap[MemberStatus.KICKED] },
+  { value: MemberStatus.RETIRED, text: statusMap[MemberStatus.RETIRED] }
+];
+
 const Member: FC<{ className?: string }> = ({ className }) => {
   const { data } = useMembers();
-  const typesOptions = [
-    { value: ALL, text: ALL },
-    { value: MemberRole.FOUNDER, text: MemberRole.FOUNDER },
-    { value: MemberRole.FELLOW, text: MemberRole.FELLOW },
-    { value: MemberRole.ALLY, text: MemberRole.ALLY }
-  ];
-  const statusOptions = [
-    { value: ALL, text: ALL },
-    { value: MemberStatus.EXIST, text: MemberStatus.EXIST },
-    { value: MemberStatus.KICKED, text: MemberStatus.KICKED },
-    { value: MemberStatus.RETIRED, text: MemberStatus.RETIRED }
-  ];
   const [type, setType] = useState(typesOptions[0].value);
   const [status, setStatus] = useState(statusOptions[0].value);
   const [filter, setFilter] = useState('');
@@ -102,7 +109,7 @@ const Member: FC<{ className?: string }> = ({ className }) => {
                 <div className='cell locked'>{formatBalance(member.locked || undefined, {}, 10) || '-'}</div>
                 <div className='cell joined-date'>{formatDate(member.joinTime)}</div>
                 <div className='cell elevated-date'>{formatDate(member.elevatedTime)}</div>
-                <div className='cell status'>{member.status}</div>
+                <div className='cell status'>{statusMap[member.status]}</div>
                 <div className='cell more'>
                   <img src={MorePrimarySvg} alt='' />
                 </div>

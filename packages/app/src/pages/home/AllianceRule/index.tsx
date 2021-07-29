@@ -60,7 +60,7 @@ export default styled(AllianceRule)`
   > .content {
     margin: 0px auto;
     max-width: 1160px;
-    height: 382px;
+    height: 574px;
     display: flex;
     justify-content: center;
     align-items: center;

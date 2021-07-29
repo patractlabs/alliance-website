@@ -7,7 +7,7 @@ const Banner: FC<{ className?: string }> = ({ className }) => {
   return (
     <div className={className}>
       <div className='content'>
-        <h1>Fighting for an oppensource culture and its good ethics.</h1>
+        <h1>Fighting for an open source culture and its good ethics.</h1>
       </div>
     </div>
   );
