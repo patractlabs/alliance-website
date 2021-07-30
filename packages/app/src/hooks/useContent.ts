@@ -11,7 +11,7 @@ async function fetchData(url: string): Promise<string | null> {
   const text = await Promise.race([
     fetch(url)
       .then((response) => {
-        if (response.headers.get('content-type')?.includes('text')) {
+        if (response.headers.get('content-type')?.includes('text') && response.status >= 200 && response.status < 400) {
           return response.text();
         } else {
           return null;
