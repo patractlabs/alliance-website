@@ -9,5 +9,7 @@
 "${address}": true
 ```
 
-3. Add your logo img which is named endwith _'.png'_ at _/packages/app/src/assets/member-logos/_.
+3. Add your logo img which is named like _${address}.png_ at _/packages/app/src/assets/member-logos/_.
 4. Pull a request.
+
+> _make sure the address you provided is same as the website shows_
