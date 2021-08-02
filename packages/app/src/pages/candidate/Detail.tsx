@@ -53,7 +53,10 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
                 </a>
               )
             },
-            { name: 'Locked', render: <>{formatBalance(candidate?.locked || undefined, {}, config.decimal)}</> },
+            {
+              name: 'Locked',
+              render: <>{formatBalance(candidate?.locked || undefined, { forceUnit: 'DOT' }, config.decimal)}</>
+            },
             {
               name: 'Nominator',
               render: (

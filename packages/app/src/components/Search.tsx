@@ -15,7 +15,7 @@ const Search: FC<{ className?: string; onSearch: (value: string) => void }> = ({
             value={filter}
             onChange={(e) => {
               setFilter(e.target.value);
-              !e.target.value && onSearch('');
+              onSearch(e.target.value);
             }}
             placeholder='AccountID, Identity, Website'
           />

@@ -67,7 +67,9 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
           </BorderedRow>
           <BorderedRow borderColor={Style.border.lighter} padding='16px 0px'>
             <div className='key'>Locked</div>
-            <div className='value'>{formatBalance(member?.locked || undefined, {}, config.decimal) || '-'}</div>
+            <div className='value'>
+              {formatBalance(member?.locked || undefined, { forceUnit: 'DOT' }, config.decimal) || '-'}
+            </div>
           </BorderedRow>
           {member?.type === MemberRole.FOUNDER && (
             <BorderedRow borderColor={Style.border.lighter} padding='16px 0px'>

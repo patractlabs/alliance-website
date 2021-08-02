@@ -9,8 +9,7 @@ const Goals: FC<{ className?: string }> = ({ className }) => {
     <div className={className}>
       <div>
         <div className='title'>
-          <h2>This is an industry group</h2>
-          <h2>that focus on 2 main goals：</h2>
+          <h2>This is an industry group that focus on 2 main goals：</h2>
         </div>
         <div className='goals'>
           <div className='goal'>

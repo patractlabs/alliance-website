@@ -73,7 +73,15 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
               },
               blocked?.isAccount && {
                 name: 'Locked',
-                render: <>{formatBalance(candidate?.locked || member?.locked || undefined, {}, config.decimal)}</>
+                render: (
+                  <>
+                    {formatBalance(
+                      candidate?.locked || member?.locked || undefined,
+                      { forceUnit: 'DOT' },
+                      config.decimal
+                    )}
+                  </>
+                )
               }
             ].filter(Boolean) as any
           }

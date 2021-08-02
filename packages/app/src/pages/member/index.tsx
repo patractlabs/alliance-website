@@ -108,7 +108,7 @@ const Member: FC<{ className?: string }> = ({ className }) => {
                   </a>
                 </div>
                 <div className='cell locked'>
-                  {formatBalance(member.locked || undefined, {}, config.decimal) || '-'}
+                  {formatBalance(member.locked || undefined, { forceUnit: 'DOT' }, config.decimal) || '-'}
                 </div>
                 <div className='cell joined-date'>{formatDate(member.joinTime)}</div>
                 <div className='cell elevated-date'>{formatDate(member.elevatedTime)}</div>

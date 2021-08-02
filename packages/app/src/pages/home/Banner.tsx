@@ -28,12 +28,13 @@ export default styled(Banner)`
     height: 100%;
 
     h1 {
-      width: 572px;
+      margin-left: 70px;
+      margin-bottom: 0px;
+      width: 950px;
       font-size: 56px;
       font-weight: 700;
       color: #ffffff;
       line-height: 66px;
-      margin-left: 70px;
     }
   }
 `;

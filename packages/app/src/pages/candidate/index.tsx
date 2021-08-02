@@ -65,7 +65,7 @@ const Candidate: FC<{ className?: string }> = ({ className }) => {
                 </a>
               </div>
               <div style={{ width: '12.7%' }} className='cell'>
-                {formatBalance(candidate?.locked || undefined, {}, config.decimal) || '-'}
+                {formatBalance(candidate?.locked || undefined, { forceUnit: 'DOT' }, config.decimal) || '-'}
               </div>
               <div style={{ width: '18.6%' }} className='cell'>
                 <AccountDisplay id={candidate.nominator?.id || ''} />
