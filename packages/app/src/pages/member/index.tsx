@@ -58,12 +58,12 @@ const Member: FC<{ className?: string }> = ({ className }) => {
         </div>
         <div className='table'>
           <BorderedTitle>
-            <div style={{ width: '8.4%' }}>Logo</div>
-            <div style={{ width: '6.4%' }}>Badge</div>
+            <div style={{ width: '7.4%' }}>Logo</div>
+            <div style={{ width: '6.8%' }}>Badge</div>
             <div style={{ width: '12.3%' }}>AccountID</div>
-            <div style={{ width: '12.4%' }}>Identity</div>
+            <div style={{ width: '13%' }}>Identity</div>
             <div style={{ width: '17.4%' }}>Website</div>
-            <div style={{ width: '9.2%' }}>Locked</div>
+            <div style={{ width: '10.5%' }}>Locked</div>
             <div style={{ width: '10.2%' }}>Joined Date</div>
             <div style={{ width: '10.6%' }}>Elevated Date</div>
             <div style={{ flex: 1 }}>Status</div>
@@ -151,14 +151,14 @@ export default styled(Member)`
       }
     }
     .logo {
-      width: 8.4%;
+      width: 7.4%;
       > div {
         width: 32px;
         height: 32px;
       }
     }
     .badge {
-      width: 6.4%;
+      width: 6.8%;
       > img {
         width: 32px;
         height: 32px;
@@ -168,13 +168,13 @@ export default styled(Member)`
       width: 12.3%;
     }
     .identity {
-      width: 12.4%;
+      width: 13%;
     }
     .website {
       width: 17.4%;
     }
     .locked {
-      width: 9.2%;
+      width: 10.5%;
     }
     .joined-date {
       width: 10.2%;
