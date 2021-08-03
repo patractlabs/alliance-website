@@ -1,3 +1,3 @@
 export const config = {
-  decimal: 12
+  decimal: 10
 };
