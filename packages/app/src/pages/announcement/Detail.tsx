@@ -100,5 +100,6 @@ export default styled(Detail)`
           list-style: decimal;
         }
       }
+    }
   }
 `;

@@ -15,3 +15,4 @@ export * from './useMember';
 export * from './useMembers';
 export * from './useMotionByIndex';
 export * from './useMotions';
+export * from './useScroll';

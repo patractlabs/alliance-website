@@ -9,6 +9,7 @@ import { Announcement, useContent } from '../../../hooks';
 import { decodeCid } from '../../../core/util/decode-cid-hex';
 import Markdown from 'react-markdown';
 import { formatDate } from '../../../core/util/format-date';
+import { useHistory } from 'react-router-dom';
 
 const Status = styled.span<{ expanded: boolean }>`
   display: inline-block;
@@ -32,11 +33,7 @@ const DetailWrapper = styled.div<{ top: BorderType; bottom: BorderType }>`
   font-size: 15px;
   color: #ffffff;
   line-height: 18px;
-  > .info {
-    img {
-      cursor: pointer;
-    }
-  }
+
   > .content {
     margin-top: 20px;
     max-height: 384px;
@@ -60,18 +57,39 @@ const AnnouncementDetail: FC<{
 }> = ({ className, announcement, style, defaultExpanded = false, top = 'none', bottom = 'default' }) => {
   const [expanded, setExpanded] = useState(defaultExpanded);
   const { content } = useContent(decodeCid(announcement?.cid));
+  const history = useHistory();
 
   return (
-    <DetailWrapper className={className} style={style} top={top} bottom={bottom}>
-      <Row className='info' onClick={() => content && setExpanded((old) => !old)}>
+    <DetailWrapper
+      className={className}
+      style={style}
+      top={top}
+      bottom={bottom}
+      onClick={() => history.push(`/announcement/${announcement.id}`)}
+    >
+      <Row className='info'>
         <Col span={6} style={{ paddingLeft: '16px' }}>
           <Status expanded={expanded && !!content} />
           {formatDate(announcement.createTime)}
         </Col>
-        <Col span={17} style={{ display: 'flex', overflow: 'hidden' }}>
+        <Col
+          span={17}
+          style={{ display: 'flex', overflow: 'hidden', cursor: 'pointer' }}
+          onClick={(e) => {
+            content && setExpanded((old) => !old);
+            e.stopPropagation();
+          }}
+        >
           <span style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{content || '-'}</span>
         </Col>
-        <Col span={1} style={{ textAlign: 'right', paddingRight: '11px' }}>
+        <Col
+          span={1}
+          style={{ textAlign: 'right', paddingRight: '11px', cursor: 'pointer' }}
+          onClick={(e) => {
+            content && setExpanded((old) => !old);
+            e.stopPropagation();
+          }}
+        >
           {content && <img src={expanded ? DeexpandSvg : ExpandSvg} alt='' />}
         </Col>
       </Row>
@@ -84,4 +102,4 @@ const AnnouncementDetail: FC<{
   );
 };
 
-export default AnnouncementDetail;
+export default styled(AnnouncementDetail)``;

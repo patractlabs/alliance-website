@@ -7,6 +7,7 @@ import App from './App';
 import { cache } from './core/cache';
 import GlobalStyle from './shared/style';
 import { ApolloClient, NormalizedCacheObject, ApolloProvider } from '@apollo/client';
+import ScrollProvider from './core/providers/ScrollProvider';
 
 const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   cache,
@@ -19,7 +20,9 @@ ReactDOM.render(
     <React.Fragment>
       <GlobalStyle linkColor='#e6007a' />
       <ApolloProvider client={client}>
-        <App />
+        <ScrollProvider>
+          <App />
+        </ScrollProvider>
       </ApolloProvider>
     </React.Fragment>
   </React.StrictMode>,

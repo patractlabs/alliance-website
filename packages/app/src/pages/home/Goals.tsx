@@ -2,6 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import Goal1Svg from '../../assets/imgs/goal1.svg';
 import Goal2Svg from '../../assets/imgs/goal2.svg';
+import AnimationWrapper from '../../shared/AnimationWrapper';
 import { Style } from '../../shared/style/const';
 
 const Goals: FC<{ className?: string }> = ({ className }) => {
@@ -12,25 +13,29 @@ const Goals: FC<{ className?: string }> = ({ className }) => {
           <h2>This is an industry group that focus on 2 main goals：</h2>
         </div>
         <div className='goals'>
-          <div className='goal'>
-            <div className='goal-icon'>
-              <img src={Goal1Svg} alt='' />
+          <AnimationWrapper delay={300}>
+            <div className='goal'>
+              <div className='goal-icon'>
+                <img src={Goal1Svg} alt='' />
+              </div>
+              <p className='goal-content'>
+                Provide a set of ethics (against unattributed code re-use, launching rival relay-chains, shit-talking,
+                scammy raises on ETH, polka-branding despite having no credible plans to become a parachain, acting
+                against Web3 Foundation’s guidelines, adhering to requirements over trademark use…)
+              </p>
             </div>
-            <p className='goal-content'>
-              Provide a set of ethics (against unattributed code re-use, launching rival relay-chains, shit-talking,
-              scammy raises on ETH, polka-branding despite having no credible plans to become a parachain, acting
-              against Web3 Foundation’s guidelines, adhering to requirements over trademark use…)
-            </p>
-          </div>
-          <div className='goal'>
-            <div className='goal-icon'>
-              <img src={Goal2Svg} alt='' />
+          </AnimationWrapper>
+          <AnimationWrapper delay={300}>
+            <div className='goal'>
+              <div className='goal-icon'>
+                <img src={Goal2Svg} alt='' />
+              </div>
+              <p className='goal-content'>
+                Provide recognition and influence for those teams that contribute something back to the Polkadot
+                ecosystem (code, funding, infra, education, …)
+              </p>
             </div>
-            <p className='goal-content'>
-              Provide recognition and influence for those teams that contribute something back to the Polkadot ecosystem
-              (code, funding, infra, education, …)
-            </p>
-          </div>
+          </AnimationWrapper>
         </div>
       </div>
     </div>
@@ -56,7 +61,7 @@ export default styled(Goals)`
     > .goals {
       margin-top: 58px;
 
-      > .goal {
+      > div > .goal {
         padding: 20px 0px;
         display: flex;
 

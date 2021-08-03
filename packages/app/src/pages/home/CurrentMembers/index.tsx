@@ -37,6 +37,7 @@ const CurrentMembers: FC<{ className?: string }> = ({ className }) => {
 };
 
 export default styled(CurrentMembers)`
+  min-height: 782px;
   background-color: rgb(250, 250, 251);
   padding: 70px 97px;
   > h2 {
