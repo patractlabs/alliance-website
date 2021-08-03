@@ -16,7 +16,7 @@ const Banner: FC<{ className?: string }> = ({ className }) => {
       renderer: 'svg' as any,
       loop: true,
       autoplay: true,
-      path: '/static/media/animation/01/data.json'
+      path: '/static/media/animations/01/data.json'
     });
     return () => lottie.destroy();
   }, []);

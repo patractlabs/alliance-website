@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import DEFAULT_ICON from '../assets/imgs/default-logo.png';
-import Registion from '../assets/member-logos/register.json';
+import Registion from '../assets/member-register.json';
 
 const MemberLogo: FC<{
   className?: string;
