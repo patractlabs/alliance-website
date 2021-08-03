@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import { useAnnouncements } from '../../../hooks';
 import AnnouncementDetail from './Detail';
 import Title from './Title';
+import MoreSvg from '../../../assets/imgs/link-small.svg';
+import { Link } from 'react-router-dom';
+
+const MAX = 10;
 
 const RecentAnnouncements: FC<{ className?: string }> = ({ className }) => {
   const { data: annoncements } = useAnnouncements();
@@ -14,7 +18,7 @@ const RecentAnnouncements: FC<{ className?: string }> = ({ className }) => {
         <Title />
         {[...annoncements]
           .reverse()
-          .slice(0, 10)
+          .slice(0, MAX)
           .map((item, index) => (
             <AnnouncementDetail
               bottom={index === annoncements.length - 1 ? 'none' : 'default'}
@@ -24,13 +28,20 @@ const RecentAnnouncements: FC<{ className?: string }> = ({ className }) => {
             />
           ))}
         <div className='border'></div>
+        {annoncements.length > MAX && (
+          <div className='more-announcements'>
+            <Link to='/announcement'>
+              <span>More Announcements</span>
+              <img src={MoreSvg} alt='' />
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 export default styled(RecentAnnouncements)`
-  min-height: 891.25px;
   padding: 80px 55px 122px 55px;
   opacity: 1;
   background: linear-gradient(225deg, #2d333d, #172026 100%);
@@ -47,6 +58,23 @@ export default styled(RecentAnnouncements)`
         rgba(255, 255, 255, 0.8) 53%,
         rgba(255, 255, 255, 0.56)
       );
+    }
+    > .more-announcements {
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      margin-top: 42px;
+      > a {
+        span {
+          font-size: 12px;
+          color: #ffffff;
+          margin-right: 2px;
+          cursor: pointer;
+          &:hover {
+            color: #e6007a;
+          }
+        }
+      }
     }
     > h2 {
       color: white;
