@@ -6,6 +6,8 @@ const GET_ANNOUNCEMENTS = gql`
       nodes {
         id
         cid
+        createBlock
+        createExtrinsic
         createTime
         motionIndex
       }
@@ -16,6 +18,8 @@ const GET_ANNOUNCEMENTS = gql`
 export interface Announcement {
   id: string;
   cid: string;
+  createBlock?: number;
+  createExtrinsic?: number;
   createTime: string;
   motionIndex: number;
 }

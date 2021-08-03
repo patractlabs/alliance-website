@@ -11,6 +11,7 @@ const Query = gql`
         proposerId
         createTime
         createBlock
+        createExtrinsic
         closeTime
         closeBlock
         proposer {

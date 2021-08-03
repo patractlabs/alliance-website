@@ -4,6 +4,7 @@ import { useActionByMotionIndex } from '../hooks/useActionByMotionIndex';
 import { useMotionByIndex } from '../hooks/useMotionByIndex';
 import { Style } from '../shared/style/const';
 import AccountDisplay from './AccountDisplay';
+import Proposer from './Proposer';
 
 const MotionHistory: FC<{
   className?: string;
@@ -20,9 +21,7 @@ const MotionHistory: FC<{
           <div className='badge' />
           <span>Motion Proposer</span>
         </div>
-        <div className='line-value' style={{ borderTopWidth: withTop ? '1px' : '0px' }}>
-          <AccountDisplay id={motion?.proposerId || ''} />
-        </div>
+        <Proposer className='line-value' style={{ borderTopWidth: withTop ? '1px' : '0px' }} motion={motion} />
       </div>
       <div className='line'>
         <div className='line-key'>
@@ -80,7 +79,6 @@ export default styled(MotionHistory)`
         color: ${Style.label.default};
       }
     }
-
     > .line-value {
       min-height: 49px;
       padding: 13px 10px;

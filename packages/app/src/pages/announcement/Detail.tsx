@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { AccountDisplay, KeyValuePage, PageSkeleton } from '../../components';
+import { AccountDisplay, KeyValuePage, PageSkeleton, Proposer } from '../../components';
 import { Breadcrumb } from 'antd';
 import { useParams } from 'react-router-dom';
 import { useAnnouncement, useContent } from '../../hooks';
@@ -39,11 +39,7 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
             },
             {
               name: 'Motion Proposer',
-              render: (
-                <>
-                  <AccountDisplay id={motion?.proposerId || ''} />
-                </>
-              )
+              render: <Proposer motion={motion} />
             },
             {
               name: 'Motion Approvers',
@@ -100,6 +96,11 @@ export default styled(Detail)`
           list-style: decimal;
         }
       }
+    }
+    .proposer {
+      display: flex;
+      cursor: pointer;
+      justify-content: space-between;
     }
   }
 `;

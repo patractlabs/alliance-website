@@ -10,6 +10,7 @@ const GET_MEMBERS = gql`
         index
         createTime
         createBlock
+        createExtrinsic
         closeTime
         closeBlock
       }
@@ -20,12 +21,14 @@ const GET_MEMBERS = gql`
 export interface Motion {
   id: string;
   hash: string;
-  proposerId: string;
+  proposerId?: string;
   index: number;
-  createTime: string;
-  createBlock: number;
-  closeTime: string;
-  closeBlock: number;
+  createTime?: string;
+  createBlock?: number;
+  createExtrinsic?: number;
+  closeTime?: string;
+  closeBlock?: number;
+  closeExtrinsic?: number;
 }
 interface QueryResult<T> {
   members: {

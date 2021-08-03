@@ -6,6 +6,8 @@ const query = gql`
     announcement(id: $id) {
       id
       cid
+      createBlock
+      createExtrinsic
       createTime
       motionIndex
     }
