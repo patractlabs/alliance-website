@@ -1,6 +1,6 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import { AccountFormatted, BorderedRow, Filter, PageSkeleton, Search } from '../../components';
+import { AccountFormatted, BorderedRow, Filter, NoData, PageSkeleton, Search } from '../../components';
 import BorderedTitle from '../../components/BorderedTitle';
 import MorePrimarySvg from '../../assets/imgs/more-primary.svg';
 import FounderSvg from '../../assets/imgs/founder.svg';
@@ -46,6 +46,20 @@ const Member: FC<{ className?: string }> = ({ className }) => {
   const [filter, setFilter] = useState('');
   const history = useHistory();
 
+  const members = useMemo(
+    () =>
+      data
+        .filter(
+          (member) =>
+            !filter ||
+            member.account.address.includes(filter) ||
+            member.account.display?.includes(filter) ||
+            member.account.web?.includes(filter)
+        )
+        .filter((member) => (type === ALL || member.type === type) && (status === ALL || member.status === status)),
+    [data, filter, type, status]
+  );
+
   return (
     <PageSkeleton>
       <div className={className}>
@@ -67,54 +81,46 @@ const Member: FC<{ className?: string }> = ({ className }) => {
             <div style={{ width: '10.6%' }}>Elevated Date</div>
             <div style={{ flex: 1 }}>Status</div>
           </BorderedTitle>
-          {data
-            .filter(
-              (member) =>
-                !filter ||
-                member.account.address.includes(filter) ||
-                member.account.display?.includes(filter) ||
-                member.account.web?.includes(filter)
-            )
-            .filter((member) => (type === ALL || member.type === type) && (status === ALL || member.status === status))
-            .map((member, index) => (
-              <BorderedRow
-                className='table-row'
-                borderColor={Style.border.negative}
-                padding='13px 12px 13px 21px'
-                key={index}
-                onClick={() => history.push(`/member/${member.id}`)}
-              >
-                <div className='cell logo'>
-                  <MemberLogo address={member?.account.address} />
-                </div>
-                <div className='cell badge'>
-                  <img src={badgeImgMap[member.type]} alt='' />
-                </div>
-                <div className='cell account-id'>
-                  <span className='alliance-span-link'>#{member.id}</span>
-                </div>
-                <div className='cell identity'>
-                  <AccountFormatted account={member.account} />
-                </div>
-                <div className='cell website'>
-                  <a
-                    target='_blank'
-                    rel='noreferrer'
-                    href={member.account.web || ''}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    {member.account.web}
-                  </a>
-                </div>
-                <div className='cell locked'>{formatLocked(member.locked)}</div>
-                <div className='cell joined-date'>{formatDate(member.joinTime)}</div>
-                <div className='cell elevated-date'>{formatDate(member.elevatedTime)}</div>
-                <div className='cell status'>{statusMap[member.status]}</div>
-                <div className='cell more'>
-                  <img src={MorePrimarySvg} alt='' />
-                </div>
-              </BorderedRow>
-            ))}
+          {members.map((member, index) => (
+            <BorderedRow
+              className='table-row'
+              borderColor={Style.border.negative}
+              padding='13px 12px 13px 21px'
+              key={index}
+              onClick={() => history.push(`/member/${member.id}`)}
+            >
+              <div className='cell logo'>
+                <MemberLogo address={member?.account.address} />
+              </div>
+              <div className='cell badge'>
+                <img src={badgeImgMap[member.type]} alt='' />
+              </div>
+              <div className='cell account-id'>
+                <span className='alliance-span-link'>#{member.id}</span>
+              </div>
+              <div className='cell identity'>
+                <AccountFormatted account={member.account} />
+              </div>
+              <div className='cell website'>
+                <a
+                  target='_blank'
+                  rel='noreferrer'
+                  href={member.account.web || ''}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {member.account.web}
+                </a>
+              </div>
+              <div className='cell locked'>{formatLocked(member.locked)}</div>
+              <div className='cell joined-date'>{formatDate(member.joinTime)}</div>
+              <div className='cell elevated-date'>{formatDate(member.elevatedTime)}</div>
+              <div className='cell status'>{statusMap[member.status]}</div>
+              <div className='cell more'>
+                <img src={MorePrimarySvg} alt='' />
+              </div>
+            </BorderedRow>
+          ))}
+          {!members.length && <NoData style={{ marginTop: '41px' }} />}
         </div>
       </div>
     </PageSkeleton>

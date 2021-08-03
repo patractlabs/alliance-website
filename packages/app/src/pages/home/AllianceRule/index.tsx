@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import styled from 'styled-components';
 import { Style } from '../../../shared/style/const';
 import { Content, Spinner } from '../../../components';
@@ -7,17 +7,23 @@ import Markdown from 'react-markdown';
 import { useRule } from '../../../hooks';
 import { decodeCid } from '../../../core/util/decode-cid-hex';
 
+const draftCid = 'QmZawuqmeEXBN8dcRNkabocLqVGAkD7ppMb9Hse2KP2SNU';
+
 const AllianceRule: FC<{ className?: string }> = ({ className }) => {
   const { data } = useRule();
-  const { content, fetching } = useContent(decodeCid(data?.cid));
+  const cid = useMemo(() => (data?.cid ? decodeCid(data.cid) : draftCid), [data]);
+  const { content, fetching } = useContent(cid);
 
   return (
     <div className={className}>
-      <h2>Alliance Rule</h2>
+      <h2>
+        Alliance Rule
+        {!data?.cid && <span>Draft</span>}
+      </h2>
       <div className='ipfs-hash'>
         <span>IPFS Hash</span>
-        <a target='_blank' rel='noreferrer' href={`https://ipfs.io/ipfs/${decodeCid(data?.cid)}`}>
-          {decodeCid(data?.cid)}
+        <a target='_blank' rel='noreferrer' href={`https://ipfs.io/ipfs/${cid}`}>
+          {cid}
         </a>
       </div>
       <div className='content'>
@@ -38,8 +44,26 @@ const AllianceRule: FC<{ className?: string }> = ({ className }) => {
 export default styled(AllianceRule)`
   background-color: white;
   padding: 80px 55px;
+
   > h2 {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > span {
+      position: relative;
+      top: 25%;
+      margin-left: 15px;
+      padding: 0px 16px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      background: #e6007a;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+    }
   }
   > .ipfs-hash {
     padding: 30px 0px;

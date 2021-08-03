@@ -2,6 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import Role from './Role';
 import { MemberRole, useMembers } from '../../../hooks';
+import AnimationWrapper from '../../../shared/AnimationWrapper';
 
 const CurrentMembers: FC<{ className?: string }> = ({ className }) => {
   const { data } = useMembers();
@@ -11,25 +12,31 @@ const CurrentMembers: FC<{ className?: string }> = ({ className }) => {
       <h2>Current Members</h2>
       <div className='roles'>
         <div className='role'>
-          <Role
-            type={MemberRole.FOUNDER}
-            desc='Initially founding Members, have veto rights to motions of setting rule and elevating ally and voting power same with Fellow.'
-            members={data.filter((m) => m.type === MemberRole.FOUNDER)}
-          />
+          <AnimationWrapper>
+            <Role
+              type={MemberRole.FOUNDER}
+              desc='Initially founding Members, have veto rights to motions of setting rule and elevating ally and voting power same with Fellow.'
+              members={data.filter((m) => m.type === MemberRole.FOUNDER)}
+            />
+          </AnimationWrapper>
         </div>
         <div className='role'>
-          <Role
-            type={MemberRole.FELLOW}
-            desc='Joining Members, have vote rights for motions of setting rule, elevating ally, kicking member, making announcement, managing candidate and blacklist to pass by super majority, can also nominate a candidate without the need of deposit.'
-            members={data.filter((m) => m.type === MemberRole.FELLOW)}
-          />
+          <AnimationWrapper delay={400}>
+            <Role
+              type={MemberRole.FELLOW}
+              desc='Joining Members, have vote rights for motions of setting rule, elevating ally, kicking member, making announcement, managing candidate and blacklist to pass by super majority, can also nominate a candidate without the need of deposit.'
+              members={data.filter((m) => m.type === MemberRole.FELLOW)}
+            />
+          </AnimationWrapper>
         </div>
         <div className='role'>
-          <Role
-            type={MemberRole.ALLY}
-            desc="Waiting members, don't have vote or veto rights."
-            members={data.filter((m) => m.type === MemberRole.ALLY)}
-          />
+          <AnimationWrapper delay={800}>
+            <Role
+              type={MemberRole.ALLY}
+              desc="Waiting members, don't have vote or veto rights."
+              members={data.filter((m) => m.type === MemberRole.ALLY)}
+            />
+          </AnimationWrapper>
         </div>
       </div>
     </div>

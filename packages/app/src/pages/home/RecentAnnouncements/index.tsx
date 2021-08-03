@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { useAnnouncements } from '../../../hooks';
 import AnnouncementDetail from './Detail';
@@ -15,7 +15,7 @@ const RecentAnnouncements: FC<{ className?: string }> = ({ className }) => {
     <div className={className}>
       <div>
         <h2>Recent Annoncements</h2>
-        <Title />
+        {annoncements && !!annoncements.length && <Title />}
         {[...annoncements]
           .reverse()
           .slice(0, MAX)
@@ -28,6 +28,12 @@ const RecentAnnouncements: FC<{ className?: string }> = ({ className }) => {
             />
           ))}
         <div className='border'></div>
+        {(!annoncements || !annoncements.length) && (
+          <React.Fragment>
+            <div className='no-data'>No Announcements</div>
+            <div className='border'></div>
+          </React.Fragment>
+        )}
         {annoncements.length > MAX && (
           <div className='more-announcements'>
             <Link to='/announcement'>
@@ -58,6 +64,14 @@ export default styled(RecentAnnouncements)`
         rgba(255, 255, 255, 0.8) 53%,
         rgba(255, 255, 255, 0.56)
       );
+    }
+    > .no-data {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px 0px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 18px;
     }
     > .more-announcements {
       justify-content: center;

@@ -1,7 +1,15 @@
-import { FC, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { PageSkeleton, BorderedTitle, Search, BorderedRow, AccountFormatted, AccountDisplay } from '../../components';
+import {
+  PageSkeleton,
+  BorderedTitle,
+  Search,
+  BorderedRow,
+  AccountFormatted,
+  AccountDisplay,
+  NoData
+} from '../../components';
 import { Style } from '../../shared/style/const';
 import MorePrimarySvg from '../../assets/imgs/more-primary.svg';
 import { useCandidates } from '../../hooks';
@@ -22,6 +30,18 @@ const Candidate: FC<{ className?: string }> = ({ className }) => {
   const history = useHistory();
   const [filter, setFilter] = useState('');
 
+  const candidates = useMemo(
+    () =>
+      data.filter(
+        (member) =>
+          !filter ||
+          member.account.address.includes(filter) ||
+          member.account.display?.includes(filter) ||
+          member.account.web?.includes(filter)
+      ),
+    [data, filter]
+  );
+
   return (
     <PageSkeleton>
       <div className={className}>
@@ -36,45 +56,38 @@ const Candidate: FC<{ className?: string }> = ({ className }) => {
           <div>Applied Date</div>
         </BorderedTitle>
 
-        {data
-          .filter(
-            (member) =>
-              !filter ||
-              member.account.address.includes(filter) ||
-              member.account.display?.includes(filter) ||
-              member.account.web?.includes(filter)
-          )
-          .map((candidate, index) => (
-            <BorderedRow
-              className='table-row'
-              borderColor={Style.border.negative}
-              style={{ height: '60px', padding: '0px 11px 0px 21px' }}
-              key={index}
-              onClick={() => history.push(`/candidate/${candidate.id}`)}
-            >
-              <div style={{ width: '14.7%' }} className='cell'>
-                <span className='alliance-span-link'>{candidate.account.address}</span>
-              </div>
-              <div style={{ width: '18.3%' }} className='cell'>
-                <AccountFormatted account={candidate.account} />
-              </div>
-              <div style={{ width: '19.1%' }} className='cell'>
-                <a target='_blank' rel='noreferrer' href={candidate.account.web || ''}>
-                  {candidate.account.web}
-                </a>
-              </div>
-              <div style={{ width: '12.7%' }} className='cell'>
-                {formatLocked(candidate?.locked)}
-              </div>
-              <div style={{ width: '18.6%' }} className='cell'>
-                <AccountDisplay id={candidate.nominator?.id || ''} />
-              </div>
-              <div className='cell'>{formatDate(candidate.applyTime)}</div>
-              <div className='cell' style={{ justifyContent: 'flex-end', flex: 1 }}>
-                <img src={MorePrimarySvg} alt='' />
-              </div>
-            </BorderedRow>
-          ))}
+        {candidates.map((candidate, index) => (
+          <BorderedRow
+            className='table-row'
+            borderColor={Style.border.negative}
+            style={{ height: '60px', padding: '0px 11px 0px 21px' }}
+            key={index}
+            onClick={() => history.push(`/candidate/${candidate.id}`)}
+          >
+            <div style={{ width: '14.7%' }} className='cell'>
+              <span className='alliance-span-link'>{candidate.account.address}</span>
+            </div>
+            <div style={{ width: '18.3%' }} className='cell'>
+              <AccountFormatted account={candidate.account} />
+            </div>
+            <div style={{ width: '19.1%' }} className='cell'>
+              <a target='_blank' rel='noreferrer' href={candidate.account.web || ''}>
+                {candidate.account.web}
+              </a>
+            </div>
+            <div style={{ width: '12.7%' }} className='cell'>
+              {formatLocked(candidate?.locked)}
+            </div>
+            <div style={{ width: '18.6%' }} className='cell'>
+              <AccountDisplay id={candidate.nominator?.id || ''} />
+            </div>
+            <div className='cell'>{formatDate(candidate.applyTime)}</div>
+            <div className='cell' style={{ justifyContent: 'flex-end', flex: 1 }}>
+              <img src={MorePrimarySvg} alt='' />
+            </div>
+          </BorderedRow>
+        ))}
+        {!candidates.length && <NoData style={{ marginTop: '41px' }} />}
       </div>
     </PageSkeleton>
   );

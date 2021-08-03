@@ -1,7 +1,7 @@
-import { FC, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { AccountFormatted, BorderedRow, BorderedTitle, Filter, PageSkeleton, Search } from '../../components';
+import { AccountFormatted, BorderedRow, BorderedTitle, Filter, NoData, PageSkeleton, Search } from '../../components';
 import MorePrimarySvg from '../../assets/imgs/more-primary.svg';
 import { Col, Row } from 'antd';
 import { Style } from '../../shared/style/const';
@@ -14,6 +14,46 @@ const Blacklist: FC<{ className?: string }> = ({ className }) => {
   const [websiteType, setWebsiteType] = useState('All');
   const history = useHistory();
   const [filter, setFilter] = useState('');
+
+  const websites = useMemo(
+    () =>
+      data
+        .filter((website) => !website.isAccount)
+        .filter((website) => !filter || website.website?.includes(filter))
+        .filter((website) => {
+          if (websiteType === 'Added') {
+            return !website.removeTime;
+          }
+
+          if (websiteType === 'Removed') {
+            return !!website.removeTime;
+          }
+          return true;
+        }),
+    [data, filter, websiteType]
+  );
+
+  const accounts = useMemo(
+    () =>
+      data
+        .filter((account) => account.isAccount)
+        .filter(
+          (account) =>
+            !filter || account.account?.address.includes(filter) || account.account?.display?.includes(filter)
+        )
+        .filter((account) => {
+          if (accountType === 'Added') {
+            return !account.removeTime;
+          }
+
+          if (accountType === 'Removed') {
+            return !!account.removeTime;
+          }
+
+          return true;
+        }),
+    [data, filter, accountType]
+  );
 
   return (
     <PageSkeleton>
@@ -41,46 +81,30 @@ const Blacklist: FC<{ className?: string }> = ({ className }) => {
               <div style={{ width: '22%' }}>Added Date</div>
               <div style={{ flex: 1 }}>Removed Date</div>
             </BorderedTitle>
-            {data
-              .filter((account) => account.isAccount)
-              .filter(
-                (account) =>
-                  !filter || account.account?.address.includes(filter) || account.account?.display?.includes(filter)
-              )
-              .filter((account) => {
-                if (accountType === 'Added') {
-                  return !account.removeTime;
-                }
-
-                if (accountType === 'Removed') {
-                  return !!account.removeTime;
-                }
-
-                return true;
-              })
-              .map((account, index) => (
-                <BorderedRow
-                  className='table-row'
-                  borderColor={Style.border.negative}
-                  style={{ height: '60px', padding: '0px 11px 0px 21px' }}
-                  key={index}
-                  onClick={() => history.push(`/blacklist/${account.account?.id}`)}
-                >
-                  <div style={{ width: '25%' }} className='cell'>
-                    <span className='alliance-span-link'>{account.account?.address}</span>
-                  </div>
-                  <div style={{ width: '28%' }} className='cell'>
-                    <AccountFormatted account={account.account} />
-                  </div>
-                  <div style={{ width: '22%' }} className='cell'>
-                    {formatDate(account.addTime)}
-                  </div>
-                  <div className='cell'>{formatDate(account.removeTime)}</div>
-                  <div className='cell' style={{ justifyContent: 'flex-end', flex: 1 }}>
-                    <img src={MorePrimarySvg} alt='' />
-                  </div>
-                </BorderedRow>
-              ))}
+            {accounts.map((account, index) => (
+              <BorderedRow
+                className='table-row'
+                borderColor={Style.border.negative}
+                style={{ height: '60px', padding: '0px 11px 0px 21px' }}
+                key={index}
+                onClick={() => history.push(`/blacklist/${account.account?.id}`)}
+              >
+                <div style={{ width: '25%' }} className='cell'>
+                  <span className='alliance-span-link'>{account.account?.address}</span>
+                </div>
+                <div style={{ width: '28%' }} className='cell'>
+                  <AccountFormatted account={account.account} />
+                </div>
+                <div style={{ width: '22%' }} className='cell'>
+                  {formatDate(account.addTime)}
+                </div>
+                <div className='cell'>{formatDate(account.removeTime)}</div>
+                <div className='cell' style={{ justifyContent: 'flex-end', flex: 1 }}>
+                  <img src={MorePrimarySvg} alt='' />
+                </div>
+              </BorderedRow>
+            ))}
+            {!accounts.length && <NoData style={{ marginTop: '41px' }} />}
           </Col>
           <Col span={12}>
             <div className='title'>
@@ -101,39 +125,27 @@ const Blacklist: FC<{ className?: string }> = ({ className }) => {
               <div style={{ width: '30%' }}>Added Date</div>
               <div>Removed Date</div>
             </BorderedTitle>
-            {data
-              .filter((website) => !website.isAccount)
-              .filter((website) => !filter || website.website?.includes(filter))
-              .filter((website) => {
-                if (websiteType === 'Added') {
-                  return !website.removeTime;
-                }
-
-                if (websiteType === 'Removed') {
-                  return !!website.removeTime;
-                }
-                return true;
-              })
-              .map((website, index) => (
-                <BorderedRow
-                  className='table-row'
-                  borderColor={Style.border.negative}
-                  style={{ height: '60px', padding: '0px 11px 0px 21px' }}
-                  key={index}
-                  onClick={() => history.push(`/blacklist/${encodeURIComponent(website.website || '')}`)}
-                >
-                  <div style={{ width: '40%' }} className='cell'>
-                    <span className='alliance-span-link'>{website.website}</span>
-                  </div>
-                  <div style={{ width: '30%' }} className='cell'>
-                    {formatDate(website.addTime)}
-                  </div>
-                  <div className='cell'>{formatDate(website.removeTime)}</div>
-                  <div className='cell' style={{ justifyContent: 'flex-end', flex: 1 }}>
-                    <img src={MorePrimarySvg} alt='' />
-                  </div>
-                </BorderedRow>
-              ))}
+            {websites.map((website, index) => (
+              <BorderedRow
+                className='table-row'
+                borderColor={Style.border.negative}
+                style={{ height: '60px', padding: '0px 11px 0px 21px' }}
+                key={index}
+                onClick={() => history.push(`/blacklist/${encodeURIComponent(website.website || '')}`)}
+              >
+                <div style={{ width: '40%' }} className='cell'>
+                  <span className='alliance-span-link'>{website.website}</span>
+                </div>
+                <div style={{ width: '30%' }} className='cell'>
+                  {formatDate(website.addTime)}
+                </div>
+                <div className='cell'>{formatDate(website.removeTime)}</div>
+                <div className='cell' style={{ justifyContent: 'flex-end', flex: 1 }}>
+                  <img src={MorePrimarySvg} alt='' />
+                </div>
+              </BorderedRow>
+            ))}
+            {!websites.length && <NoData style={{ marginTop: '41px' }} />}
           </Col>
         </Row>
       </div>

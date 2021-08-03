@@ -2,6 +2,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import JumpSvg from '../../../assets/imgs/jump.svg';
+import { NoData } from '../../../components';
 import MemberLogo from '../../../components/MemberLogo';
 import Scroll from '../../../components/Scroll';
 import { Member } from '../../../hooks';
@@ -19,6 +20,10 @@ const MembersByRole: FC<{ className?: string; members: Member[] }> = ({ classNam
 
     return () => clearTimeout(timer);
   }, [members]);
+
+  if (!members.length) {
+    return <NoData style={{ marginTop: '40px' }} />;
+  }
 
   return (
     <div className={className}>

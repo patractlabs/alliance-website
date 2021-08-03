@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import { BorderedTitle, BorderedRow, PageSkeleton } from '../../components';
+import { BorderedTitle, BorderedRow, PageSkeleton, NoData } from '../../components';
 import { Style } from '../../shared/style/const';
 import FoldSvg from '../../assets/imgs/fold-primary.svg';
 import ExpandSvg from '../../assets/imgs/expand-primary.svg';
@@ -88,6 +88,7 @@ const Announcements: FC<{ className?: string }> = ({ className }) => {
         {[...data].reverse().map((annoncement, index) => (
           <AnnouncementRow key={index} announcement={annoncement} defaultExpanded={index === 0} />
         ))}
+        {!data.length && <NoData style={{ marginTop: '41px' }} />}
       </div>
     </PageSkeleton>
   );

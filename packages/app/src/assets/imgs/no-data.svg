@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 5</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home_empty" transform="translate(-609.000000, -2339.000000)">
+            <g id="编组-5" transform="translate(609.000000, 2339.000000)">
+                <rect id="矩形" x="0" y="0" width="64" height="64"></rect>
+                <g id="PA_logo" transform="translate(0.000000, 8.000000)" fill="#EEEDF0">
+                    <path d="M36.0928065,0 L64,48.3363443 C53.183647,47.6561667 42.9006271,41.745768 37.0759174,31.6568459 C31.2509232,21.5677816 31.2738565,9.70719773 36.0928065,0 L36.0928065,0 Z M27.9070306,6.5103985e-05 C32.7260517,9.70723329 32.7489851,21.5677816 26.924062,31.6568104 C21.0991745,41.745768 10.8161902,47.6561667 0,48.3363443 L27.9070306,6.5103985e-05 Z" id="形状结合"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
