@@ -22,7 +22,10 @@ const Role: FC<{ className?: string; type: MemberRole; desc: string; members: Me
   return (
     <div className={className}>
       <img src={RoleMap[type]} alt='' />
-      <h4>{type}</h4>
+      <div className='title'>
+        <h4>{type}</h4>
+        <span>{members.length}</span>
+      </div>
       <p>{desc}</p>
       <MembersByRole members={members} />
     </div>
@@ -35,13 +38,31 @@ export default styled(Role)`
   > img {
     margin-bottom: 12px;
   }
-  > h4 {
-    height: 28px;
-    font-size: 24px;
-    font-weight: 700;
-    color: ${Style.label.primary};
-    line-height: 28px;
+  > .title {
+    display: flex;
+    align-items: center;
     margin-bottom: 12px;
+    justify-content: center;
+    > h4 {
+      height: 28px;
+      font-size: 24px;
+      font-weight: 700;
+      color: ${Style.label.primary};
+      line-height: 28px;
+      margin-bottom: 0px;
+    }
+    > span {
+      margin-left: 6px;
+      padding: 0px 16px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      background: #e6007a;
+      border-radius: 11px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+    }
   }
   > p {
     margin-bottom: 20px;
