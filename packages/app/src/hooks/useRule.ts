@@ -6,6 +6,8 @@ const query = gql`
       nodes {
         id
         cid
+        createBlock
+        createExtrinsic
         createTime
         motionIndex
       }
@@ -16,6 +18,8 @@ const query = gql`
 interface Rule {
   id: string;
   cid: string;
+  createBlock: number;
+  createExtrinsic: number;
   createTime: string;
   motionIndex: number;
 }
@@ -33,5 +37,12 @@ export function useRule(): {
 } {
   const { data, loading, error } = useQuery<QueryResult<Rule>>(query);
 
-  return { data: data?.rules.nodes[0], loading, error };
+  return {
+    data: data?.rules.nodes.reduce(
+      (latest: Rule | undefined, rule: Rule): Rule => (latest && latest.createBlock > rule.createBlock ? latest : rule),
+      undefined
+    ),
+    loading,
+    error
+  };
 }
