@@ -27,7 +27,7 @@ const Banner: FC<{ className?: string }> = ({ className }) => {
         <div ref={ref}></div>
       </div>
       <div className='content'>
-        <AnimationWrapper delay={300}>
+        <AnimationWrapper delay={600}>
           <h1>Fighting for an open source culture and its good ethics.</h1>
         </AnimationWrapper>
       </div>
