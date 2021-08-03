@@ -52,7 +52,7 @@
     "start": "cross-env REACT_APP_NODE_ENV=development react-app-rewired start",
     "build": "prettier --check . && cross-env REACT_APP_NODE_ENV=production react-app-rewired build && cp src/assets/member-logos/* build/static/media",
     "build:pre": "cross-env REACT_APP_NODE_ENV=pre-production react-app-rewired build",
-    "prettier": "npx prettier --write ."
+    "prettier:check": "npx prettier --check ."
   },
   "browserslist": {
     "production": [

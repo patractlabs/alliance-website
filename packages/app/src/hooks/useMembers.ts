@@ -46,6 +46,5 @@ export function useMembers(): {
 } {
   const { data, loading, error } = useQuery<QueryResult<Member>>(GET_MEMBERS);
 
-  console.log('data', data, data?.members.nodes || []);
   return { data: data?.members.nodes || [], loading, error };
 }

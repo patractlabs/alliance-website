@@ -23,6 +23,5 @@ export function useAnnouncement(id: string): {
 } {
   const { data, loading, error } = useQuery<QueryResult<Announcement>>(query, { variables: { id } });
 
-  console.log('useAnnouncement', data);
   return { data: data?.announcement, loading, error };
 }

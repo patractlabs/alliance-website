@@ -24,10 +24,11 @@ const LinksWrapper = styled.div<{ type: 'home' | '' }>`
 `;
 const Logo = styled.img``;
 
-const Links: FC<{ className?: string; type: 'home' | '' }> = ({ className, type }) => {
+const Links: FC<{ className?: string }> = ({ className }) => {
   const { pathname } = useLocation();
+
   return (
-    <LinksWrapper className={className} type={type}>
+    <LinksWrapper className={className} type={pathname === '/' ? 'home' : ''}>
       <Link to='/' style={{ color: pathname === '/' ? Style.badge.primary : '' }}>
         Home
       </Link>
@@ -56,7 +57,7 @@ const Header: FC<{ className?: string }> = ({ className }) => {
         <Link to='/'>
           <Logo src={pathname === '/' ? LogoSvg : Logo2Svg} alt='' />
         </Link>
-        <Links type={pathname === '/' ? 'home' : ''} />
+        <Links />
       </div>
     </div>
   );

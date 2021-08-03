@@ -47,7 +47,6 @@ const AccountFormatted: FC<{
   className?: string;
   account?: Account | null;
 }> = ({ className, account }) => {
-  console.log('alice', account);
   const judge = useMemo(() => {
     try {
       const _judgement: Judgement = JSON.parse(`${account?.judgements}`);

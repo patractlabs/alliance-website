@@ -44,6 +44,5 @@ export function useCandidates(): {
 } {
   const { data, loading, error } = useQuery<QueryResult<Candidate>>(GET_CANDIDATES);
 
-  console.log('data', data);
   return { data: data?.candidates.nodes || [], loading, error };
 }

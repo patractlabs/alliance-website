@@ -40,6 +40,5 @@ export function useMotions(): {
 } {
   const { data, loading, error } = useQuery<QueryResult<Motion>>(GET_MEMBERS);
 
-  console.log('data', data, data?.members.nodes || []);
   return { data: data?.members.nodes || [], loading, error };
 }

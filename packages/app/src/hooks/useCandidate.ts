@@ -51,6 +51,5 @@ export function useCandidate(id: string): {
 } {
   const { data, loading, error } = useQuery<QueryList<Candidate>>(QUERY, { variables: { id } });
 
-  console.log('data', data);
   return { data: data?.candidate, loading, error };
 }

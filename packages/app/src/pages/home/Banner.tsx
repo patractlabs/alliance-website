@@ -7,7 +7,7 @@ const Banner: FC<{ className?: string }> = ({ className }) => {
   return (
     <div className={className}>
       <div className='content'>
-        <h1>Fighting for an open source culture and its good ethics.</h1>
+        <h1 className='animated fadeInUp'>Fighting for an open source culture and its good ethics.</h1>
       </div>
     </div>
   );
@@ -30,7 +30,7 @@ export default styled(Banner)`
     h1 {
       margin-left: 70px;
       margin-bottom: 0px;
-      width: 950px;
+      width: 1020px;
       font-size: 56px;
       font-weight: 700;
       color: #ffffff;

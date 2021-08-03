@@ -6,61 +6,61 @@ const createGlobal = (): string => `
     font-family: 'WorkSans';
     font-style: normal;
     font-weight: 300;
-    src: url(/fonts/WorkSans-Light.ttf);
+    src: url(/static/fonts/WorkSans-Light.ttf);
   }
   @font-face {
     font-family: 'WorkSans';
     font-style: italic;
     font-weight: 300;
-    src: url(/fonts/WorkSans-LightItalic.ttf);
+    src: url(/static/fonts/WorkSans-LightItalic.ttf);
   }
   @font-face {
     font-family: 'WorkSans';
     font-style: normal;
     font-weight: 400;
-    src: url(/fonts/WorkSans-Regular.ttf);
+    src: url(/static/fonts/WorkSans-Regular.ttf);
   }
   @font-face {
     font-family: 'WorkSans';
     font-style: italic;
     font-weight: 400;
-    src: url(/fonts/WorkSans-RegularItalic.ttf);
+    src: url(/static/fonts/WorkSans-RegularItalic.ttf);
   }
   @font-face {
     font-family: 'WorkSans';
     font-style: normal;
     font-weight: 500;
-    src: url(/fonts/WorkSans-Medium.ttf);
+    src: url(/static/fonts/WorkSans-Medium.ttf);
   }
   @font-face {
     font-family: 'WorkSans';
     font-style: italic;
     font-weight: 500;
-    src: url(/fonts/WorkSans-MediumItalic.ttf);
+    src: url(/static/fonts/WorkSans-MediumItalic.ttf);
   }
   @font-face {
     font-family: 'WorkSans';
     font-style: normal;
     font-weight: 600;
-    src: url(/fonts/WorkSans-SemiBold.ttf);
+    src: url(/static/fonts/WorkSans-SemiBold.ttf);
   }
   @font-face {
     font-family: 'WorkSans';
     font-style: italic;
     font-weight: 600;
-    src: url(/fonts/WorkSans-SemiBoldItalic.ttf);
+    src: url(/static/fonts/WorkSans-SemiBoldItalic.ttf);
   }
   @font-face {
     font-family: 'WorkSans';
     font-style: normal;
     font-weight: 700;
-    src: url(/fonts/WorkSans-Bold.ttf);
+    src: url(/static/fonts/WorkSans-Bold.ttf);
   }
   @font-face {
     font-family: 'WorkSans';
     font-style: italic;
     font-weight: 700;
-    src: url(/fonts/WorkSans-BoldItalic.ttf);
+    src: url(/static/fonts/WorkSans-BoldItalic.ttf);
   }
 
   body {

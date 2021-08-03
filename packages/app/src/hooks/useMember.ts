@@ -82,6 +82,5 @@ export function useMember(id: string): {
 } {
   const { data, loading, error } = useQuery<QueryResult<Member>>(GET_MEMBER, { variables: { id } });
 
-  console.log('data', data);
   return { data: data?.member, loading, error };
 }

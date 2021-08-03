@@ -37,6 +37,5 @@ export function useBlacklists(): {
 } {
   const { data, loading, error } = useQuery<QueryResult<Blacklist>>(query);
 
-  console.log('useBlacklists', data);
   return { data: data?.blacklists.nodes || [], loading, error };
 }

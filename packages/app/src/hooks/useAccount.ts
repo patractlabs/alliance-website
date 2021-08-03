@@ -32,6 +32,5 @@ export function useAccount(id?: string): {
 } {
   const { data, loading, error } = useQuery<QueryResult<Account>>(Query, { variables: { id } });
 
-  console.log('data', data);
   return { data: data?.account, loading, error };
 }

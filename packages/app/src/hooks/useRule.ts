@@ -33,6 +33,5 @@ export function useRule(): {
 } {
   const { data, loading, error } = useQuery<QueryResult<Rule>>(query);
 
-  console.log('data', data);
   return { data: data?.rules.nodes[0], loading, error };
 }

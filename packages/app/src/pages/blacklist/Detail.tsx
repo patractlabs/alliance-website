@@ -8,9 +8,8 @@ import FellowSvg from '../../assets/imgs/fellow-big.svg';
 import { MemberRole, useBlacklist, useCandidate, useMember } from '../../hooks';
 import { useParams } from 'react-router-dom';
 import { Style } from '../../shared/style/const';
-import { formatBalance } from '@polkadot/util';
 import { formatDate } from '../../core/util/format-date';
-import { config } from '../../core/global';
+import { formatLocked } from '../../core/util/format-locked';
 
 export const badgeImgMap = {
   [MemberRole.FOUNDER]: FounderSvg,
@@ -73,15 +72,7 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
               },
               blocked?.isAccount && {
                 name: 'Locked',
-                render: (
-                  <>
-                    {formatBalance(
-                      candidate?.locked || member?.locked || undefined,
-                      { forceUnit: 'DOT' },
-                      config.decimal
-                    )}
-                  </>
-                )
+                render: <>{formatLocked(candidate?.locked || member?.locked)}</>
               }
             ].filter(Boolean) as any
           }

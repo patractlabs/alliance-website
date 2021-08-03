@@ -63,21 +63,21 @@ const AnnouncementDetail: FC<{
 
   return (
     <DetailWrapper className={className} style={style} top={top} bottom={bottom}>
-      <Row className='info' onClick={() => setExpanded((old) => !old)}>
+      <Row className='info' onClick={() => content && setExpanded((old) => !old)}>
         <Col span={6} style={{ paddingLeft: '16px' }}>
-          <Status expanded={expanded} />
+          <Status expanded={expanded && !!content} />
           {formatDate(announcement.createTime)}
         </Col>
         <Col span={17} style={{ display: 'flex', overflow: 'hidden' }}>
           <span style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{content || '-'}</span>
         </Col>
         <Col span={1} style={{ textAlign: 'right', paddingRight: '11px' }}>
-          <img src={expanded ? DeexpandSvg : ExpandSvg} alt='' />
+          {content && <img src={expanded ? DeexpandSvg : ExpandSvg} alt='' />}
         </Col>
       </Row>
-      {expanded && (
+      {expanded && content && (
         <Content className='content'>
-          <Markdown>{content || ''}</Markdown>
+          <Markdown>{content}</Markdown>
         </Content>
       )}
     </DetailWrapper>

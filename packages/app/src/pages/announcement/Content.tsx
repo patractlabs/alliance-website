@@ -1,4 +1,4 @@
-import { CSSProperties, FC, useEffect, useRef } from 'react';
+import { CSSProperties, FC, useRef } from 'react';
 import styled from 'styled-components';
 import { Style } from '../../shared/style/const';
 import Scroll from '../../components/Scroll';
@@ -44,8 +44,6 @@ const Wrapper = styled.div`
 
 const Content: FC<{ className?: string; style?: CSSProperties }> = ({ className, style, children }) => {
   const target = useRef<HTMLElement>(null);
-
-  useEffect(() => console.log('target.current', target.current), []);
 
   return (
     <Wrapper className={className} style={style}>

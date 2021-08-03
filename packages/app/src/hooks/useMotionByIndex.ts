@@ -45,6 +45,5 @@ export function useMotionByIndex(index?: number | null): {
     }
   });
 
-  console.log('useMotionByIndex', index, data);
   return { data: data?.motions.nodes[0], loading, error };
 }

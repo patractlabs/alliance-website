@@ -38,6 +38,5 @@ export function useActionByMotionIndex(index?: number | null): {
     }
   });
 
-  console.log('useActionByMotionIndex', data);
   return { data: data?.motionActions.nodes || [], loading, error };
 }

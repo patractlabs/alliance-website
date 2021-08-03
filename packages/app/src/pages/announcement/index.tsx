@@ -29,7 +29,6 @@ const AnnouncementRow: FC<{ className?: string; announcement: Announcement; defa
 }) => {
   const history = useHistory();
   const [expanded, setExpanded] = useState(defaultExpanded);
-  console.log('annou', decodeCid(announcement.cid));
   const { content } = useContent(decodeCid(announcement.cid));
   const { data: motion } = useMotionByIndex(announcement.motionIndex);
 
@@ -53,14 +52,16 @@ const AnnouncementRow: FC<{ className?: string; announcement: Announcement; defa
           <span>{content || '-'}</span>
         </div>
         <div className='cell more'>
-          <img
-            onClick={(e) => {
-              e.stopPropagation();
-              setExpanded((old) => !old);
-            }}
-            src={expanded ? FoldSvg : ExpandSvg}
-            alt=''
-          />
+          {content && (
+            <img
+              onClick={(e) => {
+                e.stopPropagation();
+                setExpanded((old) => !old);
+              }}
+              src={expanded ? FoldSvg : ExpandSvg}
+              alt=''
+            />
+          )}
         </div>
       </div>
       {expanded && content && (

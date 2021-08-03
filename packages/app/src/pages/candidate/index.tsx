@@ -5,9 +5,8 @@ import { PageSkeleton, BorderedTitle, Search, BorderedRow, AccountFormatted, Acc
 import { Style } from '../../shared/style/const';
 import MorePrimarySvg from '../../assets/imgs/more-primary.svg';
 import { useCandidates } from '../../hooks';
-import { formatBalance } from '@polkadot/util';
 import { formatDate } from '../../core/util/format-date';
-import { config } from '../../core/global';
+import { formatLocked } from '../../core/util/format-locked';
 
 export interface CandidateType {
   nominator: string;
@@ -65,7 +64,7 @@ const Candidate: FC<{ className?: string }> = ({ className }) => {
                 </a>
               </div>
               <div style={{ width: '12.7%' }} className='cell'>
-                {formatBalance(candidate?.locked || undefined, { forceUnit: 'DOT' }, config.decimal) || '-'}
+                {formatLocked(candidate?.locked)}
               </div>
               <div style={{ width: '18.6%' }} className='cell'>
                 <AccountDisplay id={candidate.nominator?.id || ''} />

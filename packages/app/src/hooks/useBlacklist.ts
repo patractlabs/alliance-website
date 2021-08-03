@@ -44,6 +44,5 @@ export function useBlacklist(id: string): {
 } {
   const { data, loading, error } = useQuery<QueryResult<Blacklist>>(GET_BLACKLIST, { variables: { id } });
 
-  console.log('useBlacklist', data, id);
   return { data: data?.blacklist, loading, error };
 }

@@ -33,6 +33,5 @@ export function useAnnouncements(): {
 } {
   const { data, loading, error } = useQuery<QueryResult<Announcement>>(GET_ANNOUNCEMENTS);
 
-  console.log('useAnnouncements', data);
   return { data: data?.announcements.nodes || [], loading, error };
 }

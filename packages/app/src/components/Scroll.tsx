@@ -6,8 +6,13 @@ const Scroll: FC<{
   target: React.RefObject<HTMLElement>;
   thumbStyle?: CSSProperties;
   trackStyle?: CSSProperties;
-}> = ({ className, target, thumbStyle, trackStyle }) => {
-  const [thumb, setThumb] = useState<{ height: number; top: number }>({ height: 0, top: 0 });
+  updateSignal?: number;
+}> = ({ className, target, thumbStyle, trackStyle, updateSignal }) => {
+  const [thumb, setThumb] = useState<{ height: number; top: number; smooth: boolean }>({
+    height: 0,
+    top: 0,
+    smooth: false
+  });
   const track = useRef<HTMLElement>(null);
   const thumbTop = useRef(0);
   const mousedown = useRef(false);
@@ -32,10 +37,35 @@ const Scroll: FC<{
     const contentMaxMovable = contentHeight - containerHeight;
     const thumbMaxMovable = trackHeight - thumbHeight;
 
+    // a &&
+    //   console.log(
+    //     a,
+    //     container.clientHeight,
+    //     container.getBoundingClientRect(),
+    //     'container hegiht',
+    //     containerHeight,
+    //     'content height',
+    //     contentHeight,
+    //     'contentMaxMovable',
+    //     contentMaxMovable,
+    //     'trackHeight',
+    //     trackHeight,
+    //     'thumbHeight',
+    //     thumbHeight,
+    //     'thumbMaxMovable',
+    //     thumbMaxMovable,
+    //     'containerBorderTop',
+    //     containerBorderTop,
+    //     'containerPaddingTop',
+    //     containerPaddingTop,
+    //     { height: thumbHeight },
+    //     trackDom.getBoundingClientRect(),
+    //     trackDom
+    //   );
     if (containerHeight >= contentHeight) {
       return;
     }
-    const wheelCb = (event: WheelEvent) => {
+    const wheelCb = () => {
       const topStart = container.getBoundingClientRect().top + containerBorderTop + containerPaddingTop;
       const moved = topStart - content.getBoundingClientRect().top;
       const rate = moved / contentMaxMovable;
@@ -43,8 +73,7 @@ const Scroll: FC<{
 
       top = top > thumbMaxMovable ? thumbMaxMovable : top;
 
-      // console.log('rate', rate, 'moved',   moved, top > thumbMaxMovable ? thumbMaxMovable : top, 'topStart', topStart);
-      setThumb((old) => ({ ...old, top }));
+      setThumb((old) => ({ ...old, top, smooth: true }));
       thumbTop.current = top;
     };
     const mousedownCb = (e: MouseEvent) => {
@@ -68,36 +97,15 @@ const Scroll: FC<{
       contentTop = contentTop > contentMaxMovable ? contentMaxMovable : contentTop;
       setThumb((old) => ({
         ...old,
-        top: _thumbTop
+        top: _thumbTop,
+        smooth: false
       }));
       thumbTop.current = _thumbTop;
       container.scrollTop = contentTop;
     };
     // const resize = (e: Event) => console.log('resize', e);
-    // trackStyle &&
-    // console.log(
-    //   'container hegiht',
-    //   containerHeight,
-    //   'content height',
-    //   contentHeight,
-    //   'contentMaxMovable',
-    //   contentMaxMovable,
-    //   'trackHeight',
-    //   trackHeight,
-    //   'thumbHeight',
-    //   thumbHeight,
-    //   'thumbMaxMovable',
-    //   thumbMaxMovable,
-    //   'containerBorderTop',
-    //   containerBorderTop,
-    //   'containerPaddingTop',
-    //   containerPaddingTop,
-    //   { height: thumbHeight },
-    //   trackDom.getBoundingClientRect(),
-    //   trackDom
-    // );
 
-    setThumb((old) => ({ ...old, height: thumbHeight }));
+    setThumb((old) => ({ ...old, height: thumbHeight, smooth: false }));
 
     (trackDom.children[0] as HTMLDivElement).addEventListener('mousedown', mousedownCb, false);
     document.addEventListener('mouseup', mouseupCb, false);
@@ -112,16 +120,24 @@ const Scroll: FC<{
       document.removeEventListener('mousemove', mousemoveCb, false);
       (trackDom.children[0] as HTMLDivElement).removeEventListener('mousedown', mousedownCb, false);
     };
-  }, [target, track, trackStyle]);
+  }, [target, track, trackStyle, updateSignal]);
 
   return (
     <div style={{ ...thumbStyle, width: thumb.height <= 0 ? '0px' : '12px' }} ref={track as any} className={className}>
-      <div style={{ ...trackStyle, height: thumb?.height, transform: `translateY(${thumb?.top}px)` }}></div>
+      <div
+        style={{
+          ...trackStyle,
+          transition: thumb?.smooth ? 'transform 0.08s' : '',
+          height: thumb?.height,
+          transform: `translateY(${thumb?.top}px)`
+        }}
+      ></div>
     </div>
   );
 };
 
 export default styled(Scroll)`
+  user-select: none;
   background: #fbf4f7;
   border-radius: 7px;
   margin-right: 1px;

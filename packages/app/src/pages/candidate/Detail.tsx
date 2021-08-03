@@ -7,9 +7,8 @@ import AllySvg from '../../assets/imgs/ally-big.svg';
 import FellowSvg from '../../assets/imgs/fellow-big.svg';
 import { MemberRole, useCandidate } from '../../hooks';
 import { useParams } from 'react-router-dom';
-import { formatBalance } from '@polkadot/util';
 import { formatDate } from '../../core/util/format-date';
-import { config } from '../../core/global';
+import { formatLocked } from '../../core/util/format-locked';
 
 export const badgeImgMap = {
   [MemberRole.FOUNDER]: FounderSvg,
@@ -55,7 +54,7 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
             },
             {
               name: 'Locked',
-              render: <>{formatBalance(candidate?.locked || undefined, { forceUnit: 'DOT' }, config.decimal)}</>
+              render: <>{formatLocked(candidate?.locked)}</>
             },
             {
               name: 'Nominator',

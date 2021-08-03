@@ -11,9 +11,8 @@ import { useHistory } from 'react-router-dom';
 import { useMembers } from '../../hooks/useMembers';
 import { MemberRole, MemberStatus } from '../../hooks';
 import MemberLogo from '../../components/MemberLogo';
-import { formatBalance } from '@polkadot/util';
 import { formatDate } from '../../core/util/format-date';
-import { config } from '../../core/global';
+import { formatLocked } from '../../core/util/format-locked';
 
 const badgeImgMap = {
   [MemberRole.FOUNDER]: FounderSvg,
@@ -58,12 +57,12 @@ const Member: FC<{ className?: string }> = ({ className }) => {
         </div>
         <div className='table'>
           <BorderedTitle>
-            <div style={{ width: '7.4%' }}>Logo</div>
+            <div style={{ width: '6.9%' }}>Logo</div>
             <div style={{ width: '6.8%' }}>Badge</div>
             <div style={{ width: '12.3%' }}>AccountID</div>
             <div style={{ width: '13%' }}>Identity</div>
             <div style={{ width: '17.4%' }}>Website</div>
-            <div style={{ width: '10.5%' }}>Locked</div>
+            <div style={{ width: '11.5%' }}>Locked</div>
             <div style={{ width: '10.2%' }}>Joined Date</div>
             <div style={{ width: '10.6%' }}>Elevated Date</div>
             <div style={{ flex: 1 }}>Status</div>
@@ -107,9 +106,7 @@ const Member: FC<{ className?: string }> = ({ className }) => {
                     {member.account.web}
                   </a>
                 </div>
-                <div className='cell locked'>
-                  {formatBalance(member.locked || undefined, { forceUnit: 'DOT' }, config.decimal) || '-'}
-                </div>
+                <div className='cell locked'>{formatLocked(member.locked)}</div>
                 <div className='cell joined-date'>{formatDate(member.joinTime)}</div>
                 <div className='cell elevated-date'>{formatDate(member.elevatedTime)}</div>
                 <div className='cell status'>{statusMap[member.status]}</div>
@@ -151,7 +148,7 @@ export default styled(Member)`
       }
     }
     .logo {
-      width: 7.4%;
+      width: 6.9%;
       > div {
         width: 32px;
         height: 32px;
@@ -174,7 +171,7 @@ export default styled(Member)`
       width: 17.4%;
     }
     .locked {
-      width: 10.5%;
+      width: 11.5%;
     }
     .joined-date {
       width: 10.2%;
