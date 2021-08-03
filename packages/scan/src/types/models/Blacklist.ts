@@ -22,11 +22,15 @@ export class Blacklist implements Entity {
 
     public addBlock?: bigint;
 
+    public addExtrinsic?: number;
+
+    public addMotionIndex?: number;
+
     public removeTime?: Date;
 
     public removeBlock?: bigint;
 
-    public addMotionIndex?: number;
+    public removeExtrinsic?: number;
 
     public removeMotionIndex?: number;
 

@@ -14,6 +14,20 @@ type Account @entity {
   judgements: String
 }
 
+type Extrinsic @entity {
+  id: ID!
+  hash: String
+  blockNumber: BigInt
+  blockTime: Date
+  extrinsicIndex: Int
+  section: String
+  method: String
+  signature: String
+  signer: String
+  type: Int
+  version: Int
+}
+
 type Member @entity {
   id: ID!
 
@@ -22,15 +36,19 @@ type Member @entity {
   type: String! # FOUNDER | FELLOW | ALLY
   status: String! # EXIST | RETIRED | KICKED
   joinBlock: BigInt
+  joinExtrinsic: Int
   joinTime: Date
   joinMotionIndex: Int
   elevatedBlock: BigInt
+  elevatedExtrinsic: Int
   elevatedTime: Date
   elevatedMotionIndex: Int
   kickedBlock: BigInt
+  kickedExtrinsic: Int
   kickedTime: Date
   kickedMotionIndex: Int
   retiredBlock: BigInt
+  retiredExtrinsic: Int
   retiredTime: Date
   retiredMotionIndex: Int
 }
@@ -39,6 +57,8 @@ type Rule @entity {
   id: ID!
 
   cid: String!
+  createBlock: BigInt
+  createExtrinsic: Int
   createTime: Date!
   motionIndex: Int!
 }
@@ -47,6 +67,8 @@ type Announcement @entity {
   id: ID!
 
   cid: String!
+  createBlock: BigInt
+  createExtrinsic: Int
   createTime: Date!
   motionIndex: Int!
 }
@@ -59,6 +81,7 @@ type Candidate @entity {
   nominator: Account
   applyTime: Date
   applyBlock: BigInt
+  applyExtrinsic: Int
 }
 
 type Blacklist @entity {
@@ -69,9 +92,11 @@ type Blacklist @entity {
   isAccount: Boolean
   addTime: Date
   addBlock: BigInt
+  addExtrinsic: Int
+  addMotionIndex: Int
   removeTime: Date
   removeBlock: BigInt
-  addMotionIndex: Int
+  removeExtrinsic: Int
   removeMotionIndex: Int
 }
 
@@ -83,8 +108,10 @@ type Motion @entity {
   index: Int! @index(unique: true)
   createTime: Date
   createBlock: BigInt
+  createExtrinsic: Int
   closeTime: Date
   closeBlock: BigInt
+  closeExtrinsic: Int
 }
 
 type MotionAction @entity {
@@ -94,4 +121,5 @@ type MotionAction @entity {
   account: Account!
   approve: Boolean
   block: BigInt
+  extrinsic: Int
 }

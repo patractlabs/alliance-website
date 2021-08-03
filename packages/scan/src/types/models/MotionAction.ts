@@ -20,6 +20,8 @@ export class MotionAction implements Entity {
 
     public block?: bigint;
 
+    public extrinsic?: number;
+
 
     async save(): Promise<void>{
         let id = this.id;

@@ -22,11 +22,15 @@ export class Member implements Entity {
 
     public joinBlock?: bigint;
 
+    public joinExtrinsic?: number;
+
     public joinTime?: Date;
 
     public joinMotionIndex?: number;
 
     public elevatedBlock?: bigint;
+
+    public elevatedExtrinsic?: number;
 
     public elevatedTime?: Date;
 
@@ -34,11 +38,15 @@ export class Member implements Entity {
 
     public kickedBlock?: bigint;
 
+    public kickedExtrinsic?: number;
+
     public kickedTime?: Date;
 
     public kickedMotionIndex?: number;
 
     public retiredBlock?: bigint;
+
+    public retiredExtrinsic?: number;
 
     public retiredTime?: Date;
 

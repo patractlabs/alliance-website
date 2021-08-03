@@ -22,6 +22,8 @@ export class Candidate implements Entity {
 
     public applyBlock?: bigint;
 
+    public applyExtrinsic?: number;
+
 
     async save(): Promise<void>{
         let id = this.id;

@@ -37,6 +37,7 @@ export async function handleAlliance(
     member.elevatedMotionIndex = motion.index;
     member.elevatedTime = block.timestamp;
     member.elevatedBlock = block.block.header.number.toBigInt();
+    member.elevatedExtrinsic = extrinsic.idx;
     member.type = 'FELLOW';
     await member.save();
   } else if (method === 'BlacklistAdded') {
@@ -57,6 +58,7 @@ export async function handleAlliance(
           isAccount: item.isAccountId,
           addTime: block.timestamp,
           addBlock: block.block.header.number.toBigInt(),
+          addExtrinsic: extrinsic.idx,
           addMotionIndex: motion.index
         });
         if (item.isAccountId) {
@@ -81,6 +83,7 @@ export async function handleAlliance(
         );
         blacklist.removeTime = block.timestamp;
         blacklist.removeBlock = block.block.header.number.toBigInt();
+        blacklist.removeExtrinsic = extrinsic.idx;
         blacklist.removeMotionIndex = motion.index;
         return blacklist.save();
       })
@@ -102,7 +105,8 @@ export async function handleAlliance(
       nominatorId: nominator,
       locked,
       applyTime: block.timestamp,
-      applyBlock: block.block.header.number.toBigInt()
+      applyBlock: block.block.header.number.toBigInt(),
+      applyExtrinsic: extrinsic.idx
     });
     await candidate.save();
   } else if (method === 'CandidateApproved') {
@@ -122,6 +126,7 @@ export async function handleAlliance(
       status: 'EXIST',
       joinTime: block.timestamp,
       joinBlock: block.block.header.number.toBigInt(),
+      joinExtrinsic: extrinsic.idx,
       joinMotionIndex: motion.index,
       locked: candidate ? candidate.locked : null
     });
@@ -141,7 +146,8 @@ export async function handleAlliance(
           type: 'FOUNDER',
           status: 'EXIST',
           joinTime,
-          joinBlock: block.block.header.number.toBigInt()
+          joinBlock: block.block.header.number.toBigInt(),
+          joinExtrinsic: extrinsic.idx
         });
         return member.save();
       })
@@ -159,6 +165,7 @@ export async function handleAlliance(
     member.status = 'KICKED';
     member.kickedTime = block.timestamp;
     member.kickedBlock = block.block.header.number.toBigInt();
+    member.kickedExtrinsic = extrinsic.idx;
     member.kickedMotionIndex = motion.index;
     await member.save();
   } else if (method === 'MemberRetired') {
@@ -174,6 +181,7 @@ export async function handleAlliance(
     member.status = 'RETIRED';
     member.retiredTime = block.timestamp;
     member.retiredBlock = block.block.header.number.toBigInt();
+    member.retiredExtrinsic = extrinsic.idx;
     member.retiredMotionIndex = motion.index;
     await member.save();
   } else if (method === 'NewAnnouncement') {
@@ -189,6 +197,7 @@ export async function handleAlliance(
       cid,
       createTime: block.timestamp,
       createBlock: block.block.header.number.toBigInt(),
+      createExtrinsic: extrinsic.idx,
       motionIndex: motion.index
     });
     await announcement.save();
@@ -205,6 +214,7 @@ export async function handleAlliance(
       cid,
       createTime: block.timestamp,
       createBlock: block.block.header.number.toBigInt(),
+      createExtrinsic: extrinsic.idx,
       motionIndex: motion.index
     });
     await rule.save();

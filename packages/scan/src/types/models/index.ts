@@ -4,6 +4,8 @@
 
 export {Account} from "./Account"
 
+export {Extrinsic} from "./Extrinsic"
+
 export {Member} from "./Member"
 
 export {Rule} from "./Rule"
