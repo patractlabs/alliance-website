@@ -8,10 +8,11 @@ import { cache } from './core/cache';
 import GlobalStyle from './shared/style';
 import { ApolloClient, NormalizedCacheObject, ApolloProvider } from '@apollo/client';
 import ScrollProvider from './core/providers/ScrollProvider';
+import { config } from './core/global';
 
 const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   cache,
-  uri: 'https://api.alliance.patract.io/graphql',
+  uri: config.graphqlUrl,
   resolvers: {}
 });
 
