@@ -1,5 +1,5 @@
 import { Col, Row } from 'antd';
-import { CSSProperties, FC, useState } from 'react';
+import { FC, useState } from 'react';
 import styled from 'styled-components';
 import ExpandSvg from '../../../assets/imgs/expand.svg';
 import DeexpandSvg from '../../../assets/imgs/fold.svg';
@@ -9,7 +9,7 @@ import { Announcement, useContent } from '../../../hooks';
 import { decodeCid } from '../../../core/util/decode-cid-hex';
 import Markdown from 'react-markdown';
 import { formatDate } from '../../../core/util/format-date';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Status = styled.span<{ expanded: boolean }>`
   display: inline-block;
@@ -26,7 +26,6 @@ const BorderTypeMap = {
   none: ''
 };
 const DetailWrapper = styled.div<{ top: BorderType; bottom: BorderType }>`
-  cursor: pointer;
   padding: 21px 0px;
   border-top: ${(props) => BorderTypeMap[props.top]};
   border-bottom: ${(props) => BorderTypeMap[props.bottom]};
@@ -51,44 +50,32 @@ const AnnouncementDetail: FC<{
   className?: string;
   announcement: Announcement;
   defaultExpanded?: boolean;
-  style?: CSSProperties;
   top?: BorderType;
   bottom?: BorderType;
-}> = ({ className, announcement, style, defaultExpanded = false, top = 'none', bottom = 'default' }) => {
+}> = ({ className, announcement, defaultExpanded = false, top = 'none', bottom = 'default' }) => {
   const [expanded, setExpanded] = useState(defaultExpanded);
   const { content } = useContent(decodeCid(announcement?.cid));
-  const history = useHistory();
 
   return (
-    <DetailWrapper
-      className={className}
-      style={style}
-      top={top}
-      bottom={bottom}
-      onClick={() => history.push(`/announcement/${announcement.id}`)}
-    >
+    <DetailWrapper className={className} top={top} bottom={bottom}>
       <Row className='info'>
         <Col span={6} style={{ paddingLeft: '16px' }}>
           <Status expanded={expanded && !!content} />
-          {formatDate(announcement.createTime)}
+          <Link className='announcement-link' to={`/announcement/${announcement.id}`}>
+            {formatDate(announcement.createTime)}
+          </Link>
         </Col>
         <Col
           span={17}
           style={{ display: 'flex', overflow: 'hidden', cursor: 'pointer' }}
-          onClick={(e) => {
-            content && setExpanded((old) => !old);
-            e.stopPropagation();
-          }}
+          onClick={() => content && setExpanded((old) => !old)}
         >
           <span style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{content || '-'}</span>
         </Col>
         <Col
           span={1}
           style={{ textAlign: 'right', paddingRight: '11px', cursor: 'pointer' }}
-          onClick={(e) => {
-            content && setExpanded((old) => !old);
-            e.stopPropagation();
-          }}
+          onClick={() => content && setExpanded((old) => !old)}
         >
           {content && <img src={expanded ? DeexpandSvg : ExpandSvg} alt='' />}
         </Col>
@@ -102,4 +89,11 @@ const AnnouncementDetail: FC<{
   );
 };
 
-export default styled(AnnouncementDetail)``;
+export default styled(AnnouncementDetail)`
+  .announcement-link {
+    color: #fff;
+    &:hover {
+      color: #e6007a;
+    }
+  }
+`;

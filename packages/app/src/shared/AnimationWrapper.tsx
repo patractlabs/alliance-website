@@ -17,7 +17,7 @@ function isInViewPort(el: HTMLElement) {
   const viewPortHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
   const top = el.getBoundingClientRect() && el.getBoundingClientRect().top;
 
-  return top <= viewPortHeight + 100;
+  return top <= viewPortHeight - 150;
 }
 
 const AnimationWrapper: React.FunctionComponent<Props> = ({ children, delay = 300, style, type = 'fadeInUp' }) => {
@@ -38,7 +38,12 @@ const AnimationWrapper: React.FunctionComponent<Props> = ({ children, delay = 30
   }, [className, scrollTop, type]);
 
   return (
-    <Container className={className} delay={delay} ref={wrapperRef} style={{ ...style }}>
+    <Container
+      style={{ visibility: wrapperRef.current && isInViewPort(wrapperRef.current) ? 'visible' : 'hidden', ...style }}
+      className={className}
+      delay={delay}
+      ref={wrapperRef}
+    >
       {children}
     </Container>
   );

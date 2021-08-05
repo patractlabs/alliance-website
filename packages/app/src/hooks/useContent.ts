@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export const IPFS_GATEWAY = 'https://ipfs.io';
+export const IPFS_GATEWAY = 'https://cloudflare-ipfs.com';
 
 interface UseContent {
   content: string | null;
