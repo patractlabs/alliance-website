@@ -14,7 +14,7 @@ const RecentAnnouncements: FC<{ className?: string }> = ({ className }) => {
   return (
     <div className={className}>
       <div>
-        <h2>Recent Annoncements</h2>
+        <h2>Recent Announcements</h2>
         {annoncements && !!annoncements.length && <Title />}
         {[...annoncements]
           .reverse()
