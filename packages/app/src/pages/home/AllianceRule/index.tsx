@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react';
 import styled from 'styled-components';
 import { Style } from '../../../shared/style/const';
 import { Content, Spinner } from '../../../components';
-import { useContent } from '../../../hooks/useContent';
+import { IPFS_GATEWAY, useContent } from '../../../hooks/useContent';
 import Markdown from 'react-markdown';
 import { useRule } from '../../../hooks';
 import { decodeCid } from '../../../core/util/decode-cid-hex';
@@ -22,7 +22,7 @@ const AllianceRule: FC<{ className?: string }> = ({ className }) => {
       </h2>
       <div className='ipfs-hash'>
         <span>IPFS Hash</span>
-        <a target='_blank' rel='noreferrer' href={`https://ipfs.io/ipfs/${cid}`}>
+        <a target='_blank' rel='noreferrer' href={`${IPFS_GATEWAY}/${cid}`}>
           {cid}
         </a>
       </div>

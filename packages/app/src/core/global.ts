@@ -4,5 +4,5 @@ export const config = {
   graphqlUrl:
     process.env.REACT_APP_NODE_ENV === 'development'
       ? 'https://api.alliance.patract.io/graphql'
-      : 'https://api-dot.alliance.patract.io'
+      : 'https://api-dot.alliance.patract.io/graphql'
 };

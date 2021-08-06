@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export const IPFS_GATEWAY = 'https://cloudflare-ipfs.com';
+export const IPFS_GATEWAY = 'https://cloudflare-ipfs.com/ipfs';
 
 interface UseContent {
   content: string | null;
@@ -32,7 +32,7 @@ export function useContent(cid?: string): UseContent {
     if (cid) {
       setFetching(true);
 
-      fetchData(`${IPFS_GATEWAY}/ipfs/${cid}`)
+      fetchData(`${IPFS_GATEWAY}/${cid}`)
         .then(setContent)
         .catch(console.error)
         .finally(() => setFetching(false));
