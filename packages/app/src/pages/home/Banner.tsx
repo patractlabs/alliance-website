@@ -11,6 +11,7 @@ const Banner: FC<{ className?: string }> = ({ className }) => {
     if (!ref.current) {
       return;
     }
+
     lottie.loadAnimation({
       container: ref.current,
       renderer: 'svg' as any,
@@ -18,6 +19,7 @@ const Banner: FC<{ className?: string }> = ({ className }) => {
       autoplay: true,
       path: '/static/media/animations/01/data.json'
     });
+
     return () => lottie.destroy();
   }, []);
 
@@ -28,7 +30,7 @@ const Banner: FC<{ className?: string }> = ({ className }) => {
       </div>
       <div className='content'>
         <AnimationWrapper delay={600}>
-          <h1>Fighting for an open source culture and its good ethics.</h1>
+          <h1>Fighting for an open source culture and open collaboration that benefits the Polkadot ecosystem.</h1>
         </AnimationWrapper>
       </div>
     </div>
@@ -63,7 +65,7 @@ export default styled(Banner)`
     h1 {
       margin-left: 70px;
       margin-bottom: 0px;
-      width: 565px;
+      width: 660px;
       font-size: 56px;
       font-weight: 700;
       color: #ffffff;

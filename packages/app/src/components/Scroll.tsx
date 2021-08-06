@@ -37,9 +37,9 @@ const Scroll: FC<{
     const contentMaxMovable = contentHeight - containerHeight;
     const thumbMaxMovable = trackHeight - thumbHeight;
 
-    // a &&
+    // updateSignal &&
     //   console.log(
-    //     a,
+    //     updateSignal,
     //     container.clientHeight,
     //     container.getBoundingClientRect(),
     //     'container hegiht',
@@ -62,9 +62,8 @@ const Scroll: FC<{
     //     trackDom.getBoundingClientRect(),
     //     trackDom
     //   );
-    if (containerHeight >= contentHeight) {
-      return;
-    }
+    const hideScroll = contentMaxMovable < 1 || containerHeight >= contentHeight;
+
     const wheelCb = () => {
       const topStart = container.getBoundingClientRect().top + containerBorderTop + containerPaddingTop;
       const moved = topStart - content.getBoundingClientRect().top;
@@ -105,7 +104,7 @@ const Scroll: FC<{
     };
     // const resize = (e: Event) => console.log('resize', e);
 
-    setThumb((old) => ({ ...old, height: thumbHeight, smooth: false }));
+    setThumb((old) => ({ ...old, height: hideScroll ? 0 : thumbHeight, smooth: false }));
 
     (trackDom.children[0] as HTMLDivElement).addEventListener('mousedown', mousedownCb, false);
     document.addEventListener('mouseup', mouseupCb, false);

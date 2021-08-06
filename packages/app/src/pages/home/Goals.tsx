@@ -10,7 +10,7 @@ const Goals: FC<{ className?: string }> = ({ className }) => {
     <div className={className}>
       <div>
         <div className='title'>
-          <h2>This is an industry group that focus on 2 main goals：</h2>
+          <h2>This is an industry group with 2 main goals in mind:</h2>
         </div>
         <div className='goals'>
           <AnimationWrapper delay={300}>
@@ -19,9 +19,10 @@ const Goals: FC<{ className?: string }> = ({ className }) => {
                 <img src={Goal1Svg} alt='' />
               </div>
               <p className='goal-content'>
-                Provide a set of ethics (against unattributed code re-use, launching rival relay-chains, shit-talking,
-                scammy raises on ETH, polka-branding despite having no credible plans to become a parachain, acting
-                against Web3 Foundation’s guidelines, adhering to requirements over trademark use…)
+                Providing a set of ethics regarding unattributed code re-use, launching rival relay chains, the use of
+                derogatory language aimed at a particular team or project, scam activities, the use of Polkadot branding
+                despite having no credible plans to contribute to the ecosystem, acting against Web3 Foundation’s
+                guidelines, and trademark violations.
               </p>
             </div>
           </AnimationWrapper>
@@ -31,8 +32,8 @@ const Goals: FC<{ className?: string }> = ({ className }) => {
                 <img src={Goal2Svg} alt='' />
               </div>
               <p className='goal-content'>
-                Provide recognition and influence for those teams that contribute something back to the Polkadot
-                ecosystem (code, funding, infra, education, …)
+                Provide recognition and reputation for those teams that contribute something back to the Polkadot
+                ecosystem in the form of code, funding, public infrastructure, community building and education.
               </p>
             </div>
           </AnimationWrapper>

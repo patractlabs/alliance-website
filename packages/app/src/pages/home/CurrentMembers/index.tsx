@@ -15,7 +15,12 @@ const CurrentMembers: FC<{ className?: string }> = ({ className }) => {
           <AnimationWrapper>
             <Role
               type={MemberRole.FOUNDER}
-              desc='Initially founding Members, have veto rights to motions of setting rule and elevating ally and voting power same with Fellow.'
+              descs={[
+                'Founding members are teams that have been around since the early days, have a strong  reputation in the community and have made significant contributions to the ecosystem. They set, publish and enforce the rules of membership, deciding if/when to kick an ally, deciding if/when to elevate an Ally into a Fellow, maintaining a blacklist of websites and addresses that are detrimental to the ecosystem, and investigating and voting for a resolution in a dispute between two allies. ',
+                'Founding members have veto rights on motions on setting rules and elevating Allies.'
+              ]}
+              // members={[...data, ...data]}
+
               members={data.filter((m) => m.type === MemberRole.FOUNDER)}
             />
           </AnimationWrapper>
@@ -24,7 +29,10 @@ const CurrentMembers: FC<{ className?: string }> = ({ className }) => {
           <AnimationWrapper delay={400}>
             <Role
               type={MemberRole.FELLOW}
-              desc='Joining Members, have vote rights for motions of setting rule, elevating ally, kicking member, making announcement, managing candidate and blacklist to pass by super majority, can also nominate a candidate without the need of deposit.'
+              descs={[
+                'Fellows are joining Members whose candidacy is endorsed by Founders. They have voting rights on motions focused on setting the Alliance rules, elevating Allies, kicking members, making announcements and blacklisting proposals to pass by supermajority. They can also nominate a candidate without the need for a deposit.',
+                'All Fellows must vote on an Ally elevation. Elevation requires a supermajority of Aye votes (> 60%).'
+              ]}
               members={data.filter((m) => m.type === MemberRole.FELLOW)}
             />
           </AnimationWrapper>
@@ -33,7 +41,10 @@ const CurrentMembers: FC<{ className?: string }> = ({ className }) => {
           <AnimationWrapper delay={800}>
             <Role
               type={MemberRole.ALLY}
-              desc="Waiting members, don't have vote or veto rights."
+              descs={[
+                'Allies are candidates to enter the Alliance.',
+                'Ally registration is permissionless, but they are required to place a deposit (~1,000 DOT) which is locked until/unless they retire as a member or they become a Fellow. They can also skip the deposit if a Fellow nominates them.'
+              ]}
               members={data.filter((m) => m.type === MemberRole.ALLY)}
             />
           </AnimationWrapper>

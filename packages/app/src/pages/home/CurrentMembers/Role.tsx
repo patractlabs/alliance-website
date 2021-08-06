@@ -13,10 +13,10 @@ const RoleMap = {
   [MemberRole.ALLY]: AllySvg
 };
 
-const Role: FC<{ className?: string; type: MemberRole; desc: string; members: Member[] }> = ({
+const Role: FC<{ className?: string; type: MemberRole; descs: string[]; members: Member[] }> = ({
   className,
   type,
-  desc,
+  descs,
   members
 }) => {
   return (
@@ -26,7 +26,10 @@ const Role: FC<{ className?: string; type: MemberRole; desc: string; members: Me
         <h4>{type}</h4>
         <span>{members.length}</span>
       </div>
-      <p>{desc}</p>
+      <div className='desc'>
+        <p>{descs[0]}</p>
+        <p>{descs[1]}</p>
+      </div>
       <MembersByRole members={members} />
     </div>
   );
@@ -64,13 +67,18 @@ export default styled(Role)`
       color: #ffffff;
     }
   }
-  > p {
-    margin-bottom: 20px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    height: 90px;
-    opacity: 0.87;
-    color: ${Style.label.primary};
-    line-height: 18px;
+  > .desc {
+    height: 225px;
+    > p {
+      margin-bottom: 0px;
+      &:first-child {
+        margin-bottom: 18px;
+      }
+      text-overflow: ellipsis;
+      overflow: hidden;
+      opacity: 0.87;
+      color: ${Style.label.primary};
+      line-height: 18px;
+    }
   }
 `;
