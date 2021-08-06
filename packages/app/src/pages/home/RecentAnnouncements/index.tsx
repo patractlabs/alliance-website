@@ -5,6 +5,7 @@ import AnnouncementDetail from './Detail';
 import Title from './Title';
 import MoreSvg from '../../../assets/imgs/link-small.svg';
 import { Link } from 'react-router-dom';
+import { NoData } from '../../../components';
 
 const MAX = 10;
 
@@ -15,7 +16,7 @@ const RecentAnnouncements: FC<{ className?: string }> = ({ className }) => {
     <div className={className}>
       <div>
         <h2>Recent Announcements</h2>
-        {annoncements && !!annoncements.length && <Title />}
+        <Title />
         {[...annoncements]
           .reverse()
           .slice(0, MAX)
@@ -27,13 +28,7 @@ const RecentAnnouncements: FC<{ className?: string }> = ({ className }) => {
               key={index}
             />
           ))}
-        <div className='border'></div>
-        {(!annoncements || !annoncements.length) && (
-          <React.Fragment>
-            <div className='no-data'>No Announcements</div>
-            <div className='border'></div>
-          </React.Fragment>
-        )}
+        {!!annoncements && !!annoncements.length && <div className='border'></div>}
         {annoncements.length > MAX && (
           <div className='more-announcements'>
             <Link to='/announcement'>
@@ -42,6 +37,7 @@ const RecentAnnouncements: FC<{ className?: string }> = ({ className }) => {
             </Link>
           </div>
         )}
+        {(!annoncements || !annoncements.length) && <NoData style={{ marginTop: '41px', color: '#8D9298' }} />}
       </div>
     </div>
   );
