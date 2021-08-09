@@ -10,47 +10,45 @@ export const IPFS_GATEWAY_GROUPs = [
 ];
 
 interface UseContent {
-  content: string | null;
+  content: string | undefined;
   fetching: boolean;
 }
 
-async function fetchData(url: string): Promise<string | null> {
-  const text = await Promise.race([
+async function fetchData(url: string): Promise<string> {
+  return await Promise.race([
     fetch(url).then((response) => {
       if (response.headers.get('content-type')?.includes('text') && response.status >= 200 && response.status < 400) {
         return response.text();
-      } else {
-        return Promise.reject('Reponse Error');
       }
-    }),
-    new Promise<string | null>((_, reject) => setTimeout(() => reject(null), 5000))
-  ]);
 
-  return text ?? null;
+      return Promise.reject();
+    }),
+    new Promise<string>((_, reject) => setTimeout(() => reject(), 5000))
+  ]);
 }
 
 export function useContent(cid?: string): UseContent {
-  const [content, setContent] = useState<string | null>(null);
+  const [content, setContent] = useState<string>();
   const [fetching, setFetching] = useState<boolean>(false);
 
   useEffect((): void => {
-    if (cid) {
-      setFetching(true);
-
-      (async function () {
-        // try by group
-        for (let i = 0; i < IPFS_GATEWAY_GROUPs.length; i++) {
-          try {
-            const content = await Promise.any(
-              IPFS_GATEWAY_GROUPs[i].map((IPFS_GATEWAY) => fetchData(`${IPFS_GATEWAY}/${cid}`))
-            );
-            return setContent(content);
-          } catch (e) {}
-        }
-      })();
-
-      setFetching(false);
+    if (!cid) {
+      return;
     }
+
+    setFetching(true);
+
+    (async function () {
+      // try by group
+      for (let i = 0; i < IPFS_GATEWAY_GROUPs.length; i++) {
+        try {
+          const content = await Promise.any(
+            IPFS_GATEWAY_GROUPs[i].map((IPFS_GATEWAY) => fetchData(`${IPFS_GATEWAY}/${cid}`))
+          );
+          return setContent(content);
+        } catch (e) {}
+      }
+    })().then(() => setFetching(false));
   }, [cid]);
 
   return {
