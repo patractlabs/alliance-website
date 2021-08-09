@@ -22,7 +22,7 @@ const AllianceRule: FC<{ className?: string }> = ({ className }) => {
       </h2>
       <div className='ipfs-hash'>
         <span>IPFS Hash</span>
-        <a target='_blank' rel='noreferrer' href={`${IPFS_GATEWAY_GROUPs[0]}/${cid}`}>
+        <a target='_blank' rel='noreferrer' href={`https://ipfs.io/ipfs/${cid}`}>
           {cid}
         </a>
       </div>

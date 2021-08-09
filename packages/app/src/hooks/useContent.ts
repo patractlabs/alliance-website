@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
 export const IPFS_GATEWAY_GROUPs = [
-  ['https://cloudflare-ipfs.com/ipfs', 'https://ipfs.eth.aragon.network/ipfs', 'https://ipfs.io/ipfs'],
-  ['https://ipfs.fleek.co/ipfs', 'https://ipfs.decoo.io/ipfs', 'https://ipfs.infura.io/ipfs'],
+  ['https://cloudflare-ipfs.com/ipfs', 'https://ipfs.infura.io/ipfs'],
+  ['https://ipfs.io/ipfs', 'https://dweb.link/ipfs', 'https://astyanax.io'],
+  ['https://ipfs.fleek.co/ipfs', 'https://ipfs.decoo.io/ipfs', 'https://ipfs.eth.aragon.network/ipfs'],
   ['https://cf-ipfs.com/ipfs', 'https://trusted-setup.filecoin.io/ipfs', 'https://gateway.pinata.cloud/ipfs'],
   ['https://ipfs.tubby.cloud/ipfs', 'https://crustwebsites.net/ipfs', 'https://ravencoinipfs-gateway.com/ipfs'],
-  ['https://video.oneloveipfs.com/ipfs', 'https://10.via0.com/ipfs', 'https://trusted-setup.filecoin.io/ipfs'],
-  ['https://gateway.pinata.cloud/ipfs', 'https://dweb.link/ipfs', 'https://astyanax.io']
+  ['https://video.oneloveipfs.com/ipfs', 'https://10.via0.com/ipfs']
 ];
 
 interface UseContent {
@@ -39,14 +39,11 @@ export function useContent(cid?: string): UseContent {
 
       (async function () {
         // try by group
-        console.log(`--------------------\nstart group\n--------------------`);
         for (let i = 0; i < IPFS_GATEWAY_GROUPs.length; i++) {
           try {
-            console.log(`group ${i} trying`);
             const content = await Promise.any(
               IPFS_GATEWAY_GROUPs[i].map((IPFS_GATEWAY) => fetchData(`${IPFS_GATEWAY}/${cid}`))
             );
-            console.log(`group ${i} resolved`, !!content);
             return setContent(content);
           } catch (e) {}
         }

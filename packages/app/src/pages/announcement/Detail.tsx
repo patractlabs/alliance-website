@@ -18,8 +18,6 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
   const { data: motion } = useMotionByIndex(announcement?.motionIndex);
   const { data: actions } = useActionByMotionIndex(announcement?.motionIndex);
 
-  console.log('actions', actions);
-
   return (
     <PageSkeleton>
       <div className={className}>

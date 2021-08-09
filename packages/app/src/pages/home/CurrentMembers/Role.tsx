@@ -27,8 +27,10 @@ const Role: FC<{ className?: string; type: MemberRole; descs: string[]; members:
         <span>{members.length}</span>
       </div>
       <div className='desc'>
-        <p>{descs[0]}</p>
-        <p>{descs[1]}</p>
+        <p>
+          {descs[0]}
+          <span>{descs[1]}</span>
+        </p>
       </div>
       <MembersByRole members={members} />
     </div>
@@ -68,8 +70,13 @@ export default styled(Role)`
     }
   }
   > .desc {
-    height: 225px;
+    height: 200px;
     > p {
+      padding: 0px 5px;
+      > span {
+        font-weight: 600;
+      }
+      font-size: 13px;
       margin-bottom: 0px;
       text-overflow: ellipsis;
       overflow: hidden;
