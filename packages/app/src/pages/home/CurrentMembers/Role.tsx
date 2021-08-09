@@ -71,9 +71,6 @@ export default styled(Role)`
     height: 225px;
     > p {
       margin-bottom: 0px;
-      &:first-child {
-        margin-bottom: 18px;
-      }
       text-overflow: ellipsis;
       overflow: hidden;
       opacity: 0.87;

@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
 
-export const IPFS_GATEWAY = 'https://cloudflare-ipfs.com/ipfs';
+export const IPFS_GATEWAY_GROUPs = [
+  ['https://cloudflare-ipfs.com/ipfs', 'https://ipfs.eth.aragon.network/ipfs', 'https://ipfs.io/ipfs'],
+  ['https://ipfs.fleek.co/ipfs', 'https://ipfs.decoo.io/ipfs', 'https://ipfs.infura.io/ipfs'],
+  ['https://cf-ipfs.com/ipfs', 'https://trusted-setup.filecoin.io/ipfs', 'https://gateway.pinata.cloud/ipfs'],
+  ['https://ipfs.tubby.cloud/ipfs', 'https://crustwebsites.net/ipfs', 'https://ravencoinipfs-gateway.com/ipfs'],
+  ['https://video.oneloveipfs.com/ipfs', 'https://10.via0.com/ipfs', 'https://trusted-setup.filecoin.io/ipfs'],
+  ['https://gateway.pinata.cloud/ipfs', 'https://dweb.link/ipfs', 'https://astyanax.io']
+];
 
 interface UseContent {
   content: string | null;
@@ -9,16 +16,14 @@ interface UseContent {
 
 async function fetchData(url: string): Promise<string | null> {
   const text = await Promise.race([
-    fetch(url)
-      .then((response) => {
-        if (response.headers.get('content-type')?.includes('text') && response.status >= 200 && response.status < 400) {
-          return response.text();
-        } else {
-          return null;
-        }
-      })
-      .catch((e) => console.error(e)),
-    new Promise<string | null>((resolve) => setTimeout(() => resolve(null), 100000))
+    fetch(url).then((response) => {
+      if (response.headers.get('content-type')?.includes('text') && response.status >= 200 && response.status < 400) {
+        return response.text();
+      } else {
+        return Promise.reject('Reponse Error');
+      }
+    }),
+    new Promise<string | null>((_, reject) => setTimeout(() => reject(null), 5000))
   ]);
 
   return text ?? null;
@@ -32,10 +37,22 @@ export function useContent(cid?: string): UseContent {
     if (cid) {
       setFetching(true);
 
-      fetchData(`${IPFS_GATEWAY}/${cid}`)
-        .then(setContent)
-        .catch(console.error)
-        .finally(() => setFetching(false));
+      (async function () {
+        // try by group
+        console.log(`--------------------\nstart group\n--------------------`);
+        for (let i = 0; i < IPFS_GATEWAY_GROUPs.length; i++) {
+          try {
+            console.log(`group ${i} trying`);
+            const content = await Promise.any(
+              IPFS_GATEWAY_GROUPs[i].map((IPFS_GATEWAY) => fetchData(`${IPFS_GATEWAY}/${cid}`))
+            );
+            console.log(`group ${i} resolved`, !!content);
+            return setContent(content);
+          } catch (e) {}
+        }
+      })();
+
+      setFetching(false);
     }
   }, [cid]);
 

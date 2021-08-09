@@ -74,9 +74,9 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
               <div className='key'>Initiated Date(Ordinary to Founder)</div>
               <div className='value'>
                 {formatDate(member.joinTime)}
-                <a className='referenda' href='https://polkadot.subscan.io/referenda'>
+                {/* <a className='referenda' href='https://polkadot.subscan.io/referenda'>
                   / Referendum(#12)
-                </a>
+                </a> */}
               </div>
             </BorderedRow>
           )}
