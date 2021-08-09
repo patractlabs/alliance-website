@@ -16,8 +16,12 @@ const query = gql`
         website
         isAccount
         addTime
-        removeTime
+        addBlock
+        addExtrinsic
         addMotionIndex
+        removeTime
+        removeBlock
+        removeExtrinsic
         removeMotionIndex
       }
     }

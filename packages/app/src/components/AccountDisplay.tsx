@@ -5,7 +5,7 @@ import AccountFormatted from './AccountFormatted';
 
 const AccountDispaly: FC<{
   className?: string;
-  id: string;
+  id?: string;
 }> = ({ className, id }) => {
   const { data: account } = useAccount(id);
 

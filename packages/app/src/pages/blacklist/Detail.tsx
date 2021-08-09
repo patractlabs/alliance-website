@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import { Style } from '../../shared/style/const';
 import { formatDate } from '../../core/util/format-date';
 import { formatLocked } from '../../core/util/format-locked';
+import Extrinsic from '../../components/Extrinsic';
 
 export const badgeImgMap = {
   [MemberRole.FOUNDER]: FounderSvg,
@@ -80,7 +81,17 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
         <KeyValuePage
           className='key-values key-values-no-margin-top'
           pairs={[
-            { name: 'Added Date', render: <>{formatDate(blocked?.addTime)}</>, withoutTop: true, withoutBottom: true }
+            {
+              name: 'Added Date',
+              render: (
+                <>
+                  {formatDate(blocked?.addTime)}
+                  <Extrinsic motionIndex={blocked?.addMotionIndex} withBackslash={true} />
+                </>
+              ),
+              withoutTop: true,
+              withoutBottom: true
+            }
           ]}
         ></KeyValuePage>
         <BorderedRow borderColor={Style.border.lighter} padding='0px'>
@@ -91,7 +102,12 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
           pairs={[
             {
               name: 'Removed Date',
-              render: <>{formatDate(blocked?.removeTime)}</>,
+              render: (
+                <>
+                  {formatDate(blocked?.removeTime)}
+                  <Extrinsic motionIndex={blocked?.removeMotionIndex} withBackslash={true} />
+                </>
+              ),
               withoutTop: true,
               withoutBottom: true
             }

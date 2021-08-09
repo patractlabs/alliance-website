@@ -13,6 +13,7 @@ import MemberLogo from '../../components/MemberLogo';
 import { formatDate } from '../../core/util/format-date';
 import { statusMap } from './';
 import { formatLocked } from '../../core/util/format-locked';
+import Extrinsic from '../../components/Extrinsic';
 
 export const badgeImgMap = {
   [MemberRole.FOUNDER]: FounderSvg,
@@ -71,25 +72,44 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
           {member?.type === MemberRole.FOUNDER && (
             <BorderedRow borderColor={Style.border.lighter} padding='16px 0px'>
               <div className='key'>Initiated Date(Ordinary to Founder)</div>
-              <div className='value'>{formatDate(member.joinTime)}</div>
+              <div className='value'>
+                {formatDate(member.joinTime)}
+                <a className='referenda' href='https://polkadot.subscan.io/referenda'>
+                  / Referendum(#12)
+                </a>
+              </div>
             </BorderedRow>
           )}
           {member?.type !== MemberRole.FOUNDER && (
             <React.Fragment>
               <BorderedRow borderColor={Style.border.lighter} padding='16px 0px'>
                 <div className='key'>Applied Date(Ordinary to Candidate)</div>
-                <div className='value'>{formatDate(candidate?.applyTime)}</div>
+                <div className='value'>
+                  {formatDate(candidate?.applyTime)}
+                  <Extrinsic block={candidate?.applyBlock} extrinsic={candidate?.applyExtrinsic} withBackslash={true} />
+                </div>
               </BorderedRow>
               <BorderedRow widthoutBottom={true} borderColor={Style.border.lighter} padding='16px 0px'>
                 <div className='key'>Join Date(Candidate to Ally)</div>
-                <div className='value'>{formatDate(member?.joinTime)}</div>
+                <div className='value'>
+                  {formatDate(member?.joinTime)}
+                  <Extrinsic motionIndex={member?.joinMotionIndex} withBackslash={true} />
+                </div>
               </BorderedRow>
               <BorderedRow borderColor={Style.border.lighter} padding='0px'>
                 <MotionHistory motionIndex={member?.joinMotionIndex || undefined} />
               </BorderedRow>
               <BorderedRow widthoutBottom={true} borderColor={Style.border.lighter} padding='16px 0px'>
                 <div className='key'>Elevated Date(Ally to Fellow)</div>
-                <div className='value'>{formatDate(member?.elevatedTime)}</div>
+                <div className='value'>
+                  {formatDate(member?.elevatedTime)}
+                  <Extrinsic
+                    withBackslash={true}
+                    motionIndex={member?.elevatedMotionIndex}
+                    block={member?.elevatedBlock}
+                    extrinsic={member?.elevatedExtrinsic}
+                  />
+                </div>
               </BorderedRow>
               <BorderedRow borderColor={Style.border.lighter} padding='0px'>
                 <MotionHistory motionIndex={member?.elevatedMotionIndex || undefined} />
@@ -124,6 +144,10 @@ export default styled(Detail)`
         overflow: hidden;
         text-overflow: ellipsis;
         color: ${Style.label.primary};
+
+        > a.referenda {
+          margin-left: 8px;
+        }
       }
       > .member-icon > div {
         height: 60px;

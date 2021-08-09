@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import { useActionByMotionIndex } from '../hooks/useActionByMotionIndex';
 import { useMotionByIndex } from '../hooks/useMotionByIndex';
 import { Style } from '../shared/style/const';
-import AccountDisplay from './AccountDisplay';
-import Proposer from './Proposer';
+import AccountWithExtrinsic from './AccountWithExtrinsic';
 
 const MotionHistory: FC<{
   className?: string;
@@ -21,7 +20,13 @@ const MotionHistory: FC<{
           <div className='badge' />
           <span>Motion Proposer</span>
         </div>
-        <Proposer className='line-value' style={{ borderTopWidth: withTop ? '1px' : '0px' }} motion={motion} />
+        <div className='line-value'>
+          <AccountWithExtrinsic
+            accountId={motion?.proposerId}
+            block={motion?.createBlock}
+            extrinsic={motion?.createExtrinsic}
+          />
+        </div>
       </div>
       <div className='line'>
         <div className='line-key'>
@@ -34,7 +39,15 @@ const MotionHistory: FC<{
               ? '-'
               : actions
                   ?.filter((action) => action.approve)
-                  .map((action) => <AccountDisplay id={action.accountId} key={action.accountId} />)}
+                  .map((action, index) => (
+                    <AccountWithExtrinsic
+                      key={index}
+                      accountId={action.accountId}
+                      block={action.block}
+                      extrinsic={action.extrinsic}
+                      withBorder={index !== actions.length - 1}
+                    />
+                  ))}
           </div>
         </div>
       </div>
@@ -49,7 +62,15 @@ const MotionHistory: FC<{
               ? '-'
               : actions
                   ?.filter((action) => !action.approve)
-                  .map((action) => <AccountDisplay id={action.accountId} key={action.accountId} />)}
+                  .map((action, index) => (
+                    <AccountWithExtrinsic
+                      key={index}
+                      accountId={action.accountId}
+                      block={action.block}
+                      extrinsic={action.extrinsic}
+                      withBorder={index !== actions.length - 1}
+                    />
+                  ))}
           </div>
         </div>
       </div>

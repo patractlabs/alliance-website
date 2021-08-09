@@ -9,6 +9,7 @@ import { MemberRole, useCandidate } from '../../hooks';
 import { useParams } from 'react-router-dom';
 import { formatDate } from '../../core/util/format-date';
 import { formatLocked } from '../../core/util/format-locked';
+import Extrinsic from '../../components/Extrinsic';
 
 export const badgeImgMap = {
   [MemberRole.FOUNDER]: FounderSvg,
@@ -64,7 +65,15 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
                 </>
               )
             },
-            { name: 'Applied Date (Ordinary to Candidate)', render: <>{formatDate(candidate?.applyTime)}</> }
+            {
+              name: 'Applied Date (Ordinary to Candidate)',
+              render: (
+                <>
+                  {formatDate(candidate?.applyTime)}
+                  <Extrinsic withBackslash={true} block={candidate?.applyBlock} extrinsic={candidate?.applyExtrinsic} />
+                </>
+              )
+            }
           ]}
         ></KeyValuePage>
       </div>

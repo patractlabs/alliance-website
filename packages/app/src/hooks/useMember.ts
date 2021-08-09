@@ -23,8 +23,12 @@ const GET_MEMBER = gql`
       type
       status
       joinTime
-      elevatedTime
+      joinBlock
+      joinExtrinsic
       joinMotionIndex
+      elevatedTime
+      elevatedBlock
+      elevatedExtrinsic
       elevatedMotionIndex
     }
   }
@@ -65,8 +69,12 @@ export interface Member {
   type: MemberRole;
   status: MemberStatus;
   joinTime: string | null;
-  elevatedTime: string | null;
+  joinBlock: string | null;
+  joinExtrinsic: number | null;
   joinMotionIndex: number | null;
+  elevatedTime: string | null;
+  elevatedBlock: string | null;
+  elevatedExtrinsic: number | null;
   elevatedMotionIndex: number | null;
 }
 

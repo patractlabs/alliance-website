@@ -18,7 +18,7 @@ const GET_ANNOUNCEMENTS = gql`
 export interface Announcement {
   id: string;
   cid: string;
-  createBlock?: number;
+  createBlock?: string;
   createExtrinsic?: number;
   createTime: string;
   motionIndex: number;

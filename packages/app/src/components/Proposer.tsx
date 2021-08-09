@@ -1,8 +1,7 @@
 import React, { CSSProperties, FC, useCallback } from 'react';
 import styled from 'styled-components';
-import AccountDisplay from './AccountDisplay';
-import MoreSvg from '../assets/imgs/more-link.svg';
 import { Motion } from '../hooks';
+import AccountWithExtrinsic from './AccountWithExtrinsic';
 
 const Proposer: FC<{
   className?: string;
@@ -17,8 +16,12 @@ const Proposer: FC<{
 
   return (
     <div className={className} onClick={goto} style={style}>
-      <AccountDisplay id={motion?.proposerId || ''} />
-      {motion && <img src={MoreSvg} alt='' />}
+      <AccountWithExtrinsic
+        accountId={motion?.proposerId}
+        block={motion?.createBlock}
+        extrinsic={motion?.createExtrinsic}
+      />
+      {/* {motion && <img src={MoreSvg} alt='' />} */}
     </div>
   );
 };

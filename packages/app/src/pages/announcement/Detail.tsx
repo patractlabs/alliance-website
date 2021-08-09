@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { AccountDisplay, KeyValuePage, PageSkeleton, Proposer } from '../../components';
+import { KeyValuePage, PageSkeleton, Proposer } from '../../components';
 import { Breadcrumb } from 'antd';
 import { useParams } from 'react-router-dom';
 import { useAnnouncement, useContent } from '../../hooks';
@@ -9,6 +9,7 @@ import Markdown from 'react-markdown';
 import { useMotionByIndex } from '../../hooks/useMotionByIndex';
 import { useActionByMotionIndex } from '../../hooks/useActionByMotionIndex';
 import { formatDate } from '../../core/util/format-date';
+import AccountWithExtrinsic from '../../components/AccountWithExtrinsic';
 
 const Detail: FC<{ className?: string }> = ({ className }) => {
   const { announcementId } = useParams<{ announcementId: string }>();
@@ -16,6 +17,8 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
   const { content } = useContent(decodeCid(announcement?.cid));
   const { data: motion } = useMotionByIndex(announcement?.motionIndex);
   const { data: actions } = useActionByMotionIndex(announcement?.motionIndex);
+
+  console.log('actions', actions);
 
   return (
     <PageSkeleton>
@@ -48,7 +51,15 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
                   {actions.filter((action) => action.approve).length
                     ? actions
                         ?.filter((action) => action.approve)
-                        .map((action) => <AccountDisplay id={action.accountId} key={action.accountId} />)
+                        .map((action, index) => (
+                          <AccountWithExtrinsic
+                            key={index}
+                            accountId={action.accountId}
+                            block={action.block}
+                            extrinsic={action.extrinsic}
+                            withBorder={index !== actions.length - 1}
+                          />
+                        ))
                     : '-'}
                 </div>
               )
@@ -60,7 +71,15 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
                   {actions.filter((action) => !action.approve).length
                     ? actions
                         ?.filter((action) => !action.approve)
-                        .map((action) => <AccountDisplay id={action.accountId} key={action.accountId} />)
+                        .map((action, index) => (
+                          <AccountWithExtrinsic
+                            key={index}
+                            accountId={action.accountId}
+                            block={action.block}
+                            extrinsic={action.extrinsic}
+                            withBorder={index !== actions.length - 1}
+                          />
+                        ))
                     : '-'}
                 </div>
               )

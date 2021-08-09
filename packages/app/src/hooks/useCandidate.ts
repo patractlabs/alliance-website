@@ -24,6 +24,8 @@ const QUERY = gql`
       nominator {
         id
       }
+      applyBlock
+      applyExtrinsic
       applyTime
     }
   }
@@ -36,6 +38,8 @@ export interface Candidate {
   nominator: {
     id: string;
   } | null;
+  applyBlock: string | null;
+  applyExtrinsic: number | null;
   applyTime: string | null;
 }
 

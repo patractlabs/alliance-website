@@ -9,6 +9,7 @@ const Query = gql`
         accountId
         approve
         block
+        extrinsic
       }
     }
   }
@@ -19,7 +20,8 @@ interface Action {
   motionIndex: number;
   accountId: string;
   approve?: boolean;
-  block?: bigint;
+  block?: string;
+  extrinsic?: number;
 }
 interface QueryResult<T> {
   motionActions: {

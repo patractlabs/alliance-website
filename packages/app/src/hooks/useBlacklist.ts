@@ -15,8 +15,12 @@ const GET_BLACKLIST = gql`
       website
       isAccount
       addTime
-      removeTime
+      addBlock
+      addExtrinsic
       addMotionIndex
+      removeTime
+      removeBlock
+      removeExtrinsic
       removeMotionIndex
     }
   }
@@ -28,8 +32,12 @@ export interface Blacklist {
   website: string | null;
   isAccount: boolean | null;
   addTime: string | null;
-  removeTime: string | null;
+  addBlock: string | null;
+  addExtrinsic: number | null;
   addMotionIndex: number | null;
+  removeTime: string | null;
+  removeBlock: string | null;
+  removeExtrinsic: number | null;
   removeMotionIndex: number | null;
 }
 
