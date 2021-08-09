@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react';
 import styled from 'styled-components';
 import { Style } from '../../../shared/style/const';
 import { Content, Spinner } from '../../../components';
-import { IPFS_GATEWAY_GROUPs, useContent } from '../../../hooks/useContent';
+import { useContent } from '../../../hooks/useContent';
 import Markdown from 'react-markdown';
 import { useRule } from '../../../hooks';
 import { decodeCid } from '../../../core/util/decode-cid-hex';
