@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+import { firstValueFrom, from, Observable } from 'rxjs';
+import { fromFetch } from 'rxjs/fetch';
+import { timeout, mergeMap } from 'rxjs/operators';
 
 export const IPFS_GATEWAY_GROUPs = [
   ['https://cloudflare-ipfs.com/ipfs', 'https://ipfs.infura.io/ipfs'],
@@ -14,17 +17,17 @@ interface UseContent {
   fetching: boolean;
 }
 
-async function fetchData(url: string): Promise<string> {
-  return await Promise.race([
-    fetch(url).then((response) => {
+function fetchData(url: string): Observable<string> {
+  return fromFetch(url).pipe(
+    mergeMap((response) => {
       if (response.headers.get('content-type')?.includes('text') && response.status >= 200 && response.status < 400) {
-        return response.text();
+        return from(response.text());
       }
 
-      return Promise.reject();
+      throw new Error('');
     }),
-    new Promise<string>((_, reject) => setTimeout(() => reject(), 5000))
-  ]);
+    timeout(5000)
+  );
 }
 
 export function useContent(cid?: string): UseContent {
@@ -43,8 +46,9 @@ export function useContent(cid?: string): UseContent {
       for (let i = 0; i < IPFS_GATEWAY_GROUPs.length; i++) {
         try {
           const content = await Promise.any(
-            IPFS_GATEWAY_GROUPs[i].map((IPFS_GATEWAY) => fetchData(`${IPFS_GATEWAY}/${cid}`))
+            IPFS_GATEWAY_GROUPs[i].map((IPFS_GATEWAY) => firstValueFrom(fetchData(`${IPFS_GATEWAY}/${cid}`)))
           );
+
           return setContent(content);
         } catch (e) {}
       }

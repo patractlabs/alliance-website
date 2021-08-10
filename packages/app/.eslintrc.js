@@ -4,6 +4,7 @@ module.exports = {
   plugins: ['@typescript-eslint', 'react', 'prettier'],
   rules: {
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
-    '@typescript-eslint/no-explicit-any': 'off'
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-empty-function': 'off'
   }
 };

@@ -6,7 +6,6 @@ import FoldSvg from '../../assets/imgs/fold-primary.svg';
 import ExpandSvg from '../../assets/imgs/expand-primary.svg';
 import { useHistory } from 'react-router-dom';
 import { useAnnouncements, Announcement, useContent } from '../../hooks';
-import { decodeCid } from '../../core/util/decode-cid-hex';
 import Markdown from 'react-markdown';
 import { useMotionByIndex } from '../../hooks/useMotionByIndex';
 import Content from './Content';
@@ -29,7 +28,7 @@ const AnnouncementRow: FC<{ className?: string; announcement: Announcement; defa
 }) => {
   const history = useHistory();
   const [expanded, setExpanded] = useState(defaultExpanded);
-  const { content } = useContent(decodeCid(announcement.cid));
+  const { content } = useContent(announcement.cid);
   const { data: motion } = useMotionByIndex(announcement.motionIndex);
 
   return (

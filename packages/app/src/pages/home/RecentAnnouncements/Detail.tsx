@@ -6,7 +6,6 @@ import DeexpandSvg from '../../../assets/imgs/fold.svg';
 import { Style } from '../../../shared/style/const';
 import Content from './Content';
 import { Announcement, useContent } from '../../../hooks';
-import { decodeCid } from '../../../core/util/decode-cid-hex';
 import Markdown from 'react-markdown';
 import { formatDate } from '../../../core/util/format-date';
 import { Link } from 'react-router-dom';
@@ -54,7 +53,7 @@ const AnnouncementDetail: FC<{
   bottom?: BorderType;
 }> = ({ className, announcement, defaultExpanded = false, top = 'none', bottom = 'default' }) => {
   const [expanded, setExpanded] = useState(defaultExpanded);
-  const { content } = useContent(decodeCid(announcement?.cid));
+  const { content } = useContent(announcement?.cid);
 
   return (
     <DetailWrapper className={className} top={top} bottom={bottom}>

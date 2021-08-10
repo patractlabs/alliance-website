@@ -5,13 +5,12 @@ import { Content, Spinner } from '../../../components';
 import { useContent } from '../../../hooks/useContent';
 import Markdown from 'react-markdown';
 import { useRule } from '../../../hooks';
-import { decodeCid } from '../../../core/util/decode-cid-hex';
 
 const draftCid = 'QmZawuqmeEXBN8dcRNkabocLqVGAkD7ppMb9Hse2KP2SNU';
 
 const AllianceRule: FC<{ className?: string }> = ({ className }) => {
   const { data } = useRule();
-  const cid = useMemo(() => (data?.cid ? decodeCid(data.cid) : draftCid), [data]);
+  const cid = useMemo(() => (data?.cid ? data.cid : draftCid), [data]);
   const { content, fetching } = useContent(cid);
 
   return (
