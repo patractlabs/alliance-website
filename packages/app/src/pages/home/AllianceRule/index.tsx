@@ -29,11 +29,9 @@ const AllianceRule: FC<{ className?: string }> = ({ className }) => {
         {isLoading ? (
           <Spinner />
         ) : (
-          data?.content && (
-            <Content>
-              <Markdown>{!data?.cid ? draftContent || '' : data.content || ''}</Markdown>
-            </Content>
-          )
+          <Content>
+            <Markdown>{!data?.cid ? draftContent || '' : data.content || ''}</Markdown>
+          </Content>
         )}
       </div>
     </div>
