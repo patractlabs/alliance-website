@@ -10,6 +10,7 @@ const GET_ANNOUNCEMENTS = gql`
         createExtrinsic
         createTime
         motionIndex
+        content
       }
     }
   }
@@ -22,6 +23,7 @@ export interface Announcement {
   createExtrinsic?: number;
   createTime: string;
   motionIndex: number;
+  content: string | null;
 }
 
 interface QueryResult<T> {

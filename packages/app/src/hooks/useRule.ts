@@ -10,6 +10,7 @@ const query = gql`
         createExtrinsic
         createTime
         motionIndex
+        content
       }
     }
   }
@@ -22,6 +23,7 @@ interface Rule {
   createExtrinsic?: number;
   createTime: string;
   motionIndex: number;
+  content: string | null;
 }
 
 interface QueryResult<T> {

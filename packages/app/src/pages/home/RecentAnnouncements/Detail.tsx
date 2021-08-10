@@ -5,7 +5,7 @@ import ExpandSvg from '../../../assets/imgs/expand.svg';
 import DeexpandSvg from '../../../assets/imgs/fold.svg';
 import { Style } from '../../../shared/style/const';
 import Content from './Content';
-import { Announcement, useContent } from '../../../hooks';
+import { Announcement } from '../../../hooks';
 import Markdown from 'react-markdown';
 import { formatDate } from '../../../core/util/format-date';
 import { Link } from 'react-router-dom';
@@ -53,13 +53,12 @@ const AnnouncementDetail: FC<{
   bottom?: BorderType;
 }> = ({ className, announcement, defaultExpanded = false, top = 'none', bottom = 'default' }) => {
   const [expanded, setExpanded] = useState(defaultExpanded);
-  const { content } = useContent(announcement?.cid);
 
   return (
     <DetailWrapper className={className} top={top} bottom={bottom}>
       <Row className='info'>
         <Col span={6} style={{ paddingLeft: '16px' }}>
-          <Status expanded={expanded && !!content} />
+          <Status expanded={expanded && !!announcement.content} />
           <Link className='announcement-link' to={`/announcement/${announcement.id}`}>
             {formatDate(announcement.createTime)}
           </Link>
@@ -67,21 +66,23 @@ const AnnouncementDetail: FC<{
         <Col
           span={17}
           style={{ display: 'flex', overflow: 'hidden', cursor: 'pointer' }}
-          onClick={() => content && setExpanded((old) => !old)}
+          onClick={() => announcement.content && setExpanded((old) => !old)}
         >
-          <span style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{content || '-'}</span>
+          <span style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
+            {announcement.content || '-'}
+          </span>
         </Col>
         <Col
           span={1}
           style={{ textAlign: 'right', paddingRight: '11px', cursor: 'pointer' }}
-          onClick={() => content && setExpanded((old) => !old)}
+          onClick={() => announcement.content && setExpanded((old) => !old)}
         >
-          {content && <img src={expanded ? DeexpandSvg : ExpandSvg} alt='' />}
+          {announcement.content && <img src={expanded ? DeexpandSvg : ExpandSvg} alt='' />}
         </Col>
       </Row>
-      {expanded && content && (
+      {expanded && announcement.content && (
         <Content className='content'>
-          <Markdown>{content}</Markdown>
+          <Markdown>{announcement.content}</Markdown>
         </Content>
       )}
     </DetailWrapper>

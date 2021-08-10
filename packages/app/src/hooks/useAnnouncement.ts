@@ -10,6 +10,7 @@ const query = gql`
       createExtrinsic
       createTime
       motionIndex
+      content
     }
   }
 `;

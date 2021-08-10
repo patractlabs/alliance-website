@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { KeyValuePage, PageSkeleton, Proposer } from '../../components';
 import { Breadcrumb } from 'antd';
 import { useParams } from 'react-router-dom';
-import { useAnnouncement, useContent } from '../../hooks';
+import { useAnnouncement } from '../../hooks';
 import Markdown from 'react-markdown';
 import { useMotionByIndex } from '../../hooks/useMotionByIndex';
 import { useActionByMotionIndex } from '../../hooks/useActionByMotionIndex';
@@ -13,7 +13,6 @@ import AccountWithExtrinsic from '../../components/AccountWithExtrinsic';
 const Detail: FC<{ className?: string }> = ({ className }) => {
   const { announcementId } = useParams<{ announcementId: string }>();
   const { data: announcement } = useAnnouncement(announcementId);
-  const { content } = useContent(announcement?.cid);
   const { data: motion } = useMotionByIndex(announcement?.motionIndex);
   const { data: actions } = useActionByMotionIndex(announcement?.motionIndex);
 
@@ -35,7 +34,11 @@ const Detail: FC<{ className?: string }> = ({ className }) => {
             { name: 'Hash', render: <>{motion?.hash}</> },
             {
               name: 'Content',
-              render: <div className='announcement-content'>{content ? <Markdown>{content}</Markdown> : '-'}</div>
+              render: (
+                <div className='announcement-content'>
+                  {announcement?.content ? <Markdown>{announcement.content}</Markdown> : '-'}
+                </div>
+              )
             },
             {
               name: 'Motion Proposer',

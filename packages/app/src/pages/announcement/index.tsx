@@ -5,7 +5,7 @@ import { Style } from '../../shared/style/const';
 import FoldSvg from '../../assets/imgs/fold-primary.svg';
 import ExpandSvg from '../../assets/imgs/expand-primary.svg';
 import { useHistory } from 'react-router-dom';
-import { useAnnouncements, Announcement, useContent } from '../../hooks';
+import { useAnnouncements, Announcement } from '../../hooks';
 import Markdown from 'react-markdown';
 import { useMotionByIndex } from '../../hooks/useMotionByIndex';
 import Content from './Content';
@@ -28,7 +28,6 @@ const AnnouncementRow: FC<{ className?: string; announcement: Announcement; defa
 }) => {
   const history = useHistory();
   const [expanded, setExpanded] = useState(defaultExpanded);
-  const { content } = useContent(announcement.cid);
   const { data: motion } = useMotionByIndex(announcement.motionIndex);
 
   return (
@@ -48,10 +47,10 @@ const AnnouncementRow: FC<{ className?: string; announcement: Announcement; defa
             setExpanded((old) => !old);
           }}
         >
-          <span>{content || '-'}</span>
+          <span>{announcement.content || '-'}</span>
         </div>
         <div className='cell more'>
-          {content && (
+          {announcement.content && (
             <img
               onClick={(e) => {
                 e.stopPropagation();
@@ -63,9 +62,9 @@ const AnnouncementRow: FC<{ className?: string; announcement: Announcement; defa
           )}
         </div>
       </div>
-      {expanded && content && (
+      {expanded && announcement.content && (
         <Content>
-          <Markdown>{content}</Markdown>
+          <Markdown>{announcement.content}</Markdown>
         </Content>
       )}
     </Row>
