@@ -3,13 +3,15 @@ import styled from 'styled-components';
 import { Style } from '../../../shared/style/const';
 import { Content, Spinner } from '../../../components';
 import Markdown from 'react-markdown';
-import { useRule } from '../../../hooks';
+import { useContent, useRule } from '../../../hooks';
 
 const draftCid = 'QmZawuqmeEXBN8dcRNkabocLqVGAkD7ppMb9Hse2KP2SNU';
 
 const AllianceRule: FC<{ className?: string }> = ({ className }) => {
-  const { data, loading: fetching } = useRule();
+  const { data, loading } = useRule();
+  const { content: draftContent, fetching } = useContent(draftCid);
   const cid = useMemo(() => (data?.cid ? data.cid : draftCid), [data]);
+  const isLoading = useMemo(() => (data?.cid ? loading : fetching), [data?.cid, loading, fetching]);
 
   return (
     <div className={className}>
@@ -24,14 +26,14 @@ const AllianceRule: FC<{ className?: string }> = ({ className }) => {
         </a>
       </div>
       <div className='content'>
-        {!fetching ? (
+        {isLoading ? (
+          <Spinner />
+        ) : (
           data?.content && (
             <Content>
-              <Markdown>{data.content || ''}</Markdown>
+              <Markdown>{!data?.cid ? draftContent || '' : data.content || ''}</Markdown>
             </Content>
           )
-        ) : (
-          <Spinner />
         )}
       </div>
     </div>
