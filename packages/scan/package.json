@@ -24,6 +24,7 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
+    "cids": "^1.1.7",
     "multihashes": "^4.0.2"
   }
 }

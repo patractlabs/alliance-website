@@ -6,6 +6,7 @@ import { Announcement, Blacklist, Candidate, Rule } from '../types';
 import { Member } from '../types';
 import { createAccount } from './createAccount';
 import { getMotionFromExtrinsic } from './motionHelper';
+import { decodeCid, getIpfsContent } from './utils';
 
 export interface BlacklistItem extends Enum {
   readonly isAccountId: boolean;
@@ -169,11 +170,6 @@ export async function handleAlliance(
     member.kickedMotionIndex = motion.index;
     await member.save();
   } else if (method === 'MemberRetired') {
-    const motion = getMotionFromExtrinsic(extrinsic);
-    if (!motion.isOk) {
-      return;
-    }
-
     const address = data[0].toString();
     await createAccount(address);
 
@@ -182,7 +178,6 @@ export async function handleAlliance(
     member.retiredTime = block.timestamp;
     member.retiredBlock = block.block.header.number.toBigInt();
     member.retiredExtrinsic = extrinsic.idx;
-    member.retiredMotionIndex = motion.index;
     await member.save();
   } else if (method === 'NewAnnouncement') {
     const motion = getMotionFromExtrinsic(extrinsic);
@@ -190,11 +185,13 @@ export async function handleAlliance(
       return;
     }
 
-    const cid = data[0].toHex();
+    const cid = decodeCid(data[0].toHex());
+    const content = await getIpfsContent(cid);
 
     const announcement = Announcement.create({
       id: extrinsic.extrinsic.hash.toHex(),
       cid,
+      content,
       createTime: block.timestamp,
       createBlock: block.block.header.number.toBigInt(),
       createExtrinsic: extrinsic.idx,
@@ -207,11 +204,13 @@ export async function handleAlliance(
       return;
     }
 
-    const cid = data[0].toHex();
+    const cid = decodeCid(data[0].toHex());
+    const content = await getIpfsContent(cid);
 
     const rule = Rule.create({
       id: extrinsic.extrinsic.hash.toHex(),
       cid,
+      content,
       createTime: block.timestamp,
       createBlock: block.block.header.number.toBigInt(),
       createExtrinsic: extrinsic.idx,

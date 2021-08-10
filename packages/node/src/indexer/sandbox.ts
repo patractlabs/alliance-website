@@ -21,9 +21,13 @@ export interface SandboxOption {
 const DEFAULT_OPTION: NodeVMOptions = {
   console: 'redirect',
   wasm: false,
-  sandbox: {},
+  sandbox: {
+    TextDecoder: global.TextDecoder,
+    TextEncoder: global.TextEncoder,
+    Uint8Array: global.Uint8Array,
+  },
   require: {
-    builtin: ['assert', 'buffer', 'crypto', 'util', 'path'],
+    builtin: ['*'],
     external: true,
     context: 'sandbox',
   },

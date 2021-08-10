@@ -50,13 +50,13 @@ type Member @entity {
   retiredBlock: BigInt
   retiredExtrinsic: Int
   retiredTime: Date
-  retiredMotionIndex: Int
 }
 
 type Rule @entity {
   id: ID!
 
   cid: String!
+  content: String
   createBlock: BigInt
   createExtrinsic: Int
   createTime: Date!
@@ -67,6 +67,7 @@ type Announcement @entity {
   id: ID!
 
   cid: String!
+  content: String
   createBlock: BigInt
   createExtrinsic: Int
   createTime: Date!
