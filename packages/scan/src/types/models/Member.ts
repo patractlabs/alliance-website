@@ -50,8 +50,6 @@ export class Member implements Entity {
 
     public retiredTime?: Date;
 
-    public retiredMotionIndex?: number;
-
 
     async save(): Promise<void>{
         let id = this.id;
