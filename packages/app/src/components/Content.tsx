@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   border: 1px solid ${Style.border.primary};
   background: #fffbfd;
   border-radius: 16px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 24px;
   color: ${Style.label.primary};
   padding: 30px 0px;
