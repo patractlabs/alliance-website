@@ -81,7 +81,7 @@ export default styled(Role)`
       > span {
         font-weight: 600;
       }
-      font-size: 13px;
+      font-size: 14px;
       margin-bottom: 0px;
       text-overflow: ellipsis;
       overflow: hidden;
