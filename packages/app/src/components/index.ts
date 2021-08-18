@@ -14,3 +14,4 @@ export { default as Spinner } from './Spinner';
 export { default as Table } from './Table';
 export { default as Proposer } from './Proposer';
 export { default as NoData } from './NoData';
+export { default as Markdown } from './Markdown';

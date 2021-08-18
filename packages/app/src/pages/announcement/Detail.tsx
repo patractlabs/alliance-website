@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { KeyValuePage, PageSkeleton, Proposer } from '../../components';
+import { Markdown, KeyValuePage, PageSkeleton, Proposer } from '../../components';
 import { Breadcrumb } from 'antd';
 import { useParams } from 'react-router-dom';
 import { useAnnouncement } from '../../hooks';
-import Markdown from 'react-markdown';
 import { useMotionByIndex } from '../../hooks/useMotionByIndex';
 import { useActionByMotionIndex } from '../../hooks/useActionByMotionIndex';
 import { formatDate } from '../../core/util/format-date';

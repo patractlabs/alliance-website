@@ -1,8 +1,7 @@
 import { FC, useMemo } from 'react';
 import styled from 'styled-components';
 import { Style } from '../../../shared/style/const';
-import { Content, Spinner } from '../../../components';
-import Markdown from 'react-markdown';
+import { Content, Spinner, Markdown } from '../../../components';
 import { useContent, useRule } from '../../../hooks';
 
 const draftCid = 'QmZawuqmeEXBN8dcRNkabocLqVGAkD7ppMb9Hse2KP2SNU';

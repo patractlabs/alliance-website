@@ -6,9 +6,9 @@ import DeexpandSvg from '../../../assets/imgs/fold.svg';
 import { Style } from '../../../shared/style/const';
 import Content from './Content';
 import { Announcement } from '../../../hooks';
-import Markdown from 'react-markdown';
 import { formatDate } from '../../../core/util/format-date';
 import { Link } from 'react-router-dom';
+import { Markdown } from '../../../components';
 
 const Status = styled.span<{ expanded: boolean }>`
   display: inline-block;

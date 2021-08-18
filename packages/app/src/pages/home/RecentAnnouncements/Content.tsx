@@ -7,7 +7,6 @@ const Wrapper = styled.div`
   height: 382px;
   border: 1px solid ${Style.border.primary};
   background: ${Style.bg.primary};
-  font-size: 14px;
   opacity: 0.87;
   line-height: 18px;
   color: #ffffff;

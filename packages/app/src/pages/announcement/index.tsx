@@ -1,12 +1,11 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import { BorderedTitle, BorderedRow, PageSkeleton, NoData } from '../../components';
+import { Markdown, BorderedTitle, BorderedRow, PageSkeleton, NoData } from '../../components';
 import { Style } from '../../shared/style/const';
 import FoldSvg from '../../assets/imgs/fold-primary.svg';
 import ExpandSvg from '../../assets/imgs/expand-primary.svg';
 import { useHistory } from 'react-router-dom';
 import { useAnnouncements, Announcement } from '../../hooks';
-import Markdown from 'react-markdown';
 import { useMotionByIndex } from '../../hooks/useMotionByIndex';
 import Content from './Content';
 import { formatDate } from '../../core/util/format-date';
