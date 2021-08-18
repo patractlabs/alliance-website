@@ -16,7 +16,7 @@ const CurrentMembers: FC<{ className?: string }> = ({ className }) => {
             <Role
               type={MemberRole.FOUNDER}
               descs={[
-                'Founding members are teams that have been around since the early days, have a strong  reputation in the community and have made significant contributions to the ecosystem. They set, publish and enforce the rules of membership, deciding if/when to kick an ally, deciding if/when to elevate an Ally into a Fellow, maintaining a blacklist of websites and addresses that are detrimental to the ecosystem, and investigating and voting for a resolution in a dispute between two allies. ',
+                'Founding members are teams that have been around since the early days, have a strong  reputation in the community and have made significant contributions to the ecosystem. They set, publish and enforce the rules of membership, deciding if/when to kick an ally, deciding if/when to elevate an Ally into a Fellow, maintaining a blacklist of websites and addresses that are detrimental to the ecosystem, and investigating and voting for a resolution in a dispute between two allies.',
                 'Founding members have veto rights on motions on setting rules and elevating Allies.'
               ]}
               // members={[...data, ...data]}

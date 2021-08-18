@@ -21,8 +21,8 @@ const Goals: FC<{ className?: string }> = ({ className }) => {
               <p className='goal-content'>
                 Providing a set of ethics regarding unattributed code re-use, launching rival relay chains, the use of
                 derogatory language aimed at a particular team or project, scam activities, the use of Polkadot branding
-                despite having no credible plans to contribute to the ecosystem, acting against Web3 Foundation’s
-                guidelines, and trademark violations.
+                despite having no credible plans to contribute to the ecosystem, acting against Web3 vision and
+                standards, and trademark violations.
               </p>
             </div>
           </AnimationWrapper>

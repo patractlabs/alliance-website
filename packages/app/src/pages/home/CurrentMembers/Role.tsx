@@ -12,6 +12,11 @@ const RoleMap = {
   [MemberRole.FELLOW]: FellowSvg,
   [MemberRole.ALLY]: AllySvg
 };
+const RoleTextMap = {
+  [MemberRole.FOUNDER]: 'FOUNDERS',
+  [MemberRole.FELLOW]: 'FELLOWS',
+  [MemberRole.ALLY]: 'ALLIES'
+};
 
 const Role: FC<{ className?: string; type: MemberRole; descs: string[]; members: Member[] }> = ({
   className,
@@ -23,12 +28,12 @@ const Role: FC<{ className?: string; type: MemberRole; descs: string[]; members:
     <div className={className}>
       <img src={RoleMap[type]} alt='' />
       <div className='title'>
-        <h4>{type}</h4>
+        <h4>{RoleTextMap[type]}</h4>
         <span>{members.length}</span>
       </div>
       <div className='desc'>
         <p>
-          {descs[0]}
+          {descs[0]}&nbsp;
           <span>{descs[1]}</span>
         </p>
       </div>
