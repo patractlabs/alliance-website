@@ -35,21 +35,21 @@ export const markdownStyle = `
 
   }
   h1 {
-    font-size: 40px;
-  }
-  h2 {
-    font-size: 36px;
-  }
-  h3 {
     font-size: 32px;
   }
-  h4 {
+  h2 {
     font-size: 28px;
   }
-  h5 {
+  h3 {
     font-size: 24px;
   }
-  h6 {
+  h4 {
     font-size: 20px;
+  }
+  h5 {
+    font-size: 16px;
+  }
+  h6 {
+    font-size: 16px;
   }
 `;
