@@ -103,6 +103,7 @@ export async function handleAlliance(
     const candidate = Candidate.create({
       id: address,
       accountId: address,
+      status: 'EXIST',
       nominatorId: nominator,
       locked,
       applyTime: block.timestamp,
@@ -120,6 +121,7 @@ export async function handleAlliance(
     await createAccount(address);
 
     const candidate = await Candidate.get(address);
+    await Candidate.remove(address);
     const member = Member.create({
       id: address,
       accountId: address,
@@ -133,6 +135,10 @@ export async function handleAlliance(
     });
     await member.save();
   } else if (method === 'CandidateRejected') {
+    const address = data[0].toString();
+    const candidate = await Candidate.get(address);
+    candidate.status = 'REJECTED';
+    await candidate.save();
   } else if (method === 'FoundersInitialized') {
     await Promise.all(
       (data[0] as Vec<AccountId>).map(async (accountId: AccountId) => {

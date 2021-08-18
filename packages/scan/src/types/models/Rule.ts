@@ -14,6 +14,8 @@ export class Rule implements Entity {
 
     public cid: string;
 
+    public content?: string;
+
     public createBlock?: bigint;
 
     public createExtrinsic?: number;

@@ -78,6 +78,7 @@ type Candidate @entity {
   id: ID!
 
   account: Account!
+  status: String! # EXIST | REJECTED
   locked: BigInt
   nominator: Account
   applyTime: Date

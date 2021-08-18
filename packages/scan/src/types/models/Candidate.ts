@@ -14,6 +14,8 @@ export class Candidate implements Entity {
 
     public accountId: string;
 
+    public status: string;
+
     public locked?: bigint;
 
     public nominatorId?: string;
