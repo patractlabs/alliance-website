@@ -10,7 +10,7 @@ export function getIpfsContent(cid: string | null): Promise<string | null> {
     }, 12000);
     https.get(`https://gateway.pinata.cloud/ipfs/${cid}`, (res) => {
       res.on('data', (data) => {
-        resolve(data);
+        resolve(data.toString());
       });
       res.on('error', () => resolve(null));
     });
