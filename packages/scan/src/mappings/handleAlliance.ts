@@ -216,7 +216,7 @@ export async function handleAlliance(
     const rule = Rule.create({
       id: extrinsic.extrinsic.hash.toHex(),
       cid,
-      content,
+      content: content || '',
       createTime: block.timestamp,
       createBlock: block.block.header.number.toBigInt(),
       createExtrinsic: extrinsic.idx,
