@@ -85,6 +85,9 @@ export default styled(AllianceRule)`
     justify-content: center;
     align-items: center;
 
+    > div {
+      width: 100%;
+    }
     ul {
       margin: 14px 0px;
       padding-left: 40px;
