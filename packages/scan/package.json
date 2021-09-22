@@ -17,7 +17,7 @@
   ],
   "author": "Patract Labs",
   "devDependencies": {
-    "@polkadot/api": "^6.0.5",
+    "@polkadot/api": "^5.0.1",
     "@subql/cli": "^0.10.0",
     "@subql/types": "^0.8.0",
     "prettier": "2.3.2",
