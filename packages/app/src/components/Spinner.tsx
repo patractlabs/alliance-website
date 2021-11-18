@@ -16,4 +16,5 @@ const Spinner: FC<{
 export default styled(Spinner)`
   height: 100px;
   width: 100px;
+  text-align: center;
 `;
