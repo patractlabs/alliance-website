@@ -15,7 +15,7 @@ const AllianceRule: FC<{ className?: string }> = ({ className }) => {
   return (
     <div className={className}>
       <h2>
-        Alliance Rule
+        Alliance Rules of Membership
         {!data?.cid && <span>Draft</span>}
       </h2>
       <div className='ipfs-hash'>
